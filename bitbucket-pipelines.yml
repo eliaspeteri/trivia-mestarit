@@ -2,7 +2,7 @@ image: node:16.9.0
 
 # Warnings do not prevent a successful build
 env:
-  CI: false
+  - CI: false
 
 
 pipelines:
@@ -11,4 +11,4 @@ pipelines:
         script:
           - cd client
           - npm i
-          - npm run build
+          - CI=false npm run build

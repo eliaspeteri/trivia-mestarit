@@ -1,4 +1,10 @@
-image: node:10.15.0
+image: node:16.9.0
+
+# Warnings do not prevent a successful build
+env:
+  CI: false
+
+
 pipelines:
   default:
     - step:

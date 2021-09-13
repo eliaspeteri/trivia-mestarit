@@ -8,3 +8,8 @@ pipelines:
           - npm i
           # Warnings do not prevent a successful build
           - CI=false npm run build
+    - step:
+        script:
+          - cd server
+          - npm run dev
+

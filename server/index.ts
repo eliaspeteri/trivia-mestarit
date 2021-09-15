@@ -1,21 +1,14 @@
-import express, { Application, Request, Response } from 'express';
+import Config from './utils/config';
+import app from './app';
+import { createServer, Server } from 'http';
+import logger from './utils/logger';
 
-const app: Application = express();
-const port = 3001;
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-app.get('/', async (req: Request, res: Response): Promise<Response> => {
-  return res.status(200).send({
-    message: 'Hello world!'
-  });
-});
+const server: Server = createServer(app);
 
 try {
-  app.listen(port, (): void => {
-    console.log(`Connected successfully on port ${port}`);
+  server.listen(Config.PORT, (): void => {
+    logger.info(`Connected successfully on port ${Config.PORT}`);
   });
 } catch (error) {
-  console.error(`Error occurred ${(error as any).message}`);
+  logger.error(`Error occurred ${(error as any).message}`);
 }

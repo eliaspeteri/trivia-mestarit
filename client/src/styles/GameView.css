@@ -1,11 +1,30 @@
-.ui.grid {
-    margin-top: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-    margin-right: 0; 
+.gameview {
+    display: flex;
+    flex-direction: row;    
+    flex-wrap: wrap;
+    justify-content:center;
+    padding: 5em;
 }
 
-.points-row {
-    justify-content: end !important;
-    padding-right: 1em !important;
+div.ui.card.question-card {
+    flex: 1 0 100%;
+    max-width: 60%;
+}
+
+.answer-btn-container {
+    display: flex;
+    flex: auto;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.gameview>.answer-btn-row {
+    display: flex;
+    flex:100%;
+    justify-content: space-around;
+    padding: 2em;
+}
+.answer-btn {
+    padding: 2em;
+    width: 300px;
 }

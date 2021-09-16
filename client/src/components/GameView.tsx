@@ -1,44 +1,38 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-/** React components */
+/** Components */
+import ProgressBar from './ProgressBar';
 import QuestionCard from './QuestionCard';
 
 /** UI, Css */
-import {
-  Container,
-  Divider,
-  Header,
-  Grid,
-  GridColumn
-} from 'semantic-ui-react';
+import { Button } from 'semantic-ui-react';
 import '../styles/GameView.css';
 
-/*
-interface Props {
-    
-}
-*/
 const GameView: React.FC = () => {
-  const [question, setQuestion] = useState<string>('vaikea kysymys');
-  const [points, setPoints] = useState<number>(0);
-  const [answers, setAnswers] = useState<string[]>([]);
+  const procent = 22;
+  const question = '1 + 1 is three';
 
   return (
-    <Grid className="gameview-grid">
-      <Grid.Row className="points-row">
-        {' '}
-        asfhdsjkfhdsjkfdsjkfhdskfd asd{' '}
-      </Grid.Row>
-      <Grid.Row className="question-row">
-        <QuestionCard question={question} />
-      </Grid.Row>
-
-      <Grid.Row columns={3}>
-        <Grid.Column>3</Grid.Column>
-        <Grid.Column>4</Grid.Column>
-        <Grid.Column>5</Grid.Column>
-      </Grid.Row>
-    </Grid>
+    <main className="gameview">
+      <QuestionCard className={'question-card'} question={question} />
+      <div className="answer-btn-row">
+        <Button size="massive" className="answer-btn">
+          answer1
+        </Button>
+        <Button size="massive" className="answer-btn">
+          answer2
+        </Button>
+      </div>
+      <div className="answer-btn-row">
+        <Button size="massive" className="answer-btn">
+          answer3
+        </Button>
+        <Button size="massive" className="answer-btn">
+          answer4
+        </Button>
+      </div>
+      <ProgressBar progress={procent} />
+    </main>
   );
 };
 

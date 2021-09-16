@@ -1,0 +1,11 @@
+.question-card {
+    display: flex; 
+    align-items: center !important;
+    justify-content: center !important;
+    width: 400px !important;
+}
+
+.answer-btns-container {
+    display: flex;
+    flex-direction: row;;
+}

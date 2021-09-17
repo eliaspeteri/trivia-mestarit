@@ -31,7 +31,9 @@ const GameView: React.FC = () => {
           answer4
         </Button>
       </div>
+      <div>
       <ProgressBar progress={procent} />
+      </div>
     </main>
   );
 };

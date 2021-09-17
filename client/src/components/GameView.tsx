@@ -21,8 +21,9 @@ const GameView: React.FC = () => {
     <Container>
       <Grid centered padded columns={1}>
         <Grid.Column>
-          <TextCard text={question} className={'question-card card'} />
+          <TextCard text={question} className={'question-card'} />
         </Grid.Column>
+
         <Grid.Row centered columns={2}>
           <Grid.Column onClick={handleAnswerClick}>
             <TextCard text={'oh canada'} />
@@ -40,6 +41,7 @@ const GameView: React.FC = () => {
             <TextCard text={'en muista en muista en muista'} />
           </Grid.Column>
         </Grid.Row>
+
         <GridRow centered columns={1}>
           <Grid.Column>
             <ProgressBar progress={procent} />

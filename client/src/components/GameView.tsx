@@ -12,8 +12,9 @@ const GameView: React.FC = () => {
   const question =
     'Minkä niminen suuri suunnistuskipailu kilpaillaan Suomessa kesäisin?';
 
-  const handleAnswerClick = (): any => {
-    console.log('card click');
+  const handleAnswerClick = (e: React.MouseEvent<HTMLElement>): void => {
+    /** Vastaus klikatusta kortista, tää täytyy tehdä vähemmän likaisemmin */
+    console.log((e.target as any).textContent);
   };
 
   return (
@@ -23,21 +24,19 @@ const GameView: React.FC = () => {
           <TextCard text={question} className={'question-card card'} />
         </Grid.Column>
         <Grid.Row centered columns={2}>
-          <Grid.Column
-            onClick={(e: any) => console.log('e', e.target.textContent as any)}
-          >
+          <Grid.Column onClick={handleAnswerClick}>
             <TextCard text={'oh canada'} />
           </Grid.Column>
-          <Grid.Column>
+          <Grid.Column onClick={handleAnswerClick}>
             <TextCard text={'en muista en muista en muista'} />
           </Grid.Column>
         </Grid.Row>
 
         <Grid.Row centered columns={2}>
-          <Grid.Column>
+          <Grid.Column onClick={handleAnswerClick}>
             <TextCard text={'puukko juoksu'} />
           </Grid.Column>
-          <Grid.Column>
+          <Grid.Column onClick={handleAnswerClick}>
             <TextCard text={'en muista en muista en muista'} />
           </Grid.Column>
         </Grid.Row>

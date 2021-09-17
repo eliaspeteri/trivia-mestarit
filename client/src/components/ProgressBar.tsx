@@ -5,7 +5,7 @@ interface Props {
 }
 
 const ProgressBar: React.FC<Props> = ({ progress }: Props) => {
-  return <div>Very cool and funny progressbar br... {`${progress}`} %</div>;
+  return <div>Very cool and funny progressbar br... {`${progress}`} %</div>; 
 };
 
-export default ProgressBar;
+export default ProgressBar; 

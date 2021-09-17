@@ -5,7 +5,13 @@ interface Props {
 }
 
 const ProgressBar: React.FC<Props> = ({ progress }: Props) => {
-  return <div>Very cool and funny progressbar br... {`${progress}`} %</div>;
+  return (
+    <div>
+      <h1 style={{ color: 'white' }}>
+        Very cool and funny progressbar br... {`${progress} `} %
+      </h1>
+    </div>
+  );
 };
 
 export default ProgressBar;

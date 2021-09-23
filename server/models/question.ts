@@ -45,4 +45,4 @@ questionSchema.set('toJSON', {
   }
 });
 
-module.exports = mongoose.model('Question', questionSchema);
+export default mongoose.model('Question', questionSchema);

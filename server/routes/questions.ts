@@ -34,4 +34,12 @@ router.post('/', async (req, res) => {
   }
 });
 
+router.delete('/:id', async (req, res) => {
+  try {
+    await Question.findByIdAndRemove(req.params.id);
+    res.status(204);
+  } catch (e) {
+    res.json({ error: 'Question not found' });
+  }
+});
 export default router;

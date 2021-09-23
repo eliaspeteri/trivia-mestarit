@@ -1,18 +1,26 @@
-import express from 'express';
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const Question = require('../models/question');
+import { Router, Request, Response } from 'express';
+import Question from '../models/question';
 
-const router = express.Router();
+const router: Router = Router();
 
-router.get('/', async (_req, res) => {
-  res.header('Access-Control-Allow-Origin', '*');
+// Get all questions
+router.get('/', async (_req: Request, res: Response) => {
   const questions = await Question.find({});
   console.log('fetched all questions!');
 
   res.json(questions);
 });
 
-router.post('/', async (req, res) => {
+// Get question by ID
+router.get('/:id', async (req: Request, res: Response) => {
+  const question = Question.findById(req.params.id);
+  if (question) {
+    res.json(question);
+  } else res.sendStatus(404);
+});
+
+// Add new question
+router.post('/', async (req: Request, res: Response) => {
   const body = req.body;
   try {
     console.log(body);
@@ -34,7 +42,8 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.delete('/:id', async (req, res) => {
+// Delete a question
+router.delete('/:id', async (req: Request, res: Response) => {
   try {
     await Question.findByIdAndRemove(req.params.id);
     res.status(204);
@@ -42,4 +51,5 @@ router.delete('/:id', async (req, res) => {
     res.json({ error: 'Question not found' });
   }
 });
+
 export default router;

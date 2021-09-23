@@ -1,23 +1,30 @@
-import express, { response } from 'express';
-
+import { Router, Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const User = require('../models/user');
+import User from '../models/user';
 
-const router = express.Router();
+const router: Router = Router();
 
-router.get('/', async (_req, res) => {
-  res.header('Access-Control-Allow-Origin', '*');
+// Get all users
+router.get('/', async (_req: Request, res: Response) => {
   const users = await User.find({});
   console.log('fetched all users!');
   res.json(users);
 });
 
-router.post('/', async (req, res) => {
+// Get user by ID
+router.get('/:id', async (req: Request, res: Response) => {
+  const user = User.findById(req.params.id);
+  if (user) {
+    res.json(user);
+  } else res.sendStatus(404);
+});
+
+// Add new user
+router.post('/', async (req: Request, res: Response) => {
   const body = req.body;
   const saltRounds = 10;
-  const passwordHash = await bcrypt.hash(body.password, saltRounds);
+  const passwordHash: string = await bcrypt.hash(body.password, saltRounds);
   try {
     console.log(body);
     const user = new User({
@@ -33,7 +40,8 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.delete('/:id', async (req, res) => {
+// Delete a user
+router.delete('/:id', async (req: Request, res: Response) => {
   try {
     await User.findByIdAndRemove(req.params.id);
     res.status(204);

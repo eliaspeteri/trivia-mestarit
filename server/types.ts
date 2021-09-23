@@ -14,3 +14,9 @@ export enum Difficulty {
   Medium = 'medium',
   Hard = 'hard'
 }
+
+export type User = {
+  id: string;
+  username: string;
+  questions: Question[];
+};

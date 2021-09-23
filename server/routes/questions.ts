@@ -4,7 +4,7 @@ import Question from '../models/question';
 const router: Router = Router();
 
 // Get all questions
-router.get('/', async (_req: Request, res: Response) => {
+router.get('/', async (_req: Request, res: Response): Promise<void> => {
   const questions = await Question.find({});
   console.log('fetched all questions!');
 
@@ -12,15 +12,13 @@ router.get('/', async (_req: Request, res: Response) => {
 });
 
 // Get question by ID
-router.get('/:id', async (req: Request, res: Response) => {
+router.get('/:id', async (req: Request, res: Response): Promise<void> => {
   const question = Question.findById(req.params.id);
-  if (question) {
-    res.json(question);
-  } else res.sendStatus(404);
+  question ? res.json(question) : res.sendStatus(404);
 });
 
 // Add new question
-router.post('/', async (req: Request, res: Response) => {
+router.post('/', async (req: Request, res: Response): Promise<void> => {
   const body = req.body;
   try {
     console.log(body);
@@ -43,7 +41,7 @@ router.post('/', async (req: Request, res: Response) => {
 });
 
 // Delete a question
-router.delete('/:id', async (req: Request, res: Response) => {
+router.delete('/:id', async (req: Request, res: Response): Promise<void> => {
   try {
     await Question.findByIdAndRemove(req.params.id);
     res.status(204);

@@ -6,22 +6,20 @@ import User from '../models/user';
 const router: Router = Router();
 
 // Get all users
-router.get('/', async (_req: Request, res: Response) => {
+router.get('/', async (_req: Request, res: Response): Promise<void> => {
   const users = await User.find({});
   console.log('fetched all users!');
   res.json(users);
 });
 
 // Get user by ID
-router.get('/:id', async (req: Request, res: Response) => {
+router.get('/:id', async (req: Request, res: Response): Promise<void> => {
   const user = User.findById(req.params.id);
-  if (user) {
-    res.json(user);
-  } else res.sendStatus(404);
+  user ? res.json(user) : res.sendStatus(404);
 });
 
 // Add new user
-router.post('/', async (req: Request, res: Response) => {
+router.post('/', async (req: Request, res: Response): Promise<void> => {
   const body = req.body;
   const saltRounds = 10;
   const passwordHash: string = await bcrypt.hash(body.password, saltRounds);
@@ -41,7 +39,7 @@ router.post('/', async (req: Request, res: Response) => {
 });
 
 // Delete a user
-router.delete('/:id', async (req: Request, res: Response) => {
+router.delete('/:id', async (req: Request, res: Response): Promise<void> => {
   try {
     await User.findByIdAndRemove(req.params.id);
     res.status(204);

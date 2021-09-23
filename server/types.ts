@@ -1,22 +1,16 @@
 export type Question = {
   id: string;
   whoCreated?: string;
-  whenCreated: string;
+  whenCreated: Date;
   question: string;
   correctAnswer: string;
   theme?: string;
-  difficulty: Difficulty;
+  difficulty: 'easy' | 'medium' | 'hard';
   answers: string[];
 };
-
-export enum Difficulty {
-  Easy = 'easy',
-  Medium = 'medium',
-  Hard = 'hard'
-}
 
 export type User = {
   id: string;
   username: string;
-  questions: Question[];
+  passwordHash: string;
 };

@@ -6,9 +6,8 @@ const router = express.Router();
 
 router.get('/', async (_req, res) => {
   res.header('Access-Control-Allow-Origin', '*');
-  //   res.json(questionService.getQuestions());
   const questions = await Question.find({});
-  console.log('fetched a question!');
+  console.log('fetched all questions!');
 
   res.json(questions);
 });

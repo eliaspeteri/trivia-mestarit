@@ -5,6 +5,8 @@ import logger from './utils/logger';
 
 // Importing question router
 import questionsRouter from './routes/questions';
+// Importing user router
+import userRouter from './routes/users';
 
 const server: Server = createServer(app);
 
@@ -17,7 +19,8 @@ app.get('/api/ping', (_req, res) => {
 
 // Router endpoint to fetch questions
 app.use('/api/questions', questionsRouter);
-
+// Router endpoint to fetch users
+app.use('/api/users', userRouter);
 try {
   server.listen(Config.PORT, (): void => {
     logger.info(`Connected successfully on port ${Config.PORT}`);

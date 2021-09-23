@@ -2,9 +2,8 @@ import mongoose from 'mongoose';
 
 const questionSchema = new mongoose.Schema({
   whoCreated: {
-    type: String,
-    required: false,
-    minlength: 3
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
   },
   whenCreated: {
     type: Date,

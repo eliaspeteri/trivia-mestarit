@@ -1,7 +1,8 @@
-import mongoose from 'mongoose';
+import { Schema, model } from 'mongoose';
+import { User } from '../types';
 import uniqueValidator from 'mongoose-unique-validator';
 
-const userSchema = new mongoose.Schema({
+const userSchema = new Schema<User>({
   username: {
     type: String,
     required: true,
@@ -10,10 +11,6 @@ const userSchema = new mongoose.Schema({
   passwordHash: {
     type: String,
     required: true
-  },
-  questions: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Question'
   }
 });
 
@@ -28,4 +25,4 @@ userSchema.set('toJSON', {
   }
 });
 
-export default mongoose.model('User', userSchema);
+export default model<User>('User', userSchema);

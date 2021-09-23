@@ -1,8 +1,9 @@
-import mongoose from 'mongoose';
+import { Schema, model } from 'mongoose';
+import { Question } from '../types';
 
-const questionSchema = new mongoose.Schema({
+const questionSchema = new Schema<Question>({
   whoCreated: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: 'User'
   },
   whenCreated: {
@@ -45,4 +46,4 @@ questionSchema.set('toJSON', {
   }
 });
 
-export default mongoose.model('Question', questionSchema);
+export default model<Question>('Question', questionSchema);

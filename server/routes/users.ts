@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { response } from 'express';
 
 import bcrypt from 'bcrypt';
 
@@ -30,6 +30,15 @@ router.post('/', async (req, res) => {
     res.json(savedUser.toJSON());
   } catch (e) {
     res.status(400).send({ error: 'Unable to post a new user.' });
+  }
+});
+
+router.delete('/:id', async (req, res) => {
+  try {
+    await User.findByIdAndRemove(req.params.id);
+    res.status(204);
+  } catch (e) {
+    res.json({ error: 'User not found' });
   }
 });
 

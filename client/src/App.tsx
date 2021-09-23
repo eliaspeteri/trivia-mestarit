@@ -8,13 +8,13 @@ import MainMenu from './components/MainMenu';
 import './App.css';
 import 'semantic-ui-css/semantic.min.css';
 
-
 const App: React.FC = () => {
   return (
- <div id="app">
-      <GameView /> 
-    </div> 
+    <div id="app">
+      <GameView />
+    </div>
   );
 };
-/*Vaihda GameView tilalle MainMenu, jos haluat nähdä MainMenun */
+
 export default App;
+

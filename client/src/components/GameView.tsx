@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 /** Components */
 import ProgressBar from './ProgressBar';
@@ -8,43 +8,57 @@ import TextCard from './TextCard';
 import { Container, Grid, GridRow } from 'semantic-ui-react';
 
 const GameView: React.FC = () => {
-  const procent = 22;
+  const [selectedAnswer, setSelectedAnswer] = useState<string>('');
+
+  const percent = 22;
   const question =
     'Minkä niminen suuri suunnistuskipailu kilpaillaan Suomessa kesäisin?';
 
-  const handleAnswerClick = (e: React.MouseEvent<HTMLElement>): void => {
-    /** Vastaus klikatusta kortista, tää täytyy tehdä vähemmän likaisemmin */
-    console.log((e.target as any).textContent);
-  };
-
   return (
     <Container>
+      {selectedAnswer + ' salainen vastaus'}
       <Grid centered padded columns={1}>
         <Grid.Column>
-          <TextCard text={question} className={'question-card'} />
+          <TextCard className={'question-card'} text={question} />
         </Grid.Column>
 
         <Grid.Row centered columns={2}>
-          <Grid.Column onClick={handleAnswerClick}>
-            <TextCard text={'oh canada'} />
+          <Grid.Column>
+            <TextCard
+              selectedAnswer={selectedAnswer}
+              setSelectedAnswer={setSelectedAnswer}
+              text={'oh canada'}
+            />
           </Grid.Column>
-          <Grid.Column onClick={handleAnswerClick}>
-            <TextCard text={'en muista en muista en muista'} />
+          <Grid.Column>
+            <TextCard
+              selectedAnswer={selectedAnswer}
+              setSelectedAnswer={setSelectedAnswer}
+              text={'en muista en muista en muista'}
+            />
           </Grid.Column>
         </Grid.Row>
 
         <Grid.Row centered columns={2}>
-          <Grid.Column onClick={handleAnswerClick}>
-            <TextCard text={'puukko juoksu'} />
+          <Grid.Column>
+            <TextCard
+              selectedAnswer={selectedAnswer}
+              setSelectedAnswer={setSelectedAnswer}
+              text={'puukko juoksu'}
+            />
           </Grid.Column>
-          <Grid.Column onClick={handleAnswerClick}>
-            <TextCard text={'en muista en muista en muista'} />
+          <Grid.Column>
+            <TextCard
+              selectedAnswer={selectedAnswer}
+              setSelectedAnswer={setSelectedAnswer}
+              text={'eri vastaus en muista'}
+            />
           </Grid.Column>
         </Grid.Row>
 
         <GridRow centered columns={1}>
           <Grid.Column>
-            <ProgressBar progress={procent} />
+            <ProgressBar progress={percent} />
           </Grid.Column>
         </GridRow>
       </Grid>

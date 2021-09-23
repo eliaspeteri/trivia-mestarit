@@ -3,6 +3,7 @@ import cors from 'cors';
 import express, { Application, Request, Response } from 'express';
 import mongoose from 'mongoose';
 import logger from './utils/logger';
+import { requestLogger } from './utils/middleware';
 
 // Importing question router
 import questionsRouter from './routes/questions';
@@ -27,6 +28,8 @@ app.use(
     extended: true
   })
 );
+
+app.use(requestLogger);
 
 // Endpoint to test connection
 app.get('/api/ping', (_req: Request, res: Response) => {

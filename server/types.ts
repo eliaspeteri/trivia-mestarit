@@ -1,4 +1,4 @@
-export type Question = {
+export interface Question {
   id: string;
   whoCreated?: string;
   whenCreated: Date;
@@ -7,10 +7,10 @@ export type Question = {
   theme?: string;
   difficulty: 'easy' | 'medium' | 'hard';
   answers: string[];
-};
+}
 
-export type User = {
+export interface User {
   id: string;
   username: string;
   passwordHash: string;
-};
+}

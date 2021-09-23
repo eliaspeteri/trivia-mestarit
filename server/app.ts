@@ -30,7 +30,7 @@ app.use(
 
 // Endpoint to test connection
 app.get('/api/ping', (_req: Request, res: Response) => {
-  console.log('someone pinged here');
+  logger.info('someone pinged /api/ping');
   res.send('pong');
 });
 

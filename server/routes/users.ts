@@ -1,20 +1,20 @@
 import { Router, Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import logger from '../utils/logger';
-import User from '../models/user';
+import User, { IUser } from '../models/user';
 
 const router: Router = Router();
 
 // Get all users
 router.get('/', async (_req: Request, res: Response): Promise<void> => {
-  const users: any = (await User.find({})) as any;
+  const users: IUser[] | null = await User.find({});
   logger.info('fetched all users!');
   res.json(users);
 });
 
 // Get user by ID
 router.get('/:id', async (req: Request, res: Response): Promise<void> => {
-  const user: any = (await User.findById(req.params.id)) as any;
+  const user: IUser | null = await User.findById(req.params.id);
   user ? res.json(user) : res.sendStatus(404);
   logger.info(`fetched ${req.params.id}`);
 });
@@ -31,9 +31,9 @@ router.post('/', async (req: Request, res: Response): Promise<void> => {
       passwordHash
     });
 
-    const savedUser: any = (await user.save()) as any;
+    await user.save();
 
-    res.json(savedUser.toJSON());
+    res.json({ message: `User '${username}' added successfully.` });
   } catch (error) {
     res.status(400).send({ error: 'Unable to post a new user.' });
     logger.error((error as any).message);

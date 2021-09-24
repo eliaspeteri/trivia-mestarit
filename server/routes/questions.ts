@@ -1,11 +1,11 @@
 import { Router, Request, Response } from 'express';
-import Question from '../models/question';
+import Question, { IQuestion } from '../models/question';
 import logger from '../utils/logger';
 const router: Router = Router();
 
 // Get all questions
 router.get('/', async (_req: Request, res: Response): Promise<void> => {
-  const questions: any = (await Question.find({})) as any;
+  const questions: IQuestion[] | null = await Question.find({});
   logger.info('fetched all questions!');
 
   res.json(questions);
@@ -13,7 +13,7 @@ router.get('/', async (_req: Request, res: Response): Promise<void> => {
 
 // Get question by ID
 router.get('/:id', async (req: Request, res: Response): Promise<void> => {
-  const question: any = (await Question.findById(req.params.id)) as any;
+  const question: IQuestion | null = await Question.findById(req.params.id);
   question ? res.json(question) : res.sendStatus(404);
 
   logger.info(`fetched ${req.params.id}`);
@@ -35,9 +35,9 @@ router.post('/', async (req: Request, res: Response): Promise<void> => {
       answers: answers
     });
 
-    const savedQuestion: any = (await resQuestion.save()) as any;
+    await resQuestion.save();
 
-    res.json(savedQuestion.toJSON());
+    res.json({ message: `posted a new question from ${whoCreated}` });
   } catch (error) {
     res.status(400).send({ error: 'Unable to post a new question.' });
     logger.error((error as any).message);

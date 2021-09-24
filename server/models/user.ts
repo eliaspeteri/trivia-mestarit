@@ -1,6 +1,11 @@
-import { Schema, model } from 'mongoose';
+import { Document, Schema, model } from 'mongoose';
 import { User } from '../types';
 import uniqueValidator from 'mongoose-unique-validator';
+
+export interface IUser extends Document {
+  username: string;
+  passwordHash: string;
+}
 
 const userSchema: Schema = new Schema<User>({
   username: {
@@ -25,4 +30,4 @@ userSchema.set('toJSON', {
   }
 });
 
-export default model<User>('User', userSchema);
+export default model<IUser>('User', userSchema);

@@ -31,10 +31,22 @@ app.use(
 
 app.use(requestLogger);
 
+// Root endpoint
+app.get('/', async (_req: Request, res: Response): Promise<void> => {
+  logger.info('someone pinged /');
+  res.json({ message: 'root endpoint' });
+});
+
+// API endpoint
+app.get('/api', async (_req: Request, res: Response): Promise<void> => {
+  logger.info('someone pinged /api');
+  res.json({ message: 'api endpoint' });
+});
+
 // Endpoint to test connection
-app.get('/api/ping', (_req: Request, res: Response) => {
+app.get('/api/ping', async (_req: Request, res: Response): Promise<void> => {
   logger.info('someone pinged /api/ping');
-  res.send('pong');
+  res.json({ message: 'pong' });
 });
 
 // Router endpoint to fetch questions

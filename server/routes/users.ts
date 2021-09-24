@@ -21,13 +21,13 @@ router.get('/:id', async (req: Request, res: Response): Promise<void> => {
 
 // Add new user
 router.post('/', async (req: Request, res: Response): Promise<void> => {
-  const body: any = req.body as any;
+  const { username, password } = req.body;
   const saltRounds = 10;
-  const passwordHash: string = await bcrypt.hash(body.password, saltRounds);
+  const passwordHash: string = await bcrypt.hash(password, saltRounds);
   try {
-    logger.info(body);
+    logger.info(req.body);
     const user = new User({
-      username: body.username,
+      username: username,
       passwordHash
     });
 

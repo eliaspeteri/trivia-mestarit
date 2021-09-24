@@ -21,20 +21,21 @@ router.get('/:id', async (req: Request, res: Response): Promise<void> => {
 
 // Add new question
 router.post('/', async (req: Request, res: Response): Promise<void> => {
-  const body: any = req.body as any;
+  const { whoCreated, question, correctAnswer, theme, difficulty, answers } =
+    req.body;
   try {
-    console.log(body);
-    const question = new Question({
-      whoCreated: body.whoCreated,
+    logger.info(req.body);
+    const resQuestion = new Question({
+      whoCreated: whoCreated,
       whenCreated: Date(),
-      question: body.question,
-      correctAnswer: body.correctAnswer,
-      theme: body.theme,
-      difficulty: body.difficulty,
-      answers: body.answers
+      question: question,
+      correctAnswer: correctAnswer,
+      theme: theme,
+      difficulty: difficulty,
+      answers: answers
     });
 
-    const savedQuestion: any = (await question.save()) as any;
+    const savedQuestion: any = (await resQuestion.save()) as any;
 
     res.json(savedQuestion.toJSON());
   } catch (error) {

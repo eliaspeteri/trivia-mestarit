@@ -1,7 +1,8 @@
 import { Router, Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import logger from '../utils/logger';
-import User, { IUser } from '../models/user';
+import User from '../models/user';
+import { IUser } from '../types';
 
 const router: Router = Router();
 

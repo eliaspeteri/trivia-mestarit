@@ -1,0 +1,85 @@
+
+
+.mainmenu
+{
+    background-image: url("https://images.unsplash.com/photo-1520034475321-cbe63696469a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80");
+    height: 100%;
+    background-size:     cover;                 
+    background-repeat:   no-repeat;
+    background-position: center center; 
+}  
+
+.mainmenu>.container
+{
+    background-color: black;
+    height: 500px;
+    width: 500px;
+    margin-right: auto;
+    margin-left: auto;
+    position:relative;
+    border: 3px solid white; 
+    top: 30%;
+    text-align: center; 
+    justify-content: center;
+
+}
+
+.mainmenu>.HEADER
+{
+    font-size: 200%!important;
+    position:relative;
+    text-align: center;
+    top: 10%;
+    height: 60px;
+    width: 700px;
+    margin-right: auto;
+    margin-left: auto;
+    background: -webkit-linear-gradient(rgb(18, 0, 99), rgb(8, 8, 8));
+    color:rgb(173, 173, 173);
+
+
+}
+
+.mainmenu>.ui-Version-text
+{
+    font-size: 124px !important;
+    position:relative;
+    text-align: center;
+    top: 34%;
+    left: 47%;
+    height: 40px;
+    width: 100px;
+    margin-right: auto;
+    margin-left: auto;
+    background: -webkit-linear-gradient(rgb(18, 0, 99), rgb(8, 8, 8));
+    color: white;
+
+
+}
+
+  .answer-btn {
+    padding: .9em 2.3em;
+    width: 300px;
+    margin: 0.6em 0;
+    cursor: pointer;
+    font-size: 1.5em;
+    letter-spacing: 0.04em;
+
+
+} 
+.answer-btn2 {
+  padding: .9em 2.3em;
+  width: 400px;
+  margin: 0.6em 0;
+  cursor: pointer;
+  font-size: 1.5em;
+  letter-spacing: 0.04em;
+
+} 
+.mainmenu>.Name
+{
+    color: white;
+/*TÄHÄN JOTAIN KIVAA SITTENKUN KEKSII MITEN HALUAA NIMENVALINNAN TOTEUTTAA */
+
+}
+

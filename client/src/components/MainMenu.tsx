@@ -33,10 +33,10 @@ const MainMenu: React.FC = () => {
                 <div className="ui divider"></div>
                 <div className="Name">
                  <h2>Current name:</h2>
-              </div> 
+              </div>
           </div>
           </div>
-          <div className="VERSION">
+          <div className="ui-Version-text">
                 <h1>V.1.042</h1>
                  </div>
       </main>

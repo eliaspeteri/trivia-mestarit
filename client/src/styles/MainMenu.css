@@ -57,20 +57,6 @@
 
 }
 
-/*.mainmenu>.divider{
-    content: '';
-    display: inline-block;
-    background: #888;
-    margin: 0px 4px;
-    height: 18px;
-    width: 1px;
-
-} */
-
-/*.mainmenu>.center {
-    didnt work like expected
-  } 
-*/
   .answer-btn {
     padding: .9em 2.3em;
     width: 300px;
@@ -93,11 +79,7 @@
 .mainmenu>.Name
 {
     color: white;
-/*VAIHEESSA */
+/*TÄHÄN JOTAIN KIVAA SITTENKUN KEKSII MITEN HALUAA NIMENVALINNAN TOTEUTTAA */
 
 }
 
-
-/*.answer-btn button:hover {
-    background-color: #0ff117;
-  } */

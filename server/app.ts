@@ -5,9 +5,7 @@ import mongoose from 'mongoose';
 import logger from './utils/logger';
 import { requestLogger } from './utils/middleware';
 
-// Importing question router
 import questionsRouter from './routes/questions';
-// Importing user router
 import userRouter from './routes/users';
 
 const app: Application = express();
@@ -15,10 +13,10 @@ const app: Application = express();
 mongoose
   .connect(Config.MONGODB_URI)
   .then(() => {
-    logger.info('connected to MongoDB');
+    logger.info('Connected to MongoDB');
   })
   .catch((err) => {
-    logger.error('connecting to MongoDB, message: ', err.message);
+    logger.error('Failed to connect MongoDB, message: ', err.message);
   });
 
 app.use(cors());
@@ -49,9 +47,7 @@ app.get('/api/ping', async (_req: Request, res: Response): Promise<void> => {
   res.json({ message: 'pong' });
 });
 
-// Router endpoint to fetch questions
 app.use('/api/questions', questionsRouter);
-// Router endpoint to fetch users
 app.use('/api/users', userRouter);
 
 export default app;

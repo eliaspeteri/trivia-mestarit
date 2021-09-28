@@ -1,21 +1,22 @@
 import { Router, Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import logger from '../utils/logger';
-import User from '../models/user';
-import { IUser } from '../types';
+import UserModel from '../models/user';
+import { User } from '../types';
 
 const router: Router = Router();
 
 // Get all users
 router.get('/', async (_req: Request, res: Response): Promise<void> => {
-  const users: IUser[] | null = await User.find({});
+  const users: User[] = (await UserModel.find({})) as User[];
   logger.info('fetched all users!');
   res.json(users);
 });
 
-// Get user by ID
 router.get('/:id', async (req: Request, res: Response): Promise<void> => {
-  const user: IUser | null = await User.findById(req.params.id);
+  const user: User | null = (await UserModel.findById(
+    req.params.id
+  )) as User | null;
   user ? res.json(user) : res.sendStatus(404);
   logger.info(`fetched ${req.params.id}`);
 });
@@ -27,7 +28,7 @@ router.post('/', async (req: Request, res: Response): Promise<void> => {
   const passwordHash: string = await bcrypt.hash(password, saltRounds);
   try {
     logger.info(req.body);
-    const user = new User({
+    const user = new UserModel({
       username: username,
       passwordHash
     });
@@ -41,10 +42,9 @@ router.post('/', async (req: Request, res: Response): Promise<void> => {
   }
 });
 
-// Delete a user
 router.delete('/:id', async (req: Request, res: Response): Promise<void> => {
   try {
-    await User.findByIdAndRemove(req.params.id);
+    await UserModel.findByIdAndRemove(req.params.id);
     res.status(204);
     logger.info(`removed ${req.params.id}`);
   } catch (error) {

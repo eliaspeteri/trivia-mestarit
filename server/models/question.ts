@@ -1,5 +1,15 @@
 import { Schema, model } from 'mongoose';
-import { Question, IQuestion } from '../types';
+import { Difficulty, Question } from '../types';
+
+export interface IQuestion extends Document {
+  whoCreated: string;
+  whenCreated: Date;
+  question: string;
+  correctAnswer: string;
+  theme: string;
+  difficulty: Difficulty;
+  answers: string[];
+}
 
 const questionSchema: Schema = new Schema<Question>({
   whoCreated: {

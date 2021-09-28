@@ -35,7 +35,7 @@ router.post('/', async (req: Request, res: Response): Promise<void> => {
 
     await user.save();
 
-    res.json({ message: `UserModel '${username}' added successfully.` });
+    res.json({ message: `User '${username}' added successfully.` });
   } catch (error) {
     res.status(400).send({ error: 'Unable to post a new user.' });
     logger.error((error as any).message);
@@ -48,7 +48,7 @@ router.delete('/:id', async (req: Request, res: Response): Promise<void> => {
     res.status(204);
     logger.info(`removed ${req.params.id}`);
   } catch (error) {
-    res.json({ error: 'UserModel not found' });
+    res.json({ error: 'User not found' });
     logger.error((error as any).message);
   }
 });

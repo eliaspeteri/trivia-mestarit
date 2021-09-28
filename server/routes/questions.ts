@@ -1,21 +1,38 @@
+<<<<<<< HEAD
 import { Router, Request, Response } from 'express';
 import QuestionModel from '../models/question';
 import { Question } from '../types';
+=======
+import { Response, Request, Router } from 'express';
+import QuestionModel from '../models/question';
+import { IQuestion } from '../types';
+>>>>>>> 1e9bc9a1b698f37cbab2be600185345ea81f9489
 import logger from '../utils/logger';
+
 const router: Router = Router();
 
 // Get all questions
 router.get('/', async (_req: Request, res: Response): Promise<void> => {
+<<<<<<< HEAD
   const questions: Question[] = (await QuestionModel.find({})) as Question[];
+=======
+  const questions: IQuestion[] = await QuestionModel.find({});
+>>>>>>> 1e9bc9a1b698f37cbab2be600185345ea81f9489
   logger.info('fetched all questions!');
 
   res.json(questions);
 });
 
 router.get('/:id', async (req: Request, res: Response): Promise<void> => {
+<<<<<<< HEAD
   const question: Question | null = (await QuestionModel.findById(
     req.params.id
   )) as Question | null;
+=======
+  const question: IQuestion | null = await QuestionModel.findById(
+    req.params.id
+  );
+>>>>>>> 1e9bc9a1b698f37cbab2be600185345ea81f9489
   question ? res.json(question) : res.sendStatus(404);
 
   logger.info(`fetched ${req.params.id}`);

@@ -8,7 +8,7 @@ const router: Router = Router();
 
 // Get all users
 router.get('/', async (_req: Request, res: Response): Promise<void> => {
-  const users: User[] | null = (await UserModel.find({})) as User[];
+  const users: User[] = (await UserModel.find({})) as User[];
   logger.info('fetched all users!');
   res.json(users);
 });

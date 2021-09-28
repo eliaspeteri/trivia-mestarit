@@ -1,6 +1,11 @@
 import { Schema, model } from 'mongoose';
-import { User, IUser } from '../types';
+import { User } from '../types';
 import uniqueValidator from 'mongoose-unique-validator';
+
+export interface IUser extends Document {
+  username: string;
+  passwordHash: string;
+}
 
 const userSchema: Schema = new Schema<User>({
   username: {

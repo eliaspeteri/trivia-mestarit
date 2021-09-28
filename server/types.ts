@@ -1,32 +1,18 @@
-import { Document } from 'mongoose';
+export type Difficulty = 'easy' | 'medium' | 'hard';
 
-export interface Question {
+export type Question = {
   id: string;
   whoCreated?: string;
   whenCreated: Date;
   question: string;
   correctAnswer: string;
   theme?: string;
-  difficulty: 'easy' | 'medium' | 'hard';
+  difficulty: Difficulty;
   answers: string[];
-}
-export interface IQuestion extends Document {
-  whoCreated: string;
-  whenCreated: Date;
-  question: string;
-  correctAnswer: string;
-  theme: string;
-  difficulty: string;
-  answers: [string];
-}
+};
 
-export interface User {
+export type User = {
   id: string;
   username: string;
   passwordHash: string;
-}
-
-export interface IUser extends Document {
-  username: string;
-  passwordHash: string;
-}
+};

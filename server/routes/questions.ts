@@ -1,19 +1,22 @@
 import { Router, Request, Response } from 'express';
-import Question, { IQuestion } from '../models/question';
+import QuestionModel from '../models/question';
+import { Question } from '../types';
 import logger from '../utils/logger';
+
 const router: Router = Router();
 
 // Get all questions
 router.get('/', async (_req: Request, res: Response): Promise<void> => {
-  const questions: IQuestion[] | null = await Question.find({});
+  const questions: Question[] = (await QuestionModel.find({})) as Question[];
   logger.info('fetched all questions!');
 
   res.json(questions);
 });
 
-// Get question by ID
 router.get('/:id', async (req: Request, res: Response): Promise<void> => {
-  const question: IQuestion | null = await Question.findById(req.params.id);
+  const question: Question | null = (await QuestionModel.findById(
+    req.params.id
+  )) as Question | null;
   question ? res.json(question) : res.sendStatus(404);
 
   logger.info(`fetched ${req.params.id}`);
@@ -25,7 +28,7 @@ router.post('/', async (req: Request, res: Response): Promise<void> => {
     req.body;
   try {
     logger.info(req.body);
-    const resQuestion = new Question({
+    const resQuestion = new QuestionModel({
       whoCreated: whoCreated,
       whenCreated: Date(),
       question: question,
@@ -44,10 +47,9 @@ router.post('/', async (req: Request, res: Response): Promise<void> => {
   }
 });
 
-// Delete a question
 router.delete('/:id', async (req: Request, res: Response): Promise<void> => {
   try {
-    await Question.findByIdAndRemove(req.params.id);
+    await QuestionModel.findByIdAndRemove(req.params.id);
     res.status(204);
     logger.info(`removed ${req.params.id}`);
   } catch (error) {

@@ -53,7 +53,7 @@ router.delete('/:id', async (req: Request, res: Response): Promise<void> => {
     res.status(204);
     logger.info(`removed ${req.params.id}`);
   } catch (error) {
-    res.json({ error: 'QuestionModel not found' });
+    res.json({ error: 'Question not found' });
     logger.error((error as any).message);
   }
 });

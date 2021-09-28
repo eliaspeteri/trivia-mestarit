@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose';
-import { Question, IQuestion } from '../types';
+import { IQuestion } from '../types';
 
-const questionSchema: Schema = new Schema<Question>({
+const questionSchema: Schema = new Schema({
   whoCreated: {
     type: Schema.Types.ObjectId,
     ref: 'User'

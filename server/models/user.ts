@@ -1,8 +1,8 @@
 import { Schema, model } from 'mongoose';
-import { User, IUser } from '../types';
+import { IUser } from '../types';
 import uniqueValidator from 'mongoose-unique-validator';
 
-const userSchema: Schema = new Schema<User>({
+const userSchema: Schema = new Schema({
   username: {
     type: String,
     required: true,

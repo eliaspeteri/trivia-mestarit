@@ -1,19 +1,19 @@
 
+h2 
+{
+    color: whitesmoke;
+}
 
 .mainmenu
 {
-    background-image: url("https://images.unsplash.com/photo-1520034475321-cbe63696469a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80");
     height: 100%;
-    background-size:     cover;                 
-    background-repeat:   no-repeat;
-    background-position: center center; 
 }  
 
-.mainmenu>.container
+.ui.container
 {
     background-color: black;
-    height: 500px;
-    width: 500px;
+    height: 500px !important;
+    width: 500px !important;
     margin-right: auto;
     margin-left: auto;
     position:relative;
@@ -21,10 +21,9 @@
     top: 30%;
     text-align: center; 
     justify-content: center;
-
 }
 
-.mainmenu>.HEADER
+.mainmenu>.header
 {
     font-size: 200%!important;
     position:relative;
@@ -36,46 +35,42 @@
     margin-left: auto;
     background: -webkit-linear-gradient(rgb(18, 0, 99), rgb(8, 8, 8));
     color:rgb(173, 173, 173);
-
-
 }
 
-.mainmenu>.ui-Version-text
+.ui-version-text, .ui-version-number 
 {
-    font-size: 124px !important;
-    position:relative;
-    text-align: center;
-    top: 34%;
-    left: 47%;
+    font-size: 20px !important;
+    position: fixed;
+    top: 92%;
+    left: 90%;
     height: 40px;
     width: 100px;
     margin-right: auto;
     margin-left: auto;
     background: -webkit-linear-gradient(rgb(18, 0, 99), rgb(8, 8, 8));
     color: white;
+} 
 
+.answer-btn 
+{
+     padding: .9em 2.3em;
+     width: 300px;
+     margin: 0.6em 0;
+     cursor: pointer;
+     font-size: 1.5em;
+     letter-spacing: 0.04em;
+} 
 
-}
-
-  .answer-btn {
+.answer-btn2 
+{
     padding: .9em 2.3em;
-    width: 300px;
+    width: 400px;
     margin: 0.6em 0;
     cursor: pointer;
     font-size: 1.5em;
     letter-spacing: 0.04em;
-
-
 } 
-.answer-btn2 {
-  padding: .9em 2.3em;
-  width: 400px;
-  margin: 0.6em 0;
-  cursor: pointer;
-  font-size: 1.5em;
-  letter-spacing: 0.04em;
 
-} 
 .mainmenu>.Name
 {
     color: white;

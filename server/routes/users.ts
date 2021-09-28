@@ -14,13 +14,9 @@ router.get('/', async (_req: Request, res: Response): Promise<void> => {
 });
 
 router.get('/:id', async (req: Request, res: Response): Promise<void> => {
-<<<<<<< HEAD
   const user: User | null = (await UserModel.findById(
     req.params.id
   )) as User | null;
-=======
-  const user: IUser | null = await UserModel.findById(req.params.id);
->>>>>>> 1e9bc9a1b698f37cbab2be600185345ea81f9489
   user ? res.json(user) : res.sendStatus(404);
   logger.info(`fetched ${req.params.id}`);
 });

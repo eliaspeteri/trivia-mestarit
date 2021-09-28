@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose';
+<<<<<<< HEAD
 import { User } from '../types';
 import uniqueValidator from 'mongoose-unique-validator';
 
@@ -8,6 +9,12 @@ export interface IUser extends Document {
 }
 
 const userSchema: Schema = new Schema<User>({
+=======
+import { IUser } from '../types';
+import uniqueValidator from 'mongoose-unique-validator';
+
+const userSchema: Schema = new Schema({
+>>>>>>> 1e9bc9a1b698f37cbab2be600185345ea81f9489
   username: {
     type: String,
     required: true,

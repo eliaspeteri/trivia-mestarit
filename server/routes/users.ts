@@ -13,7 +13,6 @@ router.get('/', async (_req: Request, res: Response): Promise<void> => {
   res.json(users);
 });
 
-// Get user by ID
 router.get('/:id', async (req: Request, res: Response): Promise<void> => {
   const user: User | null = (await UserModel.findById(
     req.params.id
@@ -43,7 +42,6 @@ router.post('/', async (req: Request, res: Response): Promise<void> => {
   }
 });
 
-// Delete a user
 router.delete('/:id', async (req: Request, res: Response): Promise<void> => {
   try {
     await UserModel.findByIdAndRemove(req.params.id);

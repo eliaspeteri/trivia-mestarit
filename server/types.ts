@@ -1,3 +1,5 @@
+export type Difficulty = 'easy' | 'medium' | 'hard';
+
 export type Question = {
   id: string;
   whoCreated?: string;
@@ -14,5 +16,3 @@ export type User = {
   username: string;
   passwordHash: string;
 };
-
-export type Difficulty = 'easy' | 'medium' | 'hard';

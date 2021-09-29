@@ -11,8 +11,10 @@ a.ui.card:hover {
     pointer-events: none;
 }
 
-.card:hover {
-  transform: none;
+.ui.fluid.card {
+  /* Force "padding" to mobile view */
+  width: 95% !important;
+  margin: auto;
 }
 
 .card-text {

@@ -6,9 +6,9 @@ import '../styles/MainMenu.css';
 
 const MainMenu: React.FC = () => {
   return (
-    <Container textAlign="center" fluid={false} className="container">
-      <h2>MAIN MENU</h2>
-      <h2>EASTER EGG</h2>
+    <Container textAlign="center" fluid={false} className="main-menu-content">
+      <h2 className="header-text">MAIN MENU</h2>
+      <h2 className="header-text">EASTER EGG</h2>
       <Button size="massive" className="answer-btn">
         HOST
       </Button>
@@ -23,7 +23,7 @@ const MainMenu: React.FC = () => {
       <Divider />
       <Input focus placeholder="Username" />
       <Divider />
-      <h2 className="ui-version-number">V.1.042</h2>
+      <h2 className="version-number">V.1.042</h2>
     </Container>
   );
 };

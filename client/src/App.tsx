@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 /** Components */
 import GameView from './components/GameView';
@@ -9,9 +9,13 @@ import './App.css';
 import 'semantic-ui-css/semantic.min.css';
 
 const App: React.FC = () => {
+  const [test, setTest] = useState<boolean>(false);
   return (
     <div id="app">
-      <MainMenu />
+      <button onClick={() => setTest(!test)}>
+        change component visibility
+      </button>
+      {test ? <GameView /> : <MainMenu />}
     </div>
   );
 };

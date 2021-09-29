@@ -1,10 +1,12 @@
 image: node:16.9.0
 
 pipelines:
-  default:
-    - step:
-        script:
-          - cd client
-          - npm i
-          # Warnings do not prevent a successful build
-          - CI=false npm run build
+  branches:
+    develop:
+        - step:
+           script:
+             - cd client
+             - npm i
+             # Tests
+             # Warnings do not prevent a successful build
+             - CI=false npm run build

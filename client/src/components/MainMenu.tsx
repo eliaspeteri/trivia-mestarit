@@ -7,23 +7,20 @@ import '../styles/MainMenu.css';
 const MainMenu: React.FC = () => {
   return (
     <Container textAlign="center" fluid={false} className="main-menu-content">
-      <h2 className="header-text">MAIN MENU</h2>
-      <h2 className="header-text">EASTER EGG</h2>
-      <Button size="massive" className="answer-btn">
+      <h1 className="menu-header">MAIN MENU</h1>
+      <Button size="massive" className="button">
         HOST
       </Button>
       <Divider />
-      <Button size="massive" className="answer-btn">
+      <Button size="massive" className="button">
         JOIN
       </Button>
       <Divider />
-      <Button size="massive" className="answer-btn2">
+      <Button size="massive" className="button" id="choose-name-button">
         CHOOSE NAME
       </Button>
       <Divider />
       <Input focus placeholder="Username" />
-      <Divider />
-      <h2 className="version-number">V.1.042</h2>
     </Container>
   );
 };

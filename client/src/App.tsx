@@ -1,7 +1,6 @@
 import React from 'react';
 
 /** Components */
-import GameView from './components/GameView';
 import MainMenu from './components/MainMenu';
 
 /** CSS */

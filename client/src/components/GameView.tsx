@@ -4,8 +4,9 @@ import React, { useState } from 'react';
 import ProgressBar from './ProgressBar';
 import TextCard from './TextCard';
 
-/** UI, Css */
+/** UI, CSS */
 import { Container, Grid, GridRow } from 'semantic-ui-react';
+import '../styles/GameView.css';
 
 const GameView: React.FC = () => {
   const [selectedAnswer, setSelectedAnswer] = useState<string>('');
@@ -17,7 +18,7 @@ const GameView: React.FC = () => {
   return (
     <Container>
       {selectedAnswer + ' salainen vastaus'}
-      <Grid centered padded columns={1}>
+      <Grid columns={1} className="game-view-content" stackable container>
         <Grid.Column>
           <TextCard className={'question-card'} text={question} />
         </Grid.Column>
@@ -57,9 +58,7 @@ const GameView: React.FC = () => {
         </Grid.Row>
 
         <GridRow centered columns={1}>
-          <Grid.Column>
-            <ProgressBar progress={percent} />
-          </Grid.Column>
+          <ProgressBar progress={percent} />
         </GridRow>
       </Grid>
     </Container>

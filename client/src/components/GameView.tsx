@@ -18,48 +18,46 @@ const GameView: React.FC = () => {
   return (
     <Container>
       {selectedAnswer + ' salainen vastaus'}
-      <Grid columns={1} className="game-view-content" stackable container>
+      <Grid columns={1} className="game-view-content" container>
         <Grid.Column>
           <TextCard className={'question-card'} text={question} />
         </Grid.Column>
 
-        <Grid.Row centered columns={2}>
-          <Grid.Column>
-            <TextCard
-              selectedAnswer={selectedAnswer}
-              setSelectedAnswer={setSelectedAnswer}
-              text={'oh canada'}
-            />
-          </Grid.Column>
-          <Grid.Column>
-            <TextCard
-              selectedAnswer={selectedAnswer}
-              setSelectedAnswer={setSelectedAnswer}
-              text={'en muista en muista en muista'}
-            />
-          </Grid.Column>
-        </Grid.Row>
+        <Grid.Column stretched columns={1}>
+          <TextCard
+            selectedAnswer={selectedAnswer}
+            setSelectedAnswer={setSelectedAnswer}
+            text={'oh  canada'}
+          />
+        </Grid.Column>
+        <Grid.Column stretched columns={1}>
+          <TextCard
+            selectedAnswer={selectedAnswer}
+            setSelectedAnswer={setSelectedAnswer}
+            text={'en muista en muista en muista'}
+          />
+        </Grid.Column>
 
-        <Grid.Row centered columns={2}>
-          <Grid.Column>
-            <TextCard
-              selectedAnswer={selectedAnswer}
-              setSelectedAnswer={setSelectedAnswer}
-              text={'puukko juoksu'}
-            />
-          </Grid.Column>
-          <Grid.Column>
-            <TextCard
-              selectedAnswer={selectedAnswer}
-              setSelectedAnswer={setSelectedAnswer}
-              text={'eri vastaus en muista'}
-            />
-          </Grid.Column>
-        </Grid.Row>
+        <Grid.Column>
+          <TextCard
+            selectedAnswer={selectedAnswer}
+            setSelectedAnswer={setSelectedAnswer}
+            text={
+              'puukko  dsadasd dsdasdasdsasds asdas ds asd asdasd asd juoksu'
+            }
+          />
+        </Grid.Column>
+        <Grid.Column>
+          <TextCard
+            selectedAnswer={selectedAnswer}
+            setSelectedAnswer={setSelectedAnswer}
+            text={'eri vastaus en muista'}
+          />
+        </Grid.Column>
 
-        <GridRow centered columns={1}>
+        <Grid.Column columns={1}>
           <ProgressBar progress={percent} />
-        </GridRow>
+        </Grid.Column>
       </Grid>
     </Container>
   );

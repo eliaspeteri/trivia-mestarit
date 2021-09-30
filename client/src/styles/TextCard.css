@@ -1,41 +1,24 @@
-
-.text-card:hover > a  {
-  cursor: pointer;
-}
-
 a.ui.card:hover {
     color: black;
-}
-
-.question-card:hover {
     pointer-events: none;
 }
 
-.ui.fluid.card {
-  /* Force "padding" to mobile view */
-  width: 95% !important;
-  margin: auto;
-}
-
-.card-text {
-/* Make text unselectable, no ie support */
--webkit-user-select: none; /* Safari */        
--moz-user-select: none; /* Firefox */
--ms-user-select: none; /* IE10+/Edge */
-user-select: none; /* Standard */
-}
-
-
-
+/* Regular card (= no question card) */
 .text-card {
   color: black;
   font-weight: normal;
-  font-size: 1.5em;
-  flex: 1;
+  font-size: 1em;
 }
 
-.question-card {
+.question-card {  
   font-weight: bold;
-  font-size: 2.5em;
+  font-size: 1.5em;
   color: orange;
+  text-align: center;
+
+ /* Make text unselectable, no ie support */
+ -webkit-user-select: none; /* Safari */        
+ -moz-user-select: none; /* Firefox */
+ -ms-user-select: none; /* IE10+/Edge */
+ user-select: none; /* Standard */
 }

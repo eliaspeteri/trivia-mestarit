@@ -14,8 +14,8 @@ interface Props {
 }
 
 const selectedStyles: CSS.Properties = {
-  backgroundColor: 'orange !important',
-  border: 'solid 2px orange'
+  backgroundColor: 'orange',
+  border: 'solid 2px white'
 };
 
 const TextCard: React.FC<Props> = ({

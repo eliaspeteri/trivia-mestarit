@@ -10,8 +10,8 @@ import '../styles/GameView.css';
 
 const GameView: React.FC = () => {
   const [selectedAnswer, setSelectedAnswer] = useState<string>('');
-
-  const percent = 22;
+  const progress = 50; 
+  const timeleft = 50;
   const question =
     'Minkä niminen suuri suunnistuskipailu kilpaillaan Suomessa kesäisin?';
 
@@ -71,8 +71,14 @@ const GameView: React.FC = () => {
             />
           </Grid.Column>
 
-          <Grid.Column columns={1}></Grid.Column>
-          <ProgressBar progress={percent} />
+
+         <Grid.Row centered columns={1}>
+           <Grid.Column>
+             <ProgressBar progress={progress}
+               timeleft={timeleft} />
+            </Grid.Column>
+          </Grid.Row>
+
         </Grid>
       </Container>
     </React.Fragment>

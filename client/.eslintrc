@@ -1,4 +1,5 @@
 {
+  "project": "client/tsconfig.json",
   "env": {
     "browser": true,
     "es6": true,

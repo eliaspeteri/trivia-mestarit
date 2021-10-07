@@ -1,5 +1,4 @@
 {
-  "project": "client/tsconfig.json",
   "env": {
     "browser": true,
     "es6": true,
@@ -30,7 +29,7 @@
     "ecmaFeatures": {
       "jsx": true
     },
-    "project": "./tsconfig.json"
+    "project": "client/tsconfig.json"
   },
   "settings": {
     "react": {

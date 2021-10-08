@@ -6,7 +6,6 @@ export const setListeners = (io: SocketServer): void => {
   io.on('connection', (socket: Socket) => {
     socket.on('host-game', (callback: CallableFunction) => {
       const roomId: string = uuidv4().toString();
-      socket.join(roomId);
       callback({
         gameId: roomId
       });

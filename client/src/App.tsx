@@ -12,19 +12,24 @@ const App: React.FC = () => {
   const [nick, setNick] = useState<string>('');
   const [gameId, setGameId] = useState<string>('');
   const [showGameView, setShowGameView] = useState<boolean>(false);
-  const [isHoster, setIsHoster] = useState<boolean>(false);
+  const [isHost, setIsHost] = useState<boolean>(false);
 
   return (
     <div id="app">
       {showGameView ? (
-        <GameView nick={nick} gameId={gameId} isHoster={isHoster} />
+        <GameView
+          gameId={gameId}
+          isHost={isHost}
+          nick={nick}
+          setShowGameView={setShowGameView}
+        />
       ) : (
         <MainMenu
           nick={nick}
           setNick={setNick}
           setShowGameView={setShowGameView}
           setGameId={setGameId}
-          setIsHoster={setIsHoster}
+          setIsHost={setIsHost}
         />
       )}
     </div>

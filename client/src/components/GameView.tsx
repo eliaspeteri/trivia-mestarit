@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 
 /** Components */
 import ProgressBar from './ProgressBar';
@@ -8,25 +8,33 @@ import TextCard from './TextCard';
 import { Container, Grid, Icon } from 'semantic-ui-react';
 import '../styles/GameView.css';
 
-
-
 interface Props {
   gameId: string;
-  isHoster: boolean;
+  isHost: boolean;
   nick: string;
+  setShowGameView: Dispatch<SetStateAction<boolean>>;
 }
 
-const GameView: React.FC<Props> = ({gameId, isHoster, nick}: Props) => {
+const GameView: React.FC<Props> = ({
+  gameId,
+  isHost,
+  nick,
+  setShowGameView
+}: Props) => {
   const [selectedAnswer, setSelectedAnswer] = useState<string>('');
 
   const percent = 22;
   const question =
     'Minkä niminen suuri suunnistuskipailu kilpaillaan Suomessa kesäisin?';
 
+  /** Implement socket disconnect logic in the future */
+  const leaveGameView = (): void => {
+    console.log('LEAVE GAME');
+    setShowGameView(false);
+  };
+
   const handleExitIconClick = (): void => {
-    window.confirm('Do you want to abort game?')
-      ? console.log('yes pls')
-      : console.log('no pls');
+    window.confirm('Do you want to abort game?') && leaveGameView();
   };
 
   return (
@@ -39,10 +47,10 @@ const GameView: React.FC<Props> = ({gameId, isHoster, nick}: Props) => {
         size="huge"
       />
       <Container>
-        <p style={{color: 'green'}}>gameId: {gameId}</p>
-        <p style={{color: 'green'}}>nick: {nick}</p>
-        <p style={{color: 'green'}}>isHoster : {isHoster && 'true'}</p>
-
+        
+        <p style={{ color: 'green' }}>gameId: {gameId}</p>
+        <p style={{ color: 'green' }}>nick: {nick}</p>
+        <p style={{ color: 'green' }}>isHost : {isHost && 'true'}</p>
 
         {selectedAnswer + ' salainen vastaus'}
         <Grid columns={1} className="game-view-content" container>
@@ -70,9 +78,7 @@ const GameView: React.FC<Props> = ({gameId, isHoster, nick}: Props) => {
             <TextCard
               selectedAnswer={selectedAnswer}
               setSelectedAnswer={setSelectedAnswer}
-              text={
-                'puukko_ juoksu'
-              }
+              text={'puukko_ juoksu'}
             />
           </Grid.Column>
 
@@ -85,8 +91,10 @@ const GameView: React.FC<Props> = ({gameId, isHoster, nick}: Props) => {
           </Grid.Column>
 
           <Grid.Column columns={1}></Grid.Column>
+
           <ProgressBar progress={percent} />
         </Grid>
+        
       </Container>
     </React.Fragment>
   );

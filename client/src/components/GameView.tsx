@@ -34,7 +34,7 @@ const GameView: React.FC<Props> = (props: Props) => {
   useEffect(() => {
     props.gameIdToJoin
       ? socket.emit('join-game', props.gameIdToJoin)
-      : socket?.emit('host-game', (response: any) => {
+      : socket.emit('host-game', (response: any) => {
           setGameId(response.gameId as string);
         });
   }, []);

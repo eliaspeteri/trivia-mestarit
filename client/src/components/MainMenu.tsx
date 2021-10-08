@@ -31,7 +31,7 @@ const MainMenu: React.FC<Props> = ({
   setNick,
   setShowGameView
 }: Props) => {
-  const initializeHostGame = async (): Promise<void> => {
+  const initializeHostGame = (): void => {
     if (!nick) {
       alert('Choose nickname');
       return;
@@ -39,16 +39,11 @@ const MainMenu: React.FC<Props> = ({
 
     socket.connect();
 
-    socket.emit('host-game', async (response: any) => {
-      if (nick) {
-        console.log('test');
-        setGameId(response.gameId as string);
-        setIsHoster(true);
-        setNick(nick);
-        setShowGameView(true);
-      } else {
-        alert('Server is kill');
-      }
+    socket.emit('host-game', (response: any) => {
+      setGameId(response.gameId as string);
+      setIsHoster(true);
+      setNick(nick);
+      setShowGameView(true);
     });
   };
 

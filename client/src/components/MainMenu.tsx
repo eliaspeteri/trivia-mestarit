@@ -55,7 +55,9 @@ const MainMenu: React.FC<Props> = ({
       <Input
         focus
         placeholder="Username"
-        onChange={(e: any) => setNick(e.target.value)}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          setNick(e.target.value)
+        }
       />
     </Container>
   );

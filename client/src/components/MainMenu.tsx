@@ -1,14 +1,50 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction, useEffect } from 'react';
 
 /** CSS, UI */
 import { Button, Container, Divider, Input } from 'semantic-ui-react';
 import '../styles/MainMenu.css';
 
-const MainMenu: React.FC = () => {
+/** Sockets */
+import socketClient, { Socket } from 'socket.io-client';
+
+const LOCALHOST = 'localhost:8080';
+const socket = socketClient(LOCALHOST, {
+  /** Can't DDoS with F5  */
+  transports: ['websocket'],
+  upgrade: false
+});
+
+interface Props {
+  nick: string;
+  setIsHoster: Dispatch<SetStateAction<boolean>>;
+  setGameId: Dispatch<SetStateAction<string>>;
+  setNick: Dispatch<SetStateAction<string>>;
+  setShowGameView: Dispatch<SetStateAction<boolean>>;
+}
+
+const MainMenu: React.FC<Props> = ({
+  nick,
+  setIsHoster,
+  setGameId,
+  setNick,
+  setShowGameView
+}: Props) => {
+  const initializeHostGame = (): void => {
+    socket.emit('host-game', (response: any) => {
+      if (nick && socket.connected) {
+        setGameId(response.gameId as string);
+        setIsHoster(true);
+        setNick(nick);
+        setShowGameView(true);
+      }
+    });
+  };
+
   return (
     <Container textAlign="center" fluid={false} className="main-menu-content">
+      <p style={{ color: 'whitesmoke' }}>{nick}</p>
       <h1 className="menu-header">MAIN MENU</h1>
-      <Button size="massive" className="button">
+      <Button size="massive" className="button" onClick={initializeHostGame}>
         HOST
       </Button>
       <Divider />
@@ -16,11 +52,11 @@ const MainMenu: React.FC = () => {
         JOIN
       </Button>
       <Divider />
-      <Button size="massive" className="button" id="choose-name-button">
-        CHOOSE NAME
-      </Button>
-      <Divider />
-      <Input focus placeholder="Username" />
+      <Input
+        focus
+        placeholder="Username"
+        onChange={(e: any) => setNick(e.target.value)}
+      />
     </Container>
   );
 };

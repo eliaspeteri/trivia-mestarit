@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 /** Components */
 import ProgressBar from './ProgressBar';
@@ -8,12 +8,36 @@ import TextCard from './TextCard';
 import { Container, Grid, Icon } from 'semantic-ui-react';
 import '../styles/GameView.css';
 
-const GameView: React.FC = () => {
+/** Sockets */
+import socketClient, { Socket } from 'socket.io-client';
+
+const LOCALHOST = 'localhost:8080';
+const socket = socketClient(LOCALHOST, {
+  /** Can't DDoS with F5  */
+  transports: ['websocket'],
+  upgrade: false
+});
+
+interface Props {
+  nickname?: string;
+  gameIdToJoin?: string;
+}
+
+const GameView: React.FC<Props> = (props: Props) => {
   const [selectedAnswer, setSelectedAnswer] = useState<string>('');
+  const [gameId, setGameId] = useState<string>('');
 
   const percent = 22;
   const question =
     'Minkä niminen suuri suunnistuskipailu kilpaillaan Suomessa kesäisin?';
+
+  useEffect(() => {
+    props.gameIdToJoin
+      ? socket.emit('join-game', props.gameIdToJoin)
+      : socket?.emit('host-game', (response: any) => {
+          setGameId(response.gameId as string);
+        });
+  }, []);
 
   const handleExitIconClick = (): void => {
     window.confirm('Do you want to abort game?')
@@ -32,6 +56,7 @@ const GameView: React.FC = () => {
       />
       <Container>
         {selectedAnswer + ' salainen vastaus'}
+        <p style={{ color: 'green' }}>{gameId}</p>
         <Grid columns={1} className="game-view-content" container>
           <Grid.Column>
             <TextCard className={'question-card'} text={question} />

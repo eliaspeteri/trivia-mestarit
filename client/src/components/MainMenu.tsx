@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useEffect } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 /** CSS, UI */
 import { Button, Container, Divider, Input } from 'semantic-ui-react';
@@ -11,7 +11,9 @@ const LOCALHOST = 'localhost:8080';
 const socket = socketClient(LOCALHOST, {
   /** Can't DDoS with F5  */
   transports: ['websocket'],
-  upgrade: false
+  upgrade: false,
+  autoConnect: false,
+  reconnection: false
 });
 
 interface Props {
@@ -29,13 +31,23 @@ const MainMenu: React.FC<Props> = ({
   setNick,
   setShowGameView
 }: Props) => {
-  const initializeHostGame = (): void => {
-    socket.emit('host-game', (response: any) => {
-      if (nick && socket.connected) {
+  const initializeHostGame = async (): Promise<void> => {
+    if (!nick) {
+      alert('Choose nickname');
+      return;
+    }
+
+    socket.connect();
+
+    socket.emit('host-game', async (response: any) => {
+      if (nick) {
+        console.log('test');
         setGameId(response.gameId as string);
         setIsHoster(true);
         setNick(nick);
         setShowGameView(true);
+      } else {
+        alert('Server is kill');
       }
     });
   };
@@ -48,7 +60,11 @@ const MainMenu: React.FC<Props> = ({
         HOST
       </Button>
       <Divider />
-      <Button size="massive" className="button">
+      <Button
+        size="massive"
+        className="button"
+        onClick={() => socket?.connect()}
+      >
         JOIN
       </Button>
       <Divider />

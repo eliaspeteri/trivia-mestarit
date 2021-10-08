@@ -18,7 +18,7 @@ const socket = socketClient(LOCALHOST, {
 
 interface Props {
   nick: string;
-  setIsHoster: Dispatch<SetStateAction<boolean>>;
+  setIsHost: Dispatch<SetStateAction<boolean>>;
   setGameId: Dispatch<SetStateAction<string>>;
   setNick: Dispatch<SetStateAction<string>>;
   setShowGameView: Dispatch<SetStateAction<boolean>>;
@@ -26,7 +26,7 @@ interface Props {
 
 const MainMenu: React.FC<Props> = ({
   nick,
-  setIsHoster,
+  setIsHost,
   setGameId,
   setNick,
   setShowGameView
@@ -41,7 +41,7 @@ const MainMenu: React.FC<Props> = ({
 
     socket.emit('host-game', (response: any) => {
       setGameId(response.gameId as string);
-      setIsHoster(true);
+      setIsHost(true);
       setNick(nick);
       setShowGameView(true);
     });

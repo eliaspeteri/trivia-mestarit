@@ -41,7 +41,7 @@ const GameView: React.FC<Props> = ({gameId, isHoster, nick}: Props) => {
       <Container>
         <p style={{color: 'green'}}>gameId: {gameId}</p>
         <p style={{color: 'green'}}>nick: {nick}</p>
-        <p style={{color: 'green'}}>ishoster : {isHoster && 'true'}</p>
+        <p style={{color: 'green'}}>isHoster : {isHoster && 'true'}</p>
 
 
         {selectedAnswer + ' salainen vastaus'}
@@ -71,7 +71,7 @@ const GameView: React.FC<Props> = ({gameId, isHoster, nick}: Props) => {
               selectedAnswer={selectedAnswer}
               setSelectedAnswer={setSelectedAnswer}
               text={
-                'puukko  dsadasd dsdasdasdsasds asdas ds asd asdasd asd juoksu'
+                'puukko_ juoksu'
               }
             />
           </Grid.Column>

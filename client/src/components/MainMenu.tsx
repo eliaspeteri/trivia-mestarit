@@ -1,11 +1,11 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 
 /** CSS, UI */
 import { Button, Container, Divider, Input } from 'semantic-ui-react';
 import '../styles/MainMenu.css';
 
 /** Sockets */
-import socketClient, { Socket } from 'socket.io-client';
+import socketClient from 'socket.io-client';
 
 const LOCALHOST = 'localhost:8080';
 const socket = socketClient(LOCALHOST, {
@@ -55,11 +55,7 @@ const MainMenu: React.FC<Props> = ({
         HOST
       </Button>
       <Divider />
-      <Button
-        size="massive"
-        className="button"
-        onClick={() => socket?.connect()}
-      >
+      <Button size="massive" className="button">
         JOIN
       </Button>
       <Divider />

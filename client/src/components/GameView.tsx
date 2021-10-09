@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 /** Components */
 import ProgressBar from './ProgressBar';
@@ -7,6 +7,9 @@ import TextCard from './TextCard';
 /** UI, CSS */
 import { Container, Grid, Icon } from 'semantic-ui-react';
 import '../styles/GameView.css';
+
+/** Config / Socket */
+import { socket } from '../config';
 
 interface Props {
   gameId: string;
@@ -23,13 +26,17 @@ const GameView: React.FC<Props> = ({
 }: Props) => {
   const [selectedAnswer, setSelectedAnswer] = useState<string>('');
 
+  useEffect(() => {
+    socket.connect();
+    socket.emit('join-game', nick, gameId, isHost);
+  }, []);
+
   const percent = 22;
   const question =
     'Minkä niminen suuri suunnistuskipailu kilpaillaan Suomessa kesäisin?';
 
   /** Implement socket disconnect logic in the future */
   const leaveGameView = (): void => {
-    console.log('LEAVE GAME');
     setShowGameView(false);
   };
 
@@ -38,7 +45,7 @@ const GameView: React.FC<Props> = ({
   };
 
   return (
-    <React.Fragment>
+    <>
       <Icon
         onClick={handleExitIconClick}
         bordered
@@ -47,12 +54,6 @@ const GameView: React.FC<Props> = ({
         size="huge"
       />
       <Container>
-        
-        <p style={{ color: 'green' }}>gameId: {gameId}</p>
-        <p style={{ color: 'green' }}>nick: {nick}</p>
-        <p style={{ color: 'green' }}>isHost : {isHost && 'true'}</p>
-
-        {selectedAnswer + ' salainen vastaus'}
         <Grid columns={1} className="game-view-content" container>
           <Grid.Column>
             <TextCard className={'question-card'} text={question} />
@@ -94,9 +95,8 @@ const GameView: React.FC<Props> = ({
 
           <ProgressBar progress={percent} />
         </Grid>
-        
       </Container>
-    </React.Fragment>
+    </>
   );
 };
 

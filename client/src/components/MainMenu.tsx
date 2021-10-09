@@ -4,17 +4,8 @@ import React, { Dispatch, SetStateAction } from 'react';
 import { Button, Container, Divider, Input } from 'semantic-ui-react';
 import '../styles/MainMenu.css';
 
-/** Sockets */
-import socketClient from 'socket.io-client';
-
-const LOCALHOST = 'localhost:8080';
-const socket = socketClient(LOCALHOST, {
-  /** Can't DDoS with F5  */
-  transports: ['websocket'],
-  upgrade: false,
-  autoConnect: false,
-  reconnection: false
-});
+/** Config / Socket */
+import { socket } from '../config';
 
 interface Props {
   nick: string;
@@ -38,7 +29,7 @@ const MainMenu: React.FC<Props> = ({
     }
 
     socket.connect();
-
+    // eslint-disable-next-line
     socket.emit('host-game', (response: any) => {
       setGameId(response.gameId as string);
       setIsHost(true);

@@ -41,6 +41,10 @@ const GameView: React.FC<Props> = ({
     setGameData(gameData);
   });
 
+  socket.on('game-over', (gameData: GameData) => {
+    setGameData(undefined);
+  });
+
   /** Implement socket disconnect logic in the future */
   const leaveGameView = (): void => {
     setShowGameView(false);

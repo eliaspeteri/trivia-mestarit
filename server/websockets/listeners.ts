@@ -15,9 +15,14 @@ export const setListeners = (io: SocketServer): void => {
   /** Send every game's game data */
   setInterval(() => {
     games.forEach((game: Game) => {
-      io.to(game.roomId).emit('game-data', game.getGameData());
+      if (game.isGameActive()) {
+        console.log(game.getGameData());
+      }
+
+      game.isGameActive() &&
+        io.to(game.roomId).emit('game-data', game.getGameData());
     });
-  }, 3000);
+  }, 3 * 1000);
 
   io.on('connection', (socket: Socket) => {
     socket.on('host-game', (callback: CallableFunction) => {
@@ -34,7 +39,9 @@ export const setListeners = (io: SocketServer): void => {
       if (!gameIdExists(games, roomId)) return;
 
       const game: Game = findGameByRoomId(games, roomId);
+      socket.join(game.roomId);
       game.addPlayer(nick, isHost);
+      game.startGame(10 * 1000);
     });
   });
 };

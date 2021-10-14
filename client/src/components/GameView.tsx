@@ -31,9 +31,15 @@ const GameView: React.FC<Props> = ({
   const [gameData, setGameData] = useState<GameData>();
 
   useEffect(() => {
+    console.log(`join game use effect`);
     socket.connect();
     socket.emit('join-game', nick, gameId, isHost);
   }, [gameId, isHost, nick]);
+
+  socket.on('game-data', (gameData: GameData) => {
+    console.log('game-data-client', gameData);
+    setGameData(gameData);
+  });
 
   /** Implement socket disconnect logic in the future */
   const leaveGameView = (): void => {
@@ -63,7 +69,7 @@ const GameView: React.FC<Props> = ({
             <Grid.Column>
               <TextCard
                 className={'question-card'}
-                text={gameData?.questionString}
+                text={gameData?.question.question}
               />
             </Grid.Column>
 
@@ -71,7 +77,7 @@ const GameView: React.FC<Props> = ({
               <TextCard
                 selectedAnswer={selectedAnswer}
                 setSelectedAnswer={setSelectedAnswer}
-                text={'oh canada'}
+                text={gameData.question.answers[0]}
               />
             </Grid.Column>
 
@@ -79,7 +85,7 @@ const GameView: React.FC<Props> = ({
               <TextCard
                 selectedAnswer={selectedAnswer}
                 setSelectedAnswer={setSelectedAnswer}
-                text={'en muista en muista en muista'}
+                text={gameData.question.answers[1]}
               />
             </Grid.Column>
 
@@ -87,7 +93,7 @@ const GameView: React.FC<Props> = ({
               <TextCard
                 selectedAnswer={selectedAnswer}
                 setSelectedAnswer={setSelectedAnswer}
-                text={'puukko_ juoksu'}
+                text={gameData.question.answers[2]}
               />
             </Grid.Column>
 
@@ -95,7 +101,7 @@ const GameView: React.FC<Props> = ({
               <TextCard
                 selectedAnswer={selectedAnswer}
                 setSelectedAnswer={setSelectedAnswer}
-                text={'eri vastaus en muista'}
+                text={gameData.question.answers[3]}
               />
             </Grid.Column>
 

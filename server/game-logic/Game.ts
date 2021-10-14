@@ -9,7 +9,7 @@ type Question = {
   correctAnswer: string;
 };
 
-type GameData = {
+export type GameData = {
   players: Player[];
   questionString: string;
   questionCount: number;
@@ -19,17 +19,27 @@ type GameData = {
 class Game {
   /** For single question */
   private currentQuestionIndex: number;
-  readonly hostNick: string;
+  hostNick: string;
   readonly roomId: string;
   players: Player[];
   questions: Question[];
 
-  constructor(roomId: string, hostNick: string) {
+  constructor(roomId: string, hostNick?: string) {
     this.currentQuestionIndex = 0;
-    this.hostNick = hostNick;
+    this.hostNick = hostNick || '';
     this.roomId = roomId;
     this.players = [];
     this.questions = [];
+  }
+
+  /**
+   * Add player to game. If host, add second parameter
+   * @param nick of player
+   * @param isHost is player host
+   */
+  addPlayer(nick: string, isHost = false): void {
+    this.players = this.players.concat({ nick: nick, points: 0 });
+    if (isHost) this.hostNick = nick;
   }
 
   /**

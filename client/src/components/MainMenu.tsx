@@ -23,6 +23,7 @@ const MainMenu: React.FC<Props> = ({
   setShowGameView
 }: Props) => {
   const initializeHostGame = (): void => {
+    console.log('moro');
     if (!nick) {
       alert('Choose nickname');
       return;

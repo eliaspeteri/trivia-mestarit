@@ -11,6 +11,9 @@ import '../styles/GameView.css';
 /** Config / Socket */
 import { socket } from '../config';
 
+/** Types */
+import { GameData } from '../../../server/game-logic/Game';
+
 interface Props {
   gameId: string;
   isHost: boolean;
@@ -25,15 +28,12 @@ const GameView: React.FC<Props> = ({
   setShowGameView
 }: Props) => {
   const [selectedAnswer, setSelectedAnswer] = useState<string>('');
+  const [gameData, setGameData] = useState<GameData>();
 
   useEffect(() => {
     socket.connect();
     socket.emit('join-game', nick, gameId, isHost);
-  }, []);
-
-  const percent = 22;
-  const question =
-    'Minkä niminen suuri suunnistuskipailu kilpaillaan Suomessa kesäisin?';
+  }, [gameId, isHost, nick]);
 
   /** Implement socket disconnect logic in the future */
   const leaveGameView = (): void => {
@@ -53,49 +53,58 @@ const GameView: React.FC<Props> = ({
         name="sign out"
         size="huge"
       />
-      <Container>
-        <Grid columns={1} className="game-view-content" container>
-          <Grid.Column>
-            <TextCard className={'question-card'} text={question} />
-          </Grid.Column>
+      {!gameData ? (
+        <Container textAlign="center">
+          <h1 style={{ color: 'white' }}>Game not started</h1>
+        </Container>
+      ) : (
+        <Container>
+          <Grid columns={1} className="game-view-content" container>
+            <Grid.Column>
+              <TextCard
+                className={'question-card'}
+                text={gameData?.questionString}
+              />
+            </Grid.Column>
 
-          <Grid.Column stretched columns={1}>
-            <TextCard
-              selectedAnswer={selectedAnswer}
-              setSelectedAnswer={setSelectedAnswer}
-              text={'oh canada'}
-            />
-          </Grid.Column>
+            <Grid.Column stretched columns={1}>
+              <TextCard
+                selectedAnswer={selectedAnswer}
+                setSelectedAnswer={setSelectedAnswer}
+                text={'oh canada'}
+              />
+            </Grid.Column>
 
-          <Grid.Column stretched columns={1}>
-            <TextCard
-              selectedAnswer={selectedAnswer}
-              setSelectedAnswer={setSelectedAnswer}
-              text={'en muista en muista en muista'}
-            />
-          </Grid.Column>
+            <Grid.Column stretched columns={1}>
+              <TextCard
+                selectedAnswer={selectedAnswer}
+                setSelectedAnswer={setSelectedAnswer}
+                text={'en muista en muista en muista'}
+              />
+            </Grid.Column>
 
-          <Grid.Column>
-            <TextCard
-              selectedAnswer={selectedAnswer}
-              setSelectedAnswer={setSelectedAnswer}
-              text={'puukko_ juoksu'}
-            />
-          </Grid.Column>
+            <Grid.Column>
+              <TextCard
+                selectedAnswer={selectedAnswer}
+                setSelectedAnswer={setSelectedAnswer}
+                text={'puukko_ juoksu'}
+              />
+            </Grid.Column>
 
-          <Grid.Column>
-            <TextCard
-              selectedAnswer={selectedAnswer}
-              setSelectedAnswer={setSelectedAnswer}
-              text={'eri vastaus en muista'}
-            />
-          </Grid.Column>
+            <Grid.Column>
+              <TextCard
+                selectedAnswer={selectedAnswer}
+                setSelectedAnswer={setSelectedAnswer}
+                text={'eri vastaus en muista'}
+              />
+            </Grid.Column>
 
-          <Grid.Column columns={1}></Grid.Column>
+            <Grid.Column columns={1}></Grid.Column>
 
-          <ProgressBar progress={percent} />
-        </Grid>
-      </Container>
+            <ProgressBar progress={22} />
+          </Grid>
+        </Container>
+      )}
     </>
   );
 };

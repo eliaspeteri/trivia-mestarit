@@ -1,7 +1,7 @@
-import Config from './utils/config';
+//import Config from './utils/config';
 import cors from 'cors';
 import express, { Application, Request, Response } from 'express';
-import mongoose from 'mongoose';
+//import mongoose from 'mongoose';
 import logger from './utils/logger';
 import { requestLogger } from './utils/middleware';
 
@@ -9,7 +9,7 @@ import questionsRouter from './routes/questions';
 import userRouter from './routes/users';
 
 const app: Application = express();
-
+/*
 mongoose
   .connect(Config.MONGODB_URI)
   .then(() => {
@@ -18,7 +18,7 @@ mongoose
   .catch((err) => {
     logger.error('Failed to connect MongoDB, message: ', err.message);
   });
-
+*/
 app.use(cors());
 app.use(express.json());
 app.use(

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 /** Components */
 import ProgressBar from './ProgressBar';
@@ -8,45 +8,44 @@ import TextCard from './TextCard';
 import { Container, Grid, Icon } from 'semantic-ui-react';
 import '../styles/GameView.css';
 
-/** Sockets */
-import socketClient, { Socket } from 'socket.io-client';
-
-const LOCALHOST = 'localhost:8080';
-const socket = socketClient(LOCALHOST, {
-  /** Can't DDoS with F5  */
-  transports: ['websocket'],
-  upgrade: false
-});
+/** Config / Socket */
+import { socket } from '../config';
 
 interface Props {
-  nickname?: string;
-  gameIdToJoin?: string;
+  gameId: string;
+  isHost: boolean;
+  nick: string;
+  setShowGameView: Dispatch<SetStateAction<boolean>>;
 }
 
-const GameView: React.FC<Props> = (props: Props) => {
+const GameView: React.FC<Props> = ({
+  gameId,
+  isHost,
+  nick,
+  setShowGameView
+}: Props) => {
   const [selectedAnswer, setSelectedAnswer] = useState<string>('');
-  const [gameId, setGameId] = useState<string>('');
+
+  useEffect(() => {
+    socket.connect();
+    socket.emit('join-game', nick, gameId, isHost);
+  }, []);
 
   const percent = 22;
   const question =
     'Minkä niminen suuri suunnistuskipailu kilpaillaan Suomessa kesäisin?';
 
-  useEffect(() => {
-    props.gameIdToJoin
-      ? socket.emit('join-game', props.gameIdToJoin)
-      : socket.emit('host-game', (response: any) => {
-          setGameId(response.gameId as string);
-        });
-  }, []);
+  /** Implement socket disconnect logic in the future */
+  const leaveGameView = (): void => {
+    setShowGameView(false);
+  };
 
   const handleExitIconClick = (): void => {
-    window.confirm('Do you want to abort game?')
-      ? console.log('yes pls')
-      : console.log('no pls');
+    window.confirm('Do you want to abort game?') && leaveGameView();
   };
 
   return (
-    <React.Fragment>
+    <>
       <Icon
         onClick={handleExitIconClick}
         bordered
@@ -55,8 +54,6 @@ const GameView: React.FC<Props> = (props: Props) => {
         size="huge"
       />
       <Container>
-        {selectedAnswer + ' salainen vastaus'}
-        <p style={{ color: 'green' }}>{gameId}</p>
         <Grid columns={1} className="game-view-content" container>
           <Grid.Column>
             <TextCard className={'question-card'} text={question} />
@@ -82,9 +79,7 @@ const GameView: React.FC<Props> = (props: Props) => {
             <TextCard
               selectedAnswer={selectedAnswer}
               setSelectedAnswer={setSelectedAnswer}
-              text={
-                'puukko  dsadasd dsdasdasdsasds asdas ds asd asdasd asd juoksu'
-              }
+              text={'puukko_ juoksu'}
             />
           </Grid.Column>
 
@@ -97,10 +92,11 @@ const GameView: React.FC<Props> = (props: Props) => {
           </Grid.Column>
 
           <Grid.Column columns={1}></Grid.Column>
+
           <ProgressBar progress={percent} />
         </Grid>
       </Container>
-    </React.Fragment>
+    </>
   );
 };
 

@@ -1,8 +1,10 @@
 import React from 'react';
 import { Dispatch, SetStateAction } from 'react';
+
+/** Types */
 import CSS from 'csstype';
 
-/** UI, Css */
+/** UI, CSS */
 import { Card } from 'semantic-ui-react';
 import '../styles/TextCard.css';
 

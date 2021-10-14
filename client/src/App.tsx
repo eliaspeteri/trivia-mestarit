@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 /** Components */
 import MainMenu from './components/MainMenu';
@@ -9,9 +9,29 @@ import 'semantic-ui-css/semantic.min.css';
 import GameView from './components/GameView';
 
 const App: React.FC = () => {
+  const [nick, setNick] = useState<string>('');
+  const [gameId, setGameId] = useState<string>('');
+  const [showGameView, setShowGameView] = useState<boolean>(false);
+  const [isHost, setIsHost] = useState<boolean>(false);
+
   return (
     <div id="app">
-      <GameView nickname={'test'} />
+      {showGameView ? (
+        <GameView
+          gameId={gameId}
+          isHost={isHost}
+          nick={nick}
+          setShowGameView={setShowGameView}
+        />
+      ) : (
+        <MainMenu
+          nick={nick}
+          setNick={setNick}
+          setShowGameView={setShowGameView}
+          setGameId={setGameId}
+          setIsHost={setIsHost}
+        />
+      )}
     </div>
   );
 };

@@ -1,3 +1,21 @@
+const mockUpQuestions: Question[] = [
+  {
+    answers: ['A', 'B', 'C', 'D'],
+    correctAnswer: 'a',
+    question: 'Question 1'
+  },
+  {
+    answers: ['1', '2', '3', '4'],
+    correctAnswer: 'a',
+    question: 'Question 2'
+  },
+  {
+    answers: ['A', 'B', 'C', 'D'],
+    correctAnswer: 'a',
+    question: 'Question 3'
+  }
+];
+
 type Player = {
   nick: string;
   points: number;
@@ -11,7 +29,7 @@ type Question = {
 
 export type GameData = {
   players: Player[];
-  questionString: string;
+  question: Question;
   questionCount: number;
   currentQuestionNumber: number;
 };
@@ -20,6 +38,7 @@ class Game {
   /** For single question */
   private currentQuestionIndex: number;
   hostNick: string;
+  private isGameRunning: boolean;
   readonly roomId: string;
   players: Player[];
   questions: Question[];
@@ -27,9 +46,10 @@ class Game {
   constructor(roomId: string, hostNick?: string) {
     this.currentQuestionIndex = 0;
     this.hostNick = hostNick || '';
+    this.isGameRunning = false;
     this.roomId = roomId;
     this.players = [];
-    this.questions = [];
+    this.questions = mockUpQuestions;
   }
 
   /**
@@ -49,7 +69,7 @@ class Game {
     return {
       currentQuestionNumber: this.currentQuestionIndex,
       players: this.players,
-      questionString: this.questions[this.currentQuestionIndex].question,
+      question: this.questions[this.currentQuestionIndex],
       questionCount: this.questions.length
     };
   }
@@ -71,13 +91,19 @@ class Game {
       player.points++;
   }
 
+  isGameActive(): boolean {
+    return this.isGameRunning;
+  }
+
   /**
    * Starts the game and showing questions.
    * Add players and questions before executing this function
-   * @param questionTime time how long one question will be displayed (seconds)
+   * @param questionTime time how long one question will be displayed (ms)
    */
   startGame(questionTime: number): void {
+    this.isGameRunning = true;
     const questionTimer = setInterval(() => {
+      console.log('question timer');
       this.currentQuestionIndex++;
 
       this.currentQuestionIndex === this.questions.length &&

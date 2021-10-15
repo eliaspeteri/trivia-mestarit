@@ -5,7 +5,7 @@ import { Dispatch, SetStateAction } from 'react';
 import CSS from 'csstype';
 
 /** UI, CSS */
-import { Card, Grid } from 'semantic-ui-react';
+import { Card } from 'semantic-ui-react';
 import '../styles/TextCard.css';
 
 interface Props {

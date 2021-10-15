@@ -7,7 +7,7 @@ import Game from '../game-logic/Game';
 
 /** Utils */
 import { v4 as uuidv4 } from 'uuid';
-import { gameIdExists, findGameByRoomId } from './utilts';
+import { gameIdExists, findGameByRoomId } from './utils';
 
 const games: Game[] = [];
 
@@ -19,10 +19,16 @@ export const setListeners = (io: SocketServer): void => {
         console.log(game.getGameData());
       }
 
+      if (game.isLastQuestion()) {
+        io.to(game.roomId).emit('game-over', game.getGameData());
+        games.splice(games.indexOf(game));
+        return;
+      }
+
       game.isGameActive() &&
         io.to(game.roomId).emit('game-data', game.getGameData());
     });
-  }, 3 * 1000);
+  }, 2 * 1000);
 
   io.on('connection', (socket: Socket) => {
     socket.on('host-game', (callback: CallableFunction) => {
@@ -41,7 +47,7 @@ export const setListeners = (io: SocketServer): void => {
       const game: Game = findGameByRoomId(games, roomId);
       socket.join(game.roomId);
       game.addPlayer(nick, isHost);
-      game.startGame(10 * 1000);
+      game.startGame(4 * 1000);
     });
   });
 };

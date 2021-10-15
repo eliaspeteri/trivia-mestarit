@@ -1,39 +1,4 @@
-const mockUpQuestions: Question[] = [
-  {
-    answers: ['A', 'B', 'C', 'D'],
-    correctAnswer: 'A',
-    question: 'Question 1'
-  },
-  {
-    answers: ['1', '2', '3', '4'],
-    correctAnswer: '1',
-    question: 'Question 2'
-  },
-  {
-    answers: ['E', 'F', 'G', 'H'],
-    correctAnswer: 'E',
-    question: 'Question 3'
-  }
-];
-
-type Player = {
-  nick: string;
-  points: number;
-};
-
-type Question = {
-  question: string;
-  answers: string[];
-  correctAnswer: string;
-};
-
-export type GameData = {
-  players: Player[];
-  question: Question;
-  questionCount: number;
-  currentQuestionNumber: number;
-};
-
+import { GameData, Player, Question } from './gametypes';
 class Game {
   /** For single question */
   private currentQuestionIndex: number;
@@ -43,13 +8,13 @@ class Game {
   players: Player[];
   questions: Question[];
 
-  constructor(roomId: string, hostNick?: string) {
+  constructor(roomId: string, questions: Question[], hostNick?: string) {
     this.currentQuestionIndex = 0;
     this.hostNick = hostNick || '';
     this.isGameRunning = false;
     this.roomId = roomId;
     this.players = [];
-    this.questions = mockUpQuestions;
+    this.questions = questions;
   }
 
   /**
@@ -67,10 +32,11 @@ class Game {
    */
   getGameData(): GameData {
     return {
-      currentQuestionNumber: this.currentQuestionIndex,
+      hostNick: this.hostNick,
+      currentQuestionIndex: this.currentQuestionIndex,
       players: this.players,
-      question: this.questions[this.currentQuestionIndex],
-      questionCount: this.questions.length
+      currentQuestion: this.questions[this.currentQuestionIndex],
+      questionsTotal: this.questions.length
     };
   }
 

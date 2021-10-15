@@ -1,13 +1,16 @@
 /** Sockets */
 import { Socket } from 'socket.io';
 import { Server as SocketServer } from 'socket.io';
-
 /** Components */
 import Game from '../game-logic/Game';
 
 /** Utils */
-import { v4 as uuidv4 } from 'uuid';
 import { gameIdExists, findGameByRoomId } from './utils';
+import logger from '../utils/logger';
+import { v4 as uuidv4 } from 'uuid';
+
+/** MockUp Data */
+import { mockUpQuestions } from '../game-logic/mockupData';
 
 const games: Game[] = [];
 
@@ -16,7 +19,7 @@ export const setListeners = (io: SocketServer): void => {
   setInterval(() => {
     games.forEach((game: Game) => {
       if (game.isGameActive()) {
-        console.log(game.getGameData());
+        logger.info(game.getGameData());
       }
 
       if (game.isLastQuestion()) {
@@ -33,7 +36,7 @@ export const setListeners = (io: SocketServer): void => {
   io.on('connection', (socket: Socket) => {
     socket.on('host-game', (callback: CallableFunction) => {
       const roomId: string = uuidv4().toString();
-      games.push(new Game(roomId));
+      games.push(new Game(roomId, mockUpQuestions));
 
       /** Returns room ID to client */
       callback({

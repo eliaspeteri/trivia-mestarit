@@ -23,7 +23,11 @@ class Game {
    * @param isHost is player host
    */
   addPlayer(nick: string, isHost = false): void {
-    this.players = this.players.concat({ nick: nick, points: 0 });
+    this.players = this.players.concat({
+      nick: nick,
+      points: 0,
+      selectedAnswer: ''
+    });
     if (isHost) this.hostNick = nick;
   }
 
@@ -66,18 +70,60 @@ class Game {
   }
 
   /**
+   * Set selected answer to player. Doesn't check
+   * is answer correct
+   * @param nick nickname of player
+   * @param answer selected answer
+   */
+  setPlayerAnswer(nick: string, answer: string): void {
+    const newValuePlayer: Player | undefined = this.players.find(
+      (player: Player) => nick === player.nick
+    );
+
+    if (!newValuePlayer) return;
+
+    newValuePlayer.selectedAnswer = answer;
+
+    this.players = this.players.map((player: Player) =>
+      newValuePlayer.nick === player.nick ? newValuePlayer : player
+    );
+  }
+
+  /**
    * Starts the game and showing questions.
    * Add players and questions before executing this function
    * @param questionTime time how long one question will be displayed (ms)
    */
   startGame(questionTime: number): void {
     this.isGameRunning = true;
+
+    this.checkAnswersInInterval(questionTime);
+
     const questionTimer = setInterval(() => {
       this.currentQuestionIndex++;
 
-      this.currentQuestionIndex === this.questions.length &&
+      this.checkAnswersInInterval(questionTime);
+
+      /** Stop game when no more questions */
+      if (this.currentQuestionIndex === this.questions.length) {
         clearInterval(questionTimer);
+        this.isGameRunning = false;
+      }
     }, questionTime);
+  }
+
+  private checkAnswersInInterval(questionTime: number): void {
+    setTimeout(() => {
+      this.checkAndUpdateAnswers();
+    }, questionTime - 1000);
+  }
+
+  private checkAndUpdateAnswers(): void {
+    this.players.forEach((player: Player) => {
+      player?.selectedAnswer ===
+        this.questions[this.currentQuestionIndex]?.correctAnswer &&
+        player.points++;
+    });
   }
 }
 

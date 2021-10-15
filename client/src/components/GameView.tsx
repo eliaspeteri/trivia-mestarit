@@ -30,16 +30,19 @@ const GameView: React.FC<Props> = ({
   const [selectedAnswer, setSelectedAnswer] = useState<string>('');
   const [gameData, setGameData] = useState<GameData>();
 
+  socket.on('game-data', (gameData: GameData) => setGameData(gameData));
+  socket.on('game-over', (gameData: GameData) => {
+    /** Implement login when game ends ( TM-71 ) */
+    setGameData(undefined);
+  });
+
   useEffect(() => {
     socket.connect();
     socket.emit('join-game', nick, gameId, isHost);
   }, [gameId, isHost, nick]);
 
-  socket.on('game-data', (gameData: GameData) => setGameData(gameData));
-
-  socket.on('game-over', (gameData: GameData) => {
-    /** Implement login when game ends ( TM-71 ) */
-    setGameData(undefined);
+  useEffect(() => {
+    socket.emit('selected-answer', selectedAnswer, gameId, nick);
   });
 
   /** Implement socket disconnect logic in the future */

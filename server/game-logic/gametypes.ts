@@ -1,6 +1,7 @@
 export type Player = {
   nick: string;
   points: number;
+  selectedAnswer: string;
 };
 
 export type Question = {

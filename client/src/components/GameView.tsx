@@ -74,37 +74,18 @@ const GameView: React.FC<Props> = ({
               />
             </Grid.Column>
 
-            <Grid.Column stretched columns={1}>
-              <TextCard
-                selectedAnswer={selectedAnswer}
-                setSelectedAnswer={setSelectedAnswer}
-                text={gameData.question.answers[0]}
-              />
-            </Grid.Column>
-
-            <Grid.Column stretched columns={1}>
-              <TextCard
-                selectedAnswer={selectedAnswer}
-                setSelectedAnswer={setSelectedAnswer}
-                text={gameData.question.answers[1]}
-              />
-            </Grid.Column>
-
-            <Grid.Column>
-              <TextCard
-                selectedAnswer={selectedAnswer}
-                setSelectedAnswer={setSelectedAnswer}
-                text={gameData.question.answers[2]}
-              />
-            </Grid.Column>
-
-            <Grid.Column>
-              <TextCard
-                selectedAnswer={selectedAnswer}
-                setSelectedAnswer={setSelectedAnswer}
-                text={gameData.question.answers[3]}
-              />
-            </Grid.Column>
+            {
+              /** Map answer cards */
+              gameData.question.answers.map((answer: string, index: number) => (
+                <Grid.Column stretched columns={1} key={index}>
+                  <TextCard
+                    selectedAnswer={selectedAnswer}
+                    setSelectedAnswer={setSelectedAnswer}
+                    text={answer}
+                  />
+                </Grid.Column>
+              ))
+            }
 
             <Grid.Column columns={1}></Grid.Column>
 

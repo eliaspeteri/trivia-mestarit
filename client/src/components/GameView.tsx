@@ -12,7 +12,7 @@ import '../styles/GameView.css';
 import { socket } from '../config';
 
 /** Types */
-import { GameData } from '../../../server/game-logic/Game';
+import { GameData } from '../../../server/game-logic/gametypes';
 
 interface Props {
   gameId: string;

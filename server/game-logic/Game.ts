@@ -1,17 +1,17 @@
 const mockUpQuestions: Question[] = [
   {
     answers: ['A', 'B', 'C', 'D'],
-    correctAnswer: 'a',
+    correctAnswer: 'A',
     question: 'Question 1'
   },
   {
     answers: ['1', '2', '3', '4'],
-    correctAnswer: 'a',
+    correctAnswer: '1',
     question: 'Question 2'
   },
   {
-    answers: ['A', 'B', 'C', 'D'],
-    correctAnswer: 'a',
+    answers: ['E', 'F', 'G', 'H'],
+    correctAnswer: 'E',
     question: 'Question 3'
   }
 ];
@@ -95,6 +95,10 @@ class Game {
     return this.isGameRunning;
   }
 
+  isLastQuestion(): boolean {
+    return this.questions.length === this.currentQuestionIndex;
+  }
+
   /**
    * Starts the game and showing questions.
    * Add players and questions before executing this function
@@ -103,7 +107,6 @@ class Game {
   startGame(questionTime: number): void {
     this.isGameRunning = true;
     const questionTimer = setInterval(() => {
-      console.log('question timer');
       this.currentQuestionIndex++;
 
       this.currentQuestionIndex === this.questions.length &&

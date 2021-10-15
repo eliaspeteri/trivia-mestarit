@@ -31,17 +31,14 @@ const GameView: React.FC<Props> = ({
   const [gameData, setGameData] = useState<GameData>();
 
   useEffect(() => {
-    console.log(`join game use effect`);
     socket.connect();
     socket.emit('join-game', nick, gameId, isHost);
   }, [gameId, isHost, nick]);
 
-  socket.on('game-data', (gameData: GameData) => {
-    console.log('game-data-client', gameData);
-    setGameData(gameData);
-  });
+  socket.on('game-data', (gameData: GameData) => setGameData(gameData));
 
   socket.on('game-over', (gameData: GameData) => {
+    /** Implement login when game ends ( TM-71 ) */
     setGameData(undefined);
   });
 

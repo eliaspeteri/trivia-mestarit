@@ -16,23 +16,16 @@ interface Props {
   gameId: string;
   nick: string;
   gameData: GameData;
-  showCorrectAnswer: boolean;
 }
 
-const Game: React.FC<Props> = ({
-  gameId,
-  nick,
-  gameData,
-  /** Flag from backend when show correct answer */
-  showCorrectAnswer
-}: Props) => {
+const Game: React.FC<Props> = ({ gameId, nick, gameData }: Props) => {
   const [selectedAnswer, setSelectedAnswer] = useState<string>('');
 
   useEffect(() => {
     socket.emit('selected-answer', selectedAnswer, gameId, nick);
   });
 
-  const mapAnswerCards = (): JSX.Element[] => {
+  const mapGameCard = (): JSX.Element[] => {
     return gameData.currentQuestion.answers.map(
       (answer: string, index: number) => (
         <Grid.Column stretched columns={1} key={index}>
@@ -40,10 +33,6 @@ const Game: React.FC<Props> = ({
             selectedAnswer={selectedAnswer}
             setSelectedAnswer={setSelectedAnswer}
             text={answer}
-            showCorrectAnswer={
-              showCorrectAnswer &&
-              answer === gameData.currentQuestion.correctAnswer
-            }
           />
         </Grid.Column>
       )
@@ -60,7 +49,7 @@ const Game: React.FC<Props> = ({
           />
         </Grid.Column>
 
-        {mapAnswerCards()}
+        {gameData && mapGameCard()}
 
         <ProgressBar progress={22} />
       </Grid>

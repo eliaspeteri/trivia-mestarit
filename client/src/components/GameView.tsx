@@ -27,8 +27,6 @@ const GameView: React.FC<Props> = ({
   setShowGameView
 }: Props) => {
   const [gameData, setGameData] = useState<GameData>();
-  /** Correct answer for API */
-  const [showCorrectAnswer, setShowCorrectAnswer] = useState<boolean>(false);
 
   socket.on('game-data', (gameData: GameData) => setGameData(gameData));
   socket.on('game-over', (gameData: GameData) => {
@@ -65,12 +63,7 @@ const GameView: React.FC<Props> = ({
           <h1 style={{ color: 'white' }}>Game not started</h1>
         </Container>
       ) : (
-        <Game
-          gameId={gameId}
-          nick={nick}
-          gameData={gameData}
-          showCorrectAnswer={gameData.showCorrectAnswer}
-        />
+        <Game gameId={gameId} nick={nick} gameData={gameData} />
       )}
     </div>
   );

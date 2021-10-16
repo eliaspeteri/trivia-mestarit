@@ -1,4 +1,5 @@
 import { GameData, Player, Question } from './gametypes';
+import { timeToAnswerQuestion } from './gameConfig';
 class Game {
   /** For single question */
   private currentQuestionIndex: number;
@@ -7,6 +8,7 @@ class Game {
   readonly roomId: string;
   players: Player[];
   questions: Question[];
+  private showCorrectAnswer: boolean;
 
   constructor(roomId: string, questions: Question[], hostNick?: string) {
     this.currentQuestionIndex = 0;
@@ -15,6 +17,7 @@ class Game {
     this.roomId = roomId;
     this.players = [];
     this.questions = questions;
+    this.showCorrectAnswer = false;
   }
 
   /**
@@ -40,7 +43,8 @@ class Game {
       currentQuestionIndex: this.currentQuestionIndex,
       players: this.players,
       currentQuestion: this.questions[this.currentQuestionIndex],
-      questionsTotal: this.questions.length
+      questionsTotal: this.questions.length,
+      showCorrectAnswer: this.showCorrectAnswer
     };
   }
 
@@ -96,13 +100,13 @@ class Game {
    */
   startGame(questionTime: number): void {
     this.isGameRunning = true;
-
-    this.checkAnswersInInterval(questionTime);
+    this.checkAnswersHelperFunction();
 
     const questionTimer = setInterval(() => {
+      this.showCorrectAnswer = false;
       this.currentQuestionIndex++;
 
-      this.checkAnswersInInterval(questionTime);
+      this.checkAnswersHelperFunction();
 
       /** Stop game when no more questions */
       if (this.currentQuestionIndex === this.questions.length) {
@@ -112,13 +116,14 @@ class Game {
     }, questionTime);
   }
 
-  private checkAnswersInInterval(questionTime: number): void {
+  private checkAnswersHelperFunction(): void {
     setTimeout(() => {
       this.checkAndUpdateAnswers();
-    }, questionTime - 1000);
+    }, timeToAnswerQuestion);
   }
 
   private checkAndUpdateAnswers(): void {
+    this.showCorrectAnswer = true;
     this.players.forEach((player: Player) => {
       player?.selectedAnswer ===
         this.questions[this.currentQuestionIndex]?.correctAnswer &&

@@ -5,15 +5,16 @@ export type Player = {
 };
 
 export type Question = {
-  question: string;
   answers: string[];
   correctAnswer: string;
+  question: string;
 };
 
 export type GameData = {
+  currentQuestion: Question;
+  currentQuestionIndex: number;
   hostNick: string;
   players: Player[];
-  currentQuestion: Question;
   questionsTotal: number;
-  currentQuestionIndex: number;
+  showCorrectAnswer: boolean;
 };

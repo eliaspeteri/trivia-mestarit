@@ -11,7 +11,7 @@ import '../styles/GameView.css';
 import { socket } from '../config';
 
 /** Types */
-import { GameData } from '../../../server/game-logic/gametypes';
+import { GameData, Player } from '../../../server/game-logic/gametypes';
 
 interface Props {
   gameId: string;
@@ -27,13 +27,11 @@ const GameView: React.FC<Props> = ({
   setShowGameView
 }: Props) => {
   const [gameData, setGameData] = useState<GameData>();
-  /** Correct answer for API */
-  const [showCorrectAnswer, setShowCorrectAnswer] = useState<boolean>(false);
 
   socket.on('game-data', (gameData: GameData) => setGameData(gameData));
-  socket.on('game-over', (gameData: GameData) => {
-    /** Implement login when game ends ( TM-71 ) */
-    setGameData(undefined);
+
+  socket.once('game-over', (playersPoints: Player[]) => {
+    console.log('game ended socket', playersPoints);
   });
 
   /** Try to connect to game on initialize render */

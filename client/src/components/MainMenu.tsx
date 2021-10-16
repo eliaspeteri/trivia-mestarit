@@ -5,7 +5,7 @@ import { Button, Container, Divider, Input } from 'semantic-ui-react';
 import '../styles/MainMenu.css';
 
 /** Config / Socket */
-import { socket } from '../config';
+import { Socket } from 'socket.io-client';
 
 interface Props {
   nick: string;
@@ -13,6 +13,7 @@ interface Props {
   setGameId: Dispatch<SetStateAction<string>>;
   setNick: Dispatch<SetStateAction<string>>;
   setShowGameView: Dispatch<SetStateAction<boolean>>;
+  socket: Socket;
 }
 
 const MainMenu: React.FC<Props> = ({
@@ -20,7 +21,8 @@ const MainMenu: React.FC<Props> = ({
   setIsHost,
   setGameId,
   setNick,
-  setShowGameView
+  setShowGameView,
+  socket
 }: Props) => {
   const initializeHostGame = (): void => {
     if (!nick) {
@@ -28,14 +30,15 @@ const MainMenu: React.FC<Props> = ({
       return;
     }
 
-    socket.connect();
+    socket && socket.connect();
     // eslint-disable-next-line
-    socket.emit('host-game', (response: any) => {
-      setGameId(response.gameId as string);
-      setIsHost(true);
-      setNick(nick);
-      setShowGameView(true);
-    });
+    socket &&
+      socket.emit('host-game', (response: any) => {
+        setGameId(response.gameId as string);
+        setIsHost(true);
+        setNick(nick);
+        setShowGameView(true);
+      });
   };
 
   return (

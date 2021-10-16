@@ -10,13 +10,14 @@ import '../../styles/GameView.css';
 
 /** Types, Confg, Socket */
 import { GameData } from '../../../../server/game-logic/gametypes';
-import { socket } from '../../config';
+import { Socket } from 'socket.io-client';
 
 interface Props {
   gameId: string;
   nick: string;
   gameData: GameData;
   showCorrectAnswer: boolean;
+  socket: Socket;
 }
 
 const Game: React.FC<Props> = ({
@@ -24,7 +25,8 @@ const Game: React.FC<Props> = ({
   nick,
   gameData,
   /** Flag from backend when show correct answer */
-  showCorrectAnswer
+  showCorrectAnswer,
+  socket
 }: Props) => {
   const [selectedAnswer, setSelectedAnswer] = useState<string>('');
 

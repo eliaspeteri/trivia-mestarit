@@ -8,7 +8,7 @@ import { Container, Icon } from 'semantic-ui-react';
 import '../styles/GameView.css';
 
 /** Socket */
-import { socket } from '../config';
+import { Socket } from 'socket.io-client';
 
 /** Types */
 import { GameData, Player } from '../../../server/game-logic/gametypes';
@@ -18,13 +18,15 @@ interface Props {
   isHost: boolean;
   nick: string;
   setShowGameView: Dispatch<SetStateAction<boolean>>;
+  socket: Socket;
 }
 
 const GameView: React.FC<Props> = ({
   gameId,
   isHost,
   nick,
-  setShowGameView
+  setShowGameView,
+  socket
 }: Props) => {
   const [gameData, setGameData] = useState<GameData>();
 
@@ -68,6 +70,7 @@ const GameView: React.FC<Props> = ({
           nick={nick}
           gameData={gameData}
           showCorrectAnswer={gameData.showCorrectAnswer}
+          socket={socket}
         />
       )}
     </div>

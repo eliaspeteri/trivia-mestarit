@@ -1,14 +1,13 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 /** Components */
-import ProgressBar from './ProgressBar';
-import TextCard from './TextCard';
+import Game from './game/Game';
 
 /** UI, CSS */
-import { Container, Grid, Icon } from 'semantic-ui-react';
+import { Container, Icon } from 'semantic-ui-react';
 import '../styles/GameView.css';
 
-/** Config / Socket */
+/** Socket */
 import { socket } from '../config';
 
 /** Types */
@@ -27,7 +26,6 @@ const GameView: React.FC<Props> = ({
   nick,
   setShowGameView
 }: Props) => {
-  const [selectedAnswer, setSelectedAnswer] = useState<string>('');
   const [gameData, setGameData] = useState<GameData>();
 
   socket.on('game-data', (gameData: GameData) => setGameData(gameData));
@@ -36,16 +34,13 @@ const GameView: React.FC<Props> = ({
     setGameData(undefined);
   });
 
+  /** Try to connect to game on initialize render */
   useEffect(() => {
     socket.connect();
     socket.emit('join-game', nick, gameId, isHost);
   }, [gameId, isHost, nick]);
 
-  useEffect(() => {
-    socket.emit('selected-answer', selectedAnswer, gameId, nick);
-  });
-
-  /** Implement socket disconnect logic in the future */
+  /** Implement socket disconnect logic in the future ( TM-71 ) */
   const leaveGameView = (): void => {
     setShowGameView(false);
   };
@@ -55,7 +50,7 @@ const GameView: React.FC<Props> = ({
   };
 
   return (
-    <>
+    <div style={{ height: '100%', width: '100%' }}>
       <Icon
         onClick={handleExitIconClick}
         bordered
@@ -64,41 +59,13 @@ const GameView: React.FC<Props> = ({
         size="huge"
       />
       {!gameData ? (
-        <Container textAlign="center">
+        <Container>
           <h1 style={{ color: 'white' }}>Game not started</h1>
         </Container>
       ) : (
-        <Container>
-          <Grid columns={1} className="game-view-content" container>
-            <Grid.Column>
-              <TextCard
-                className={'question-card'}
-                text={gameData?.currentQuestion.question}
-              />
-            </Grid.Column>
-
-            {
-              /** Map answer cards */
-              gameData.currentQuestion.answers.map(
-                (answer: string, index: number) => (
-                  <Grid.Column stretched columns={1} key={index}>
-                    <TextCard
-                      selectedAnswer={selectedAnswer}
-                      setSelectedAnswer={setSelectedAnswer}
-                      text={answer}
-                    />
-                  </Grid.Column>
-                )
-              )
-            }
-
-            <Grid.Column columns={1}></Grid.Column>
-
-            <ProgressBar progress={22} />
-          </Grid>
-        </Container>
+        <Game gameId={gameId} nick={nick} gameData={gameData} />
       )}
-    </>
+    </div>
   );
 };
 

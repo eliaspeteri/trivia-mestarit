@@ -5,14 +5,14 @@ import { Server as SocketServer } from 'socket.io';
 import Game from '../game-logic/Game';
 
 /** Utils */
-import { gameIdExists, findGameByRoomId } from './utils';
+import { gameIdExists, findGameByRoomId, updateGameArray } from './utils';
 import logger from '../utils/logger';
 import { v4 as uuidv4 } from 'uuid';
 
 /** MockUp Data */
 import { mockUpQuestions } from '../game-logic/mockupData';
 
-const games: Game[] = [];
+let games: Game[] = [];
 
 export const setListeners = (io: SocketServer): void => {
   /** Send every game's game data */
@@ -31,7 +31,7 @@ export const setListeners = (io: SocketServer): void => {
       game.isGameActive() &&
         io.to(game.roomId).emit('game-data', game.getGameData());
     });
-  }, 2 * 1000);
+  }, 1 * 1000);
 
   io.on('connection', (socket: Socket) => {
     socket.on('host-game', (callback: CallableFunction) => {
@@ -50,7 +50,18 @@ export const setListeners = (io: SocketServer): void => {
       const game: Game = findGameByRoomId(games, roomId);
       socket.join(game.roomId);
       game.addPlayer(nick, isHost);
-      game.startGame(4 * 1000);
+      game.startGame(10 * 1000);
     });
+
+    socket.on(
+      'selected-answer',
+      (answer: string, roomId: string, nick: string) => {
+        if (!gameIdExists(games, roomId)) return;
+
+        const game = findGameByRoomId(games, roomId);
+        game.setPlayerAnswer(nick, answer);
+        games = updateGameArray(games, game);
+      }
+    );
   });
 };

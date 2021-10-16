@@ -26,9 +26,11 @@ export const setListeners = (io: SocketServer): void => {
       }
 
       if (game.isLastQuestion()) {
+        console.log('########################### TAALLA');
+        game.setGameIsActive(false);
         io.to(game.roomId).emit('game-over', game.getGameData());
-        games.splice(games.indexOf(game));
-        return;
+        games = games.filter((oldGame: Game) => game.roomId !== oldGame.roomId);
+        console.log(`games`, games);
       }
 
       game.isGameActive() &&
@@ -37,6 +39,7 @@ export const setListeners = (io: SocketServer): void => {
   }, 1 * 1000);
 
   io.on('connection', (socket: Socket) => {
+    console.log('/////////////// NEW CONNECTION &&&&&&&&&&&&&&');
     socket.on('host-game', (callback: CallableFunction) => {
       const roomId: string = uuidv4().toString();
       games.push(new Game(roomId, mockUpQuestions));

@@ -6,7 +6,7 @@ import CSS from 'csstype';
 
 /** UI, CSS */
 import { Card } from 'semantic-ui-react';
-import '../styles/TextCard.css';
+import '../../styles/TextCard.css';
 
 interface Props {
   className?: string;

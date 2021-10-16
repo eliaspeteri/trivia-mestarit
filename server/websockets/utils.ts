@@ -17,3 +17,14 @@ export const findGameByRoomId = (games: Game[], roomId: string): Game =>
  */
 export const gameIdExists = (games: Game[], roomId: string): boolean =>
   games.map((game: Game) => game.roomId).includes(roomId);
+
+/**
+ * Replaces games array with updated game
+ * @param games Games array
+ * @param updatedGame updated game, which is replaced in games array
+ * @returns All games with updated game
+ */
+export const updateGameArray = (games: Game[], updatedGame: Game): Game[] =>
+  games.map((game: Game) =>
+    updatedGame.roomId === game.roomId ? updatedGame : game
+  );

@@ -16,4 +16,5 @@ export type GameData = {
   currentQuestion: Question;
   questionsTotal: number;
   currentQuestionIndex: number;
+  showCorrectAnswer: boolean;
 };

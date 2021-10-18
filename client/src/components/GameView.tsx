@@ -55,8 +55,9 @@ const GameView: React.FC<Props> = ({
   return (
     <div style={{ height: '100%', width: '100%' }}>
       <Icon
+        corner={'top right'}
+        color={'orange'}
         onClick={handleExitIconClick}
-        bordered
         className="sign-out-icon"
         name="sign out"
         size="huge"

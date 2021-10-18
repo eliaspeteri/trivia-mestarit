@@ -2,15 +2,15 @@ import React, { useEffect, useState } from 'react';
 
 /** Components */
 import ProgressBar from './ProgressBar';
-import TextCard from './TextCard';
 
 /** Css UI */
-import { Container, Grid } from 'semantic-ui-react';
+import { Container, Grid, Segment, Header } from 'semantic-ui-react';
 import '../../styles/GameView.css';
 
-/** Types, Confg, Socket */
+/** Types, Config, Socket */
 import { GameData } from '../../../../server/game-logic/gametypes';
 import { socket } from '../../config';
+import GameSegment from './GameSegment';
 
 interface Props {
   gameId: string;
@@ -29,7 +29,7 @@ const Game: React.FC<Props> = ({ gameId, nick, gameData }: Props) => {
     return gameData?.currentQuestion?.answers.map(
       (answer: string, index: number) => (
         <Grid.Column stretched columns={1} key={index}>
-          <TextCard
+          <GameSegment
             selectedAnswer={selectedAnswer}
             setSelectedAnswer={setSelectedAnswer}
             text={answer}
@@ -46,14 +46,15 @@ const Game: React.FC<Props> = ({ gameId, nick, gameData }: Props) => {
   return (
     <Container>
       <Grid columns={1} className="game-view-content" container>
-        <Grid.Column>
-          <TextCard
-            className={'question-card'}
-            text={gameData?.currentQuestion?.question || ''}
-          />
+        <Grid.Column stretched={true}>
+          <Segment className={'question-card'} size="massive">
+            <Header as={'h1'}>
+              {gameData?.currentQuestion?.question || ''}
+            </Header>
+          </Segment>
         </Grid.Column>
 
-        {gameData && mapAnswerCards()}
+        <Grid.Column>{mapAnswerCards()}</Grid.Column>
 
         <ProgressBar progress={22} />
       </Grid>

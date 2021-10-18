@@ -5,11 +5,9 @@ import { Dispatch, SetStateAction } from 'react';
 import CSS from 'csstype';
 
 /** UI, CSS */
-import { Card } from 'semantic-ui-react';
-import '../../styles/TextCard.css';
+import { Segment, Header } from 'semantic-ui-react';
 
 interface Props {
-  className?: string;
   selectedAnswer?: string;
   setSelectedAnswer?: Dispatch<SetStateAction<string>>;
   highlightCorrectAnswer?: boolean;
@@ -18,16 +16,19 @@ interface Props {
 
 const selectedStyles: CSS.Properties = {
   backgroundColor: 'orange',
-  border: 'solid 2px white'
+  border: 'solid 2px black'
 };
 
 const correctStyles: CSS.Properties = {
   backgroundColor: 'green',
-  border: 'solid 2px green'
+  border: 'solid 2px black'
 };
 
-const TextCard: React.FC<Props> = ({
-  className = 'text-card',
+const normalStyles: CSS.Properties = {
+  border: 'solid 2px black'
+};
+
+const GameSegment: React.FC<Props> = ({
   selectedAnswer,
   setSelectedAnswer,
   highlightCorrectAnswer,
@@ -35,21 +36,22 @@ const TextCard: React.FC<Props> = ({
 }: Props) => {
   const cardStyle = (): CSS.Properties => {
     if (highlightCorrectAnswer) return correctStyles;
-    else return text === selectedAnswer ? selectedStyles : {};
+    else return text === selectedAnswer ? selectedStyles : normalStyles;
   };
 
   return (
-    <Card
-      className={className}
-      fluid
+    <Segment
+      textAlign={'center'}
+      size={'large'}
+      className={'text-card'}
       style={cardStyle()}
       onClick={() => setSelectedAnswer && setSelectedAnswer(text)}
     >
-      <Card.Content>
-        <p className="card-text">{text}</p>
-      </Card.Content>
-    </Card>
+      <Header as={'h3'}>
+        <p>{text}</p>
+      </Header>
+    </Segment>
   );
 };
 
-export default TextCard;
+export default GameSegment;

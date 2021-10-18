@@ -11,5 +11,8 @@
   "eslint.workingDirectories": [
     "./client",
     "./server"
-  ]
+  ],
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }

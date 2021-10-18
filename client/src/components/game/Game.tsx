@@ -25,7 +25,7 @@ const Game: React.FC<Props> = ({ gameId, nick, gameData }: Props) => {
     socket.emit('selected-answer', selectedAnswer, gameId, nick);
   });
 
-  const mapGameCard = (): JSX.Element[] => {
+  const mapAnswerCards = (): JSX.Element[] => {
     return gameData.currentQuestion.answers.map(
       (answer: string, index: number) => (
         <Grid.Column stretched columns={1} key={index}>
@@ -33,6 +33,10 @@ const Game: React.FC<Props> = ({ gameId, nick, gameData }: Props) => {
             selectedAnswer={selectedAnswer}
             setSelectedAnswer={setSelectedAnswer}
             text={answer}
+            highlightCorrectAnswer={
+              gameData.showCorrectAnswer &&
+              answer === gameData.currentQuestion.correctAnswer
+            }
           />
         </Grid.Column>
       )
@@ -49,7 +53,7 @@ const Game: React.FC<Props> = ({ gameId, nick, gameData }: Props) => {
           />
         </Grid.Column>
 
-        {gameData && mapGameCard()}
+        {gameData && mapAnswerCards()}
 
         <ProgressBar progress={22} />
       </Grid>

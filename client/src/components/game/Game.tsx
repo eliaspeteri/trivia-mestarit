@@ -26,7 +26,7 @@ const Game: React.FC<Props> = ({ gameId, nick, gameData }: Props) => {
   });
 
   const mapAnswerCards = (): JSX.Element[] => {
-    return gameData.currentQuestion.answers.map(
+    return gameData?.currentQuestion?.answers.map(
       (answer: string, index: number) => (
         <Grid.Column stretched columns={1} key={index}>
           <TextCard
@@ -49,7 +49,7 @@ const Game: React.FC<Props> = ({ gameId, nick, gameData }: Props) => {
         <Grid.Column>
           <TextCard
             className={'question-card'}
-            text={gameData?.currentQuestion.question || ''}
+            text={gameData?.currentQuestion?.question || ''}
           />
         </Grid.Column>
 

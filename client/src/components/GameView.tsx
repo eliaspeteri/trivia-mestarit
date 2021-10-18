@@ -12,6 +12,7 @@ import { socket } from '../config';
 
 /** Types */
 import { GameData } from '../../../server/game-logic/gametypes';
+import GameOver from './game/GameOver';
 
 interface Props {
   gameId: string;
@@ -27,11 +28,12 @@ const GameView: React.FC<Props> = ({
   setShowGameView
 }: Props) => {
   const [gameData, setGameData] = useState<GameData>();
+  const [showGameOver, setShowGameOver] = useState<boolean>(false);
 
   socket.on('game-data', (gameData: GameData) => setGameData(gameData));
-  socket.on('game-over', (gameData: GameData) => {
-    /** Implement login when game ends ( TM-71 ) */
-    setGameData(undefined);
+  socket.once('game-over', (gameData: GameData) => {
+    setGameData(gameData);
+    setShowGameOver(true);
   });
 
   /** Try to connect to game on initialize render */
@@ -42,6 +44,7 @@ const GameView: React.FC<Props> = ({
 
   /** Implement socket disconnect logic in the future ( TM-71 ) */
   const leaveGameView = (): void => {
+    socket.disconnect();
     setShowGameView(false);
   };
 
@@ -58,7 +61,11 @@ const GameView: React.FC<Props> = ({
         name="sign out"
         size="huge"
       />
-      {!gameData ? (
+
+      {showGameOver ? (
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        <GameOver players={gameData!.players} />
+      ) : !gameData ? (
         <Container>
           <h1 style={{ color: 'white' }}>Game not started</h1>
         </Container>

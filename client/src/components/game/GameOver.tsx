@@ -23,6 +23,7 @@ const GameOver: React.FC<Props> = ({ players }: Props) => {
   return (
     <Container>
       <h1 style={{ color: 'white' }}>Players and their score:</h1>
+
       <Grid container style={containerStyles}>
         <ul style={{ color: 'white', padding: '1em', marginLeft: '1em' }}>
           {players.map((player: Player, index: number) => (

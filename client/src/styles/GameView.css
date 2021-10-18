@@ -1,4 +1,4 @@
-.game-view-content {
+ .game-view-content {
     background-color: black;
     position:relative;
     border: 3px solid white; 
@@ -9,10 +9,9 @@
 }
 
 .sign-out-icon {
-    float: right;
-    justify-content: end;
     color: orange;
-    border: 1px solid white;    
+    border: 1px solid white;   
+     
 }
 
 i.icon {

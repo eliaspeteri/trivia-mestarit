@@ -12,6 +12,9 @@ import { v4 as uuidv4 } from 'uuid';
 /** MockUp Data */
 import { mockUpQuestions } from '../game-logic/mockupData';
 
+/** Game config */
+import { totalTimeEachQuestion } from '../game-logic/gameConfig';
+
 let games: Game[] = [];
 
 export const setListeners = (io: SocketServer): void => {
@@ -50,7 +53,7 @@ export const setListeners = (io: SocketServer): void => {
       const game: Game = findGameByRoomId(games, roomId);
       socket.join(game.roomId);
       game.addPlayer(nick, isHost);
-      game.startGame(10 * 1000);
+      game.startGame(totalTimeEachQuestion);
     });
 
     socket.on(

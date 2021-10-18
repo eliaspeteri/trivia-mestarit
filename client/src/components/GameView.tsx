@@ -70,13 +70,7 @@ const GameView: React.FC<Props> = ({
           <h1 style={{ color: 'white' }}>Game not started</h1>
         </Container>
       ) : (
-        <Game
-          gameId={gameId}
-          nick={nick}
-          gameData={gameData as GameData}
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          showCorrectAnswer={gameData!.showCorrectAnswer}
-        />
+        <Game gameId={gameId} nick={nick} gameData={gameData} />
       )}
     </div>
   );

@@ -12,7 +12,6 @@ interface Props {
   className?: string;
   selectedAnswer?: string;
   setSelectedAnswer?: Dispatch<SetStateAction<string>>;
-  showCorrectAnswer?: boolean;
   text: string;
 }
 
@@ -21,28 +20,17 @@ const selectedStyles: CSS.Properties = {
   border: 'solid 2px white'
 };
 
-const correctStyles: CSS.Properties = {
-  backgroundColor: 'green',
-  border: 'solid 2px green'
-};
-
 const TextCard: React.FC<Props> = ({
   className = 'text-card',
   selectedAnswer,
   setSelectedAnswer,
-  showCorrectAnswer,
   text
 }: Props) => {
-  const cardStyle = (): CSS.Properties => {
-    if (showCorrectAnswer) return correctStyles;
-    else return text === selectedAnswer ? selectedStyles : {};
-  };
-
   return (
     <Card
       className={className}
       fluid
-      style={cardStyle()}
+      style={text === selectedAnswer ? selectedStyles : {}}
       onClick={() => setSelectedAnswer && setSelectedAnswer(text)}
     >
       <Card.Content>

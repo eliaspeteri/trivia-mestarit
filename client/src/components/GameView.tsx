@@ -8,32 +8,32 @@ import { Container, Icon } from 'semantic-ui-react';
 import '../styles/GameView.css';
 
 /** Socket */
-import { Socket } from 'socket.io-client';
+import { socket } from '../config';
 
 /** Types */
-import { GameData, Player } from '../../../server/game-logic/gametypes';
+import { GameData } from '../../../server/game-logic/gametypes';
+import GameOver from './game/GameOver';
 
 interface Props {
   gameId: string;
   isHost: boolean;
   nick: string;
   setShowGameView: Dispatch<SetStateAction<boolean>>;
-  socket: Socket;
 }
 
 const GameView: React.FC<Props> = ({
   gameId,
   isHost,
   nick,
-  setShowGameView,
-  socket
+  setShowGameView
 }: Props) => {
   const [gameData, setGameData] = useState<GameData>();
+  const [showGameOver, setShowGameOver] = useState<boolean>(false);
 
   socket.on('game-data', (gameData: GameData) => setGameData(gameData));
-
-  socket.once('game-over', (playersPoints: Player[]) => {
-    console.log('game ended socket', playersPoints);
+  socket.once('game-over', (gameData: GameData) => {
+    setGameData(gameData);
+    setShowGameOver(true);
   });
 
   /** Try to connect to game on initialize render */
@@ -44,6 +44,7 @@ const GameView: React.FC<Props> = ({
 
   /** Implement socket disconnect logic in the future ( TM-71 ) */
   const leaveGameView = (): void => {
+    socket.disconnect();
     setShowGameView(false);
   };
 
@@ -60,7 +61,11 @@ const GameView: React.FC<Props> = ({
         name="sign out"
         size="huge"
       />
-      {!gameData ? (
+
+      {showGameOver ? (
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        <GameOver players={gameData!.players} />
+      ) : !gameData ? (
         <Container>
           <h1 style={{ color: 'white' }}>Game not started</h1>
         </Container>
@@ -68,9 +73,9 @@ const GameView: React.FC<Props> = ({
         <Game
           gameId={gameId}
           nick={nick}
-          gameData={gameData}
-          showCorrectAnswer={gameData.showCorrectAnswer}
-          socket={socket}
+          gameData={gameData as GameData}
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          showCorrectAnswer={gameData!.showCorrectAnswer}
         />
       )}
     </div>

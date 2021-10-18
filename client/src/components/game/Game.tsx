@@ -33,6 +33,10 @@ const Game: React.FC<Props> = ({ gameId, nick, gameData }: Props) => {
             selectedAnswer={selectedAnswer}
             setSelectedAnswer={setSelectedAnswer}
             text={answer}
+            highlightCorrectAnswer={
+              gameData.showCorrectAnswer &&
+              answer === gameData.currentQuestion.correctAnswer
+            }
           />
         </Grid.Column>
       )

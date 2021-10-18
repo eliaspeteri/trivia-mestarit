@@ -48,10 +48,6 @@ class Game {
     };
   }
 
-  getEndResult(): Player[] {
-    return this.players;
-  }
-
   /**
    * Check answer. If its correct,
    * one point will be added to player
@@ -114,7 +110,6 @@ class Game {
 
       /** Stop game when no more questions */
       if (this.currentQuestionIndex === this.questions.length) {
-        console.log('iterval STOOOP');
         clearInterval(questionTimer);
         this.isGameRunning = false;
       }
@@ -134,10 +129,6 @@ class Game {
         this.questions[this.currentQuestionIndex]?.correctAnswer &&
         player.points++;
     });
-  }
-
-  setGameIsActive(active: boolean) {
-    this.isGameRunning = active;
   }
 }
 

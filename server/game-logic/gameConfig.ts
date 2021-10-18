@@ -5,7 +5,7 @@
  * is correct question showed
  * Give time in ms
  */
-export const totalTimeEachQuestion: number = 3 * 1000;
+export const totalTimeEachQuestion: number = 4 * 1000;
 
 /**
  * Time how long correct answer is showed

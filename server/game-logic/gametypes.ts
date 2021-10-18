@@ -1,7 +1,7 @@
 export type Player = {
   nick: string;
   points: number;
-  selectedAnswer?: string;
+  selectedAnswer: string;
 };
 
 export type Question = {

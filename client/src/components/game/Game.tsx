@@ -10,14 +10,13 @@ import '../../styles/GameView.css';
 
 /** Types, Confg, Socket */
 import { GameData } from '../../../../server/game-logic/gametypes';
-import { Socket } from 'socket.io-client';
+import { socket } from '../../config';
 
 interface Props {
   gameId: string;
   nick: string;
   gameData: GameData;
   showCorrectAnswer: boolean;
-  socket: Socket;
 }
 
 const Game: React.FC<Props> = ({
@@ -25,8 +24,7 @@ const Game: React.FC<Props> = ({
   nick,
   gameData,
   /** Flag from backend when show correct answer */
-  showCorrectAnswer,
-  socket
+  showCorrectAnswer
 }: Props) => {
   const [selectedAnswer, setSelectedAnswer] = useState<string>('');
 
@@ -35,7 +33,7 @@ const Game: React.FC<Props> = ({
   });
 
   const mapAnswerCards = (): JSX.Element[] => {
-    return gameData.currentQuestion.answers.map(
+    return gameData?.currentQuestion?.answers.map(
       (answer: string, index: number) => (
         <Grid.Column stretched columns={1} key={index}>
           <TextCard
@@ -58,7 +56,7 @@ const Game: React.FC<Props> = ({
         <Grid.Column>
           <TextCard
             className={'question-card'}
-            text={gameData?.currentQuestion.question || ''}
+            text={gameData?.currentQuestion?.question || ''}
           />
         </Grid.Column>
 

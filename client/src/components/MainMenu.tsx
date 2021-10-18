@@ -1,11 +1,11 @@
-import React, { Dispatch, SetStateAction, useEffect } from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 
 /** CSS, UI */
 import { Button, Container, Divider, Input } from 'semantic-ui-react';
 import '../styles/MainMenu.css';
 
 /** Config / Socket */
-import { Socket } from 'socket.io-client';
+import { socket } from '../config';
 
 interface Props {
   nick: string;
@@ -13,7 +13,6 @@ interface Props {
   setGameId: Dispatch<SetStateAction<string>>;
   setNick: Dispatch<SetStateAction<string>>;
   setShowGameView: Dispatch<SetStateAction<boolean>>;
-  socket: Socket;
 }
 
 const MainMenu: React.FC<Props> = ({
@@ -21,8 +20,7 @@ const MainMenu: React.FC<Props> = ({
   setIsHost,
   setGameId,
   setNick,
-  setShowGameView,
-  socket
+  setShowGameView
 }: Props) => {
   const initializeHostGame = (): void => {
     if (!nick) {
@@ -30,15 +28,14 @@ const MainMenu: React.FC<Props> = ({
       return;
     }
 
-    socket && socket.connect();
+    socket.connect();
     // eslint-disable-next-line
-    socket &&
-      socket.emit('host-game', (response: any) => {
-        setGameId(response.gameId as string);
-        setIsHost(true);
-        setNick(nick);
-        setShowGameView(true);
-      });
+    socket.emit('host-game', (response: any) => {
+      setGameId(response.gameId as string);
+      setIsHost(true);
+      setNick(nick);
+      setShowGameView(true);
+    });
   };
 
   return (

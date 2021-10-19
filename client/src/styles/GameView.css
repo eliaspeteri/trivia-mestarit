@@ -1,32 +1,18 @@
 .game-view-content {
-    background-color: black;
-    position:relative;
-    border: 3px solid white; 
-    top: 5em;
-    text-align: center; 
-    justify-content: center;
-    margin: 5em;
-}
-
-.sign-out-icon {
-    float: right;
-    justify-content: end;
-    color: orange;
-    border: 1px solid white;    
+  background-color: black;
+  text-align: center;
+  border: 3px solid white;
+  position: relative;
+  top: 5em;
+  justify-content: center;
+  margin: 5em;
 }
 
 i.icon {
-    margin-right: 1.25em;
-    margin-top: 0.25em;
+  margin-top: 0.25em;
 }
 
 .sign-out-icon:hover {
-    cursor: pointer;
-    color: whitesmoke;
-}
-
-i.bordered.icon {
-    padding: 0 !important;
-    width: 0;
-    height: 0;
+  cursor: pointer;
+  color: whitesmoke;
 }

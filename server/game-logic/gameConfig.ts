@@ -5,10 +5,10 @@
  * is correct question showed
  * Give time in ms
  */
-export const totalTimeEachQuestion: number = 80 * 1000;
+export const totalTimeEachQuestion: number = 60 * 1000;
 
 /**
  * Time how long correct answer is showed
  * Give time in ms
  */
-export const timeToAnswerQuestion: number = 5 * 1000;
+export const timeToAnswerQuestion: number = 50 * 1000;

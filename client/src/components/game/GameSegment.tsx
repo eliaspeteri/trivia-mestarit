@@ -7,13 +7,6 @@ import CSS from 'csstype';
 /** UI, CSS */
 import { Segment, Header } from 'semantic-ui-react';
 
-interface Props {
-  selectedAnswer?: string;
-  setSelectedAnswer?: Dispatch<SetStateAction<string>>;
-  highlightCorrectAnswer?: boolean;
-  text: string;
-}
-
 const selectedStyles: CSS.Properties = {
   backgroundColor: 'orange',
   border: 'solid 2px black'
@@ -27,6 +20,13 @@ const correctStyles: CSS.Properties = {
 const normalStyles: CSS.Properties = {
   border: 'solid 2px black'
 };
+
+interface Props {
+  selectedAnswer?: string;
+  setSelectedAnswer?: Dispatch<SetStateAction<string>>;
+  highlightCorrectAnswer?: boolean;
+  text: string;
+}
 
 const GameSegment: React.FC<Props> = ({
   selectedAnswer,

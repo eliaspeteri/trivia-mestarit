@@ -34,6 +34,7 @@ const Game: React.FC<Props> = ({ gameId, nick, gameData }: Props) => {
             setSelectedAnswer={setSelectedAnswer}
             text={answer}
             highlightCorrectAnswer={
+              /** Highlight correct answer */
               gameData.showCorrectAnswer &&
               answer === gameData.currentQuestion.correctAnswer
             }
@@ -47,7 +48,8 @@ const Game: React.FC<Props> = ({ gameId, nick, gameData }: Props) => {
     <Container>
       <Grid columns={1} className="game-view-content" container>
         <Grid.Column stretched={true}>
-          <Segment className={'question-card'} size="massive">
+          {/** Question Segment */}
+          <Segment className={'question-card'} size="massive" circular>
             <Header as={'h1'}>
               {gameData?.currentQuestion?.question || ''}
             </Header>

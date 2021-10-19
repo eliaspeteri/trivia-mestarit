@@ -42,7 +42,6 @@ const GameView: React.FC<Props> = ({
     socket.emit('join-game', nick, gameId, isHost);
   }, [gameId, isHost, nick]);
 
-  /** Implement socket disconnect logic in the future ( TM-71 ) */
   const leaveGameView = (): void => {
     socket.disconnect();
     setShowGameView(false);
@@ -55,7 +54,6 @@ const GameView: React.FC<Props> = ({
   return (
     <div style={{ height: '100%', width: '100%' }}>
       <Icon
-        corner={'top right'}
         color={'orange'}
         onClick={handleExitIconClick}
         className="sign-out-icon"

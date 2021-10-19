@@ -1,87 +1,77 @@
-import React, { useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 /** Components */
-import ProgressBar from './ProgressBar';
-import TextCard from './TextCard';
+import Game from './game/Game';
 
 /** UI, CSS */
-import { Container, Grid, Icon } from 'semantic-ui-react';
+import { Container, Icon } from 'semantic-ui-react';
 import '../styles/GameView.css';
 
-const GameView: React.FC = () => {
-  const [selectedAnswer, setSelectedAnswer] = useState<string>('');
-  const progress = 50; 
-  const timeleft = 50;
-  const question =
-    'Minkä niminen suuri suunnistuskipailu kilpaillaan Suomessa kesäisin?';
+/** Socket */
+import { socket } from '../config';
+
+/** Types */
+import { GameData } from '../../../server/game-logic/gametypes';
+import GameOver from './game/GameOver';
+
+interface Props {
+  gameId: string;
+  isHost: boolean;
+  nick: string;
+  setShowGameView: Dispatch<SetStateAction<boolean>>;
+}
+
+const GameView: React.FC<Props> = ({
+  gameId,
+  isHost,
+  nick,
+  setShowGameView
+}: Props) => {
+  const [gameData, setGameData] = useState<GameData>();
+  const [showGameOver, setShowGameOver] = useState<boolean>(false);
+
+  socket.on('game-data', (gameData: GameData) => setGameData(gameData));
+  socket.once('game-over', (gameData: GameData) => {
+    setGameData(gameData);
+    setShowGameOver(true);
+  });
+
+  /** Try to connect to game on initialize render */
+  useEffect(() => {
+    socket.connect();
+    socket.emit('join-game', nick, gameId, isHost);
+  }, [gameId, isHost, nick]);
+
+  const leaveGameView = (): void => {
+    socket.disconnect();
+    setShowGameView(false);
+  };
 
   const handleExitIconClick = (): void => {
-    window.confirm('Do you want to abort game?')
-      ? console.log('yes pls')
-      : console.log('no pls');
+    window.confirm('Do you want to abort game?') && leaveGameView();
   };
 
   return (
-    <React.Fragment>
+    <div style={{ height: '100%', width: '100%' }}>
       <Icon
+        color={'orange'}
         onClick={handleExitIconClick}
-        bordered
         className="sign-out-icon"
         name="sign out"
         size="huge"
       />
-      <Container>
-        {selectedAnswer + ' salainen vastaus'}
-        <Grid columns={1} className="game-view-content" container>
-          <Grid.Column>
-            <TextCard className={'question-card'} text={question} />
-          </Grid.Column>
 
-          <Grid.Column stretched columns={1}>
-            <TextCard
-              selectedAnswer={selectedAnswer}
-              setSelectedAnswer={setSelectedAnswer}
-              text={'oh canada'}
-            />
-          </Grid.Column>
-
-          <Grid.Column stretched columns={1}>
-            <TextCard
-              selectedAnswer={selectedAnswer}
-              setSelectedAnswer={setSelectedAnswer}
-              text={'en muista en muista en muista'}
-            />
-          </Grid.Column>
-
-          <Grid.Column>
-            <TextCard
-              selectedAnswer={selectedAnswer}
-              setSelectedAnswer={setSelectedAnswer}
-              text={
-                'puukko  dsadasd dsdasdasdsasds asdas ds asd asdasd asd juoksu'
-              }
-            />
-          </Grid.Column>
-
-          <Grid.Column>
-            <TextCard
-              selectedAnswer={selectedAnswer}
-              setSelectedAnswer={setSelectedAnswer}
-              text={'eri vastaus en muista'}
-            />
-          </Grid.Column>
-
-
-         <Grid.Row centered columns={1}>
-           <Grid.Column>
-             <ProgressBar progress={progress}
-               timeleft={timeleft} />
-            </Grid.Column>
-          </Grid.Row>
-
-        </Grid>
-      </Container>
-    </React.Fragment>
+      {showGameOver ? (
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        <GameOver players={gameData!.players} />
+      ) : !gameData ? (
+        <Container>
+          <h1 style={{ color: 'white' }}>Game not started</h1>
+        </Container>
+      ) : (
+        <Game gameId={gameId} nick={nick} gameData={gameData} />
+      )}
+    </div>
   );
 };
 

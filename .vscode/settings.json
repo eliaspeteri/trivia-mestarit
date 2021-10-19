@@ -4,14 +4,15 @@
   "eslint.enable": true,
   "eslint.alwaysShowStatus": true,
   "eslint.autoFixOnSave": true,
-  "eslint.validate": [
-    "javascript",
-    "typescript"
-  ],
+  "eslint.validate": ["javascript", "typescript"],
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
-  "cSpell.words": [
-    "MAPVIEW"
-  ]
+  "eslint.workingDirectories": [
+    "./client",
+    "./server"
+  ],
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }

@@ -4,7 +4,7 @@ import React from 'react';
 import { Container, Grid } from 'semantic-ui-react';
 
 /** Types */
-import { Player } from '../../../../server/game-logic/gametypes';
+import { Player } from 'game-common';
 import CSS from 'csstype';
 
 interface Props {

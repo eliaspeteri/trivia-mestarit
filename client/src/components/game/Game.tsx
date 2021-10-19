@@ -8,7 +8,7 @@ import { Container, Grid, Header, Segment } from 'semantic-ui-react';
 import '../../styles/GameView.css';
 
 /** Types, Config, Socket */
-import { GameData } from '../../../../server/game-logic/gametypes';
+import { GameData } from 'game-common';
 import { socket } from '../../config';
 import GameSegment from './GameSegment';
 

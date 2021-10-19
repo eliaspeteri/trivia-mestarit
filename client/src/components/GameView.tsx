@@ -11,7 +11,7 @@ import '../styles/GameView.css';
 import { socket } from '../config';
 
 /** Types */
-import { GameData } from '../../../server/game-logic/gametypes';
+import { GameData } from 'game-common';
 import GameOver from './game/GameOver';
 
 interface Props {

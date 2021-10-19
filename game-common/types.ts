@@ -1,3 +1,4 @@
+/* Server game-logic types */
 export type Player = {
   nick: string;
   points: number;

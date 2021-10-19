@@ -1,0 +1,4 @@
+.prettierrc
+build
+public
+node_modules

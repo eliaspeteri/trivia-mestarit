@@ -1,0 +1,26 @@
+.menu-header {
+  color: white;
+}
+
+.main-menu-content {
+  padding: 3em;
+  display: flex;
+  align-items: center;
+  background-color: black;
+  position: relative;
+  border: 3px solid white;
+  top: 30%;
+}
+
+.button {
+  padding: 0.9em 2.3em;
+  width: 300px;
+  margin: 0.6em 0;
+  cursor: pointer;
+  font-size: 1.5em;
+  letter-spacing: 0.04em;
+}
+
+#choose-name-button {
+  width: 400px;
+}

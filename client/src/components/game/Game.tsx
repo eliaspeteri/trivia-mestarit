@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import ProgressBar from './ProgressBar';
 
 /** Css UI */
-import { Container, Grid, Segment, Header } from 'semantic-ui-react';
+import { Container, Grid, Header, Segment } from 'semantic-ui-react';
 import '../../styles/GameView.css';
 
 /** Types, Config, Socket */
@@ -57,8 +57,9 @@ const Game: React.FC<Props> = ({ gameId, nick, gameData }: Props) => {
         </Grid.Column>
 
         <Grid.Column>{mapAnswerCards()}</Grid.Column>
-
-        <ProgressBar progress={22} />
+        <Grid.Column>
+          <ProgressBar progress={22} />
+        </Grid.Column>
       </Grid>
     </Container>
   );

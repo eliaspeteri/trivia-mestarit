@@ -9,6 +9,7 @@ class Game {
   players: Player[];
   questions: Question[];
   private showCorrectAnswer: boolean;
+  timeLeftToAnswer: number;
 
   constructor(roomId: string, questions: Question[], hostNick?: string) {
     this.currentQuestionIndex = 0;
@@ -18,6 +19,7 @@ class Game {
     this.players = [];
     this.questions = questions;
     this.showCorrectAnswer = false;
+    this.timeLeftToAnswer = 0;
   }
 
   /**
@@ -44,7 +46,8 @@ class Game {
       players: this.players,
       currentQuestion: this.questions[this.currentQuestionIndex],
       questionsTotal: this.questions.length,
-      showCorrectAnswer: this.showCorrectAnswer
+      showCorrectAnswer: this.showCorrectAnswer,
+      timeLeftToAnswer: this.timeLeftToAnswer
     };
   }
 
@@ -117,6 +120,13 @@ class Game {
   }
 
   private checkAnswersHelperFunction(): void {
+    this.timeLeftToAnswer = timeToAnswerQuestion;
+
+    const timeLeftTimer = setInterval(() => {
+      this.timeLeftToAnswer = this.timeLeftToAnswer - 1000;
+      if (this.timeLeftToAnswer < 1000) clearInterval(timeLeftTimer);
+    }, 1000);
+
     setTimeout(() => {
       this.checkAndUpdateAnswers();
     }, timeToAnswerQuestion);

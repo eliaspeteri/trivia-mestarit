@@ -1,16 +1,20 @@
 import React from 'react';
 
+import { Progress } from 'semantic-ui-react';
+
 interface Props {
   progress: number;
 }
 
 const ProgressBar: React.FC<Props> = ({ progress }: Props) => {
   return (
-    <div>
-      <h1 style={{ color: 'white' }}>
-        Very cool and funny progressbar br... {`${progress} `} %
-      </h1>
-    </div>
+    <Progress
+      color={'orange'}
+      size={'large'}
+      value={34}
+      total={50}
+      style={{ border: '2px white solid' }}
+    ></Progress>
   );
 };
 

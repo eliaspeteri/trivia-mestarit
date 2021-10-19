@@ -10,7 +10,6 @@ interface Props {
 /** 50000 value correspond const on server/game-logic/config --> timeToAnswerQuestion */
 
 const ProgressBar: React.FC<Props> = ({ progress }: Props) => {
-  console.log(`progress`, progress);
   return (
     <Progress
       autoSuccess

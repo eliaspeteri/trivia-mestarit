@@ -1,4 +1,4 @@
-import { GameData, Player, Question } from './gametypes';
+import { GameData, Player, Question } from 'game-common';
 import { timeToAnswerQuestion } from './gameConfig';
 class Game {
   /** For single question */

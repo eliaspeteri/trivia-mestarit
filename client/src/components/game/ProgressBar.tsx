@@ -1,22 +1,21 @@
-import React from 'react'
+import React from 'react';
 
-
-
+import { Progress } from 'semantic-ui-react';
 
 interface Props {
   progress: number;
-  timeleft: number;
 }
 
-const ProgressBar: React.FC<Props> = ({ progress, timeleft }: Props) => {
+const ProgressBar: React.FC<Props> = ({ progress }: Props) => {
   return (
-        <div className='ui progress'>
-            <div className='bar' style={{width: `${progress}%`}}>
-           <div className='progress progress-text'>{timeleft} Seconds Left</div>
-          </div>
-          </div>
+    <Progress
+      color={'orange'}
+      size={'large'}
+      value={34}
+      total={50}
+      style={{ border: '2px white solid' }}
+    ></Progress>
   );
-}; 
+};
 
-export default ProgressBar; 
- 
+export default ProgressBar;

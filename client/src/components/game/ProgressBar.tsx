@@ -1,16 +1,14 @@
 import React from 'react';
 
-/** CSS */
+/** CSS, UI */
 import { Progress } from 'semantic-ui-react';
 
-/** Const */
+/** Const(s) */
 import { timeToAnswerQuestion } from 'game-common';
 
 interface Props {
   progress: number;
 }
-
-/** 50000 value correspond const on server/game-logic/config --> timeToAnswerQuestion */
 
 const ProgressBar: React.FC<Props> = ({ progress }: Props) => {
   return (

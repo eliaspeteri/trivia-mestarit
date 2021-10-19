@@ -1,8 +1,6 @@
 # Enviroment variables
 .env
 
-dist
-
 # Logs
 logs
 *.log

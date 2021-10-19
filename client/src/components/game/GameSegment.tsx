@@ -7,6 +7,8 @@ import CSS from 'csstype';
 /** UI, CSS */
 import { Segment, Header } from 'semantic-ui-react';
 
+import { timeToAnswerQuestion } from 'game-common';
+
 const selectedStyles: CSS.Properties = {
   backgroundColor: 'orange',
   border: 'solid 2px black'

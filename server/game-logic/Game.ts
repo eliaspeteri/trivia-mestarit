@@ -1,5 +1,4 @@
-import { GameData, Player, Question } from './gametypes';
-import { timeToAnswerQuestion } from './gameConfig';
+import { GameData, Player, Question, timeToAnswerQuestion } from 'game-common';
 class Game {
   /** For single question */
   private currentQuestionIndex: number;

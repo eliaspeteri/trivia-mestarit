@@ -3,6 +3,9 @@ import React from 'react';
 /** CSS */
 import { Progress } from 'semantic-ui-react';
 
+/** Const */
+import { timeToAnswerQuestion } from 'game-common';
+
 interface Props {
   progress: number;
 }
@@ -15,8 +18,8 @@ const ProgressBar: React.FC<Props> = ({ progress }: Props) => {
       autoSuccess
       color={'orange'}
       size={'large'}
-      value={progress === 0 ? 50000 : progress}
-      total={50000}
+      value={progress === 0 ? timeToAnswerQuestion : progress}
+      total={timeToAnswerQuestion}
       style={{ border: '2px white solid' }}
     ></Progress>
   );

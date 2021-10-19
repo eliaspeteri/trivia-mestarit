@@ -1,0 +1,12 @@
+image: node:16.9.0
+
+pipelines:
+  branches:
+    develop:
+        - step:
+           script:
+             - cd client
+             - npm i
+             # Tests
+             # Warnings do not prevent a successful build
+             - CI=false npm run build

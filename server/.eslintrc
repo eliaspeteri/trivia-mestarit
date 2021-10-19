@@ -1,37 +1,18 @@
 {
-  "env": {
-    "es2020": true,
-    "node": true
-},
-  "root": true,
-  "parser": "@typescript-eslint/parser",
-  "extends": [
-    "prettier",
-    "eslint:recommended",
-    "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended"
-  ],
-  "plugins": [
-    "prettier",
-    "@typescript-eslint"
-  ],
-  "rules": {
-    
-    "prettier/prettier": ["error", { 
-      "endOfLine": "auto", 
-      "printWidth": 100,  
-      "semi": true,
-      "trailingComma": "none",
-      "singleQuote": true,
-      "tabWidth": 2,
-      "arrowParens": "always",
-      "bracketSpacing": true  }],
-    "no-console": 1       
-  },
-  "parserOptions": {
-    "ecmaVersion": 2018,
-    "sourceType": "module",
-    "project": "./tsconfig.ts"
+    "root": true,
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+      "@typescript-eslint",
+      "prettier"
+    ],
+    "extends": [
+      "eslint:recommended",
+      "plugin:@typescript-eslint/eslint-recommended",
+      "plugin:@typescript-eslint/recommended",
+      "plugin:prettier/recommended"
+    ],
+    "rules": {
+      "no-console":"warn",
+      "prettier/prettier":"error"
+    }
   }
-
-}

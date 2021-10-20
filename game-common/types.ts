@@ -18,4 +18,5 @@ export type GameData = {
   questionsTotal: number;
   currentQuestionIndex: number;
   showCorrectAnswer: boolean;
+  timeLeftToAnswer: number;
 };

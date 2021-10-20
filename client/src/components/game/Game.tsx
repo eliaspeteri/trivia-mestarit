@@ -58,7 +58,7 @@ const Game: React.FC<Props> = ({ gameId, nick, gameData }: Props) => {
 
         <Grid.Column>{mapAnswerCards()}</Grid.Column>
         <Grid.Column>
-          <ProgressBar progress={22} />
+          <ProgressBar progress={gameData.timeLeftToAnswer} />
         </Grid.Column>
       </Grid>
     </Container>

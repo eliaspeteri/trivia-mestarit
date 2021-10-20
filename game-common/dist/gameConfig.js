@@ -8,9 +8,9 @@ exports.timeToAnswerQuestion = exports.totalTimeEachQuestion = void 0;
  * is correct question showed
  * Give time in ms
  */
-exports.totalTimeEachQuestion = 80 * 1000;
+exports.totalTimeEachQuestion = 45 * 1000;
 /**
  * Time how long correct answer is showed
  * Give time in ms
  */
-exports.timeToAnswerQuestion = 5 * 1000;
+exports.timeToAnswerQuestion = 40 * 1000;

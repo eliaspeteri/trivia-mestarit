@@ -19,6 +19,8 @@ mongoose
     logger.error('Failed to connect MongoDB, message: ', err.message);
   });
 
+app.use(express.static('build'));
+
 app.use(cors());
 app.use(express.json());
 app.use(

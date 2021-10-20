@@ -1,6 +1,7 @@
 import socketClient from 'socket.io-client'
 
-export const LOCALHOST = 'localhost:8080';
+/** In package.json proxy -> localhost:8080 */
+export const LOCALHOST = '';
 export const socket = socketClient(LOCALHOST, {
   /** Can't DDoS with F5  */
   transports: ['websocket'],

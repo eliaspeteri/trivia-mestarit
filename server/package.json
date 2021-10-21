@@ -3,12 +3,17 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.ts",
+  "engines": { "node": "12.19.0" },
   "scripts": {
-    "start": "cross-env NODE_ENV=production tsc && node dist/index.js",
+    "start": "cross-env NODE_ENV=production node dist/index.js",
+    "postinstall": "tsc",
     "dev": "cross-env NODE_ENV=development ts-node-dev ./index.ts",
     "test": "cross-env NODE_ENV=test echo \"Error: no test specified\" && exit 1",
     "lint": "eslint ./*.ts",
-    "format": "eslint ./*.ts --fix"
+    "format": "eslint ./*.ts --fix",
+    "build:front": "rm -rf build/ && cd .. && cd client/ && npm run build && cp -r build ../server/",
+    "deploy": "git add . && git commit -m Heroku && git push heroku master",
+    "deploy:full": "npm run build:front && npm run deploy"
   },
   "author": "",
   "license": "ISC",
@@ -22,7 +27,7 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.24.2",
     "eslint-plugin-prettier": "^4.0.0",
-    "game-common": "../game-common",
+    "game-common": "./game-common",
     "prettier": "^2.3.2",
     "ts-node-dev": "^1.1.8",
     "tslint-config-prettier": "^1.18.0",

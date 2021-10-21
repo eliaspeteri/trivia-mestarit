@@ -1,14 +1,14 @@
 /**
  * Time how long one questions total last
  * (including showing correct answer)
- * For example: This variable 60 s, timeEachAnswersShowed 50 s --> 10 s
+ * For example: This variable 60 s, timeToAnswerQuestion 50 s --> 10 s
  * is correct question showed
- * Give time in ms
+ * Time in ms
  */
-export const totalTimeEachQuestion: number = 45 * 1000;
+export const totalTimeEachQuestion: number = 20 * 1000;
 
 /**
- * Time how long correct answer is showed
- * Give time in ms
+ * Time how much user has time to answer
+ * Time in ms
  */
-export const timeToAnswerQuestion: number = 40 * 1000;
+export const timeToAnswerQuestion: number = 15 * 1000;

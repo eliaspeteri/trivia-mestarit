@@ -13,7 +13,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { mockUpQuestions } from '../game-logic/mockupData';
 
 /** Game config */
-import { totalTimeEachQuestion } from 'game-common';
+import { totalTimeEachQuestion } from '../game-common/index';
 
 let games: Game[] = [];
 

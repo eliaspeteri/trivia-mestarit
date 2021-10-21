@@ -22,9 +22,9 @@ import { mockUpQuestions } from '../game-logic/mockupData';
 /** Game config */
 import { totalTimeEachQuestion } from '../game-common/index';
 
-let games: Game[] = [];
-
 export const setListeners = (io: SocketServer): void => {
+  let games: Game[] = [];
+
   /** Send every game's game data */
   setInterval(() => {
     games.forEach((game: Game) => {

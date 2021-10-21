@@ -8,7 +8,7 @@ import CSS from 'csstype';
 import { Segment, Header } from 'semantic-ui-react';
 
 const selectedStyles: CSS.Properties = {
-  backgroundColor: 'orange',
+  backgroundColor: '#f2711c',
   border: 'solid 2px black'
 };
 

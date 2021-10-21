@@ -4,7 +4,7 @@ import React from 'react';
 import { Container, Grid } from 'semantic-ui-react';
 
 /** Types */
-import { Player } from '../../../../server/game-logic/gametypes';
+import { Player } from 'game-common';
 import CSS from 'csstype';
 
 interface Props {
@@ -23,6 +23,7 @@ const GameOver: React.FC<Props> = ({ players }: Props) => {
   return (
     <Container>
       <h1 style={{ color: 'white' }}>Players and their score:</h1>
+
       <Grid container style={containerStyles}>
         <ul style={{ color: 'white', padding: '1em', marginLeft: '1em' }}>
           {players.map((player: Player, index: number) => (

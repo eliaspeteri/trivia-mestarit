@@ -1,12 +1,19 @@
 image: node:16.9.0
 
+clone:
+  depth: full
 pipelines:
   branches:
-    develop:
-        - step:
-           script:
-             - cd client
-             - npm i
-             # Tests
-             # Warnings do not prevent a successful build
-             - CI=false npm run build
+    master:
+      - step:
+          caches:
+            - node
+          script:
+            # This gets executed when merging a PR to master branch
+            - cd server
+            - npm run deploy:full
+            - git add -A
+            - git config --global user.email "bobDaBuilder@example.com"
+            - git config --global user.name "Bob"
+            - git commit -m "production build"
+            - git push -f https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master

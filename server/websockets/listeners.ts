@@ -1,11 +1,18 @@
 /** Sockets */
-import { Socket } from 'socket.io';
 import { Server as SocketServer } from 'socket.io';
+import { Socket } from 'socket.io';
+
 /** Components */
 import Game from '../game-logic/Game';
 
 /** Utils */
-import { gameIdExists, findGameByRoomId, updateGameArray } from './utils';
+import {
+  addGame,
+  findGameByRoomId,
+  gameIdExists,
+  updateGame,
+  removeGame
+} from './utils';
 import logger from '../utils/logger';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -27,7 +34,7 @@ export const setListeners = (io: SocketServer): void => {
 
       if (game.isLastQuestion()) {
         io.to(game.roomId).emit('game-over', game.getGameData());
-        games.splice(games.indexOf(game));
+        games = removeGame(games, game.roomId);
         return;
       }
 
@@ -39,8 +46,7 @@ export const setListeners = (io: SocketServer): void => {
   io.on('connection', (socket: Socket) => {
     socket.on('host-game', (callback: CallableFunction) => {
       const roomId: string = uuidv4().toString();
-      games.push(new Game(roomId, mockUpQuestions));
-
+      games = addGame(games, new Game(roomId, mockUpQuestions));
       /** Returns room ID to client */
       callback({
         gameId: roomId
@@ -63,7 +69,7 @@ export const setListeners = (io: SocketServer): void => {
 
         const game = findGameByRoomId(games, roomId);
         game.setPlayerAnswer(nick, answer);
-        games = updateGameArray(games, game);
+        games = updateGame(games, game);
       }
     );
   });

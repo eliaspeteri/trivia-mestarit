@@ -11,6 +11,10 @@ pipelines:
           script:
             # This gets executed when merging a PR to master branch
             - cd server
+            - cd game-common
+            - npm i
+            - tsc
+            - cd ..
             - npm run deploy:full
             - git add -A
             - git config --global user.email "bobDaBuilder@example.com"

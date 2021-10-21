@@ -13,7 +13,7 @@ pipelines:
             - cd server
             - cd game-common
             - npm i
-            - tsc
+            - npm run compile
             - cd ..
             - npm run deploy:full
             - git add -A

@@ -13,7 +13,7 @@
     "test": "cross-env NODE_ENV=test echo \"Error: no test specified\" && exit 1",
     "lint": "eslint ./*.ts",
     "format": "eslint ./*.ts --fix",
-    "build:front": "rm -rf build/ && cd .. && cd client/ && npm run build && cp -r build ../server/",
+    "build:front": "rm -rf build/ && cd .. && cd client/ && npm i && npm run build && cp -r build ../server/",
     "deploy": "git add . && git commit -m Heroku && git push heroku master",
     "deploy:full": "npm run build:front && npm run deploy"
   },

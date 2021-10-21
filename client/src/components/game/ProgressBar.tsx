@@ -1,16 +1,28 @@
 import React from 'react';
 
+/** CSS, UI */
+import BootStrapProgress from 'react-bootstrap/ProgressBar';
+
+/** Const(s) */
+import { timeToAnswerQuestion } from 'game-common';
+
 interface Props {
+  /** Time left to answer in ms */
   progress: number;
 }
 
 const ProgressBar: React.FC<Props> = ({ progress }: Props) => {
   return (
-    <div>
-      <h1 style={{ color: 'white' }}>
-        Very cool and funny progressbar br... {`${progress} `} %
-      </h1>
-    </div>
+    <BootStrapProgress
+      animated
+      /** Looks smoother when correct answer
+       *  doesn't pop immediately after progress
+       *  reach zero
+       */
+      max={timeToAnswerQuestion}
+      min={1 * 1000}
+      now={progress}
+    />
   );
 };
 

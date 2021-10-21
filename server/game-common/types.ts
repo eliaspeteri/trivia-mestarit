@@ -1,3 +1,4 @@
+/* Server game-logic types */
 export type Player = {
   nick: string;
   points: number;
@@ -17,4 +18,5 @@ export type GameData = {
   questionsTotal: number;
   currentQuestionIndex: number;
   showCorrectAnswer: boolean;
+  timeLeftToAnswer: number;
 };

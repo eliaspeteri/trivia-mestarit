@@ -15,7 +15,7 @@ pipelines:
             - npm i
             - npm run compile
             - cd ..
-            - npm run deploy:full
+            - npm run build:front
             - git add -A
             - git config --global user.email "bobDaBuilder@example.com"
             - git config --global user.name "Bob"

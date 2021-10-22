@@ -16,8 +16,4 @@ pipelines:
             - npm run compile
             - cd ..
             - npm run build:front
-            - git add -A
-            - git config --global user.email "bobDaBuilder@example.com"
-            - git config --global user.name "Bob"
-            - git commit -m "production build"
             - git push -f https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master

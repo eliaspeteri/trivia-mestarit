@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 /** Components */
 import ProgressBar from './ProgressBar';
+import QuestionIndicator from './QuestionIndicator';
 
 /** Css UI */
 import { Container, Grid, Header, Segment } from 'semantic-ui-react';
@@ -47,6 +48,13 @@ const Game: React.FC<Props> = ({ gameId, nick, gameData }: Props) => {
   return (
     <Container>
       <Grid columns={1} className="game-view-content" container>
+        <Grid.Column>
+          <QuestionIndicator
+            currentQuestion={gameData.currentQuestionIndex}
+            questionTotal={gameData.questionsTotal}
+          />
+        </Grid.Column>
+
         <Grid.Column stretched={true}>
           {/** Question Segment */}
           <Segment className={'question-card'} size="massive" circular>

@@ -11,12 +11,10 @@ interface Props {
 const QuestionIndicator: React.FC<Props> = ({
   currentQuestion,
   questionTotal
-}: Props) => {
-  return (
-    <Label color={'orange'} size={'huge'}>
-      {`Question ${currentQuestion + 1} of ${questionTotal}`}
-    </Label>
-  );
-};
+}: Props) => (
+  <Label color={'orange'} size={'huge'}>
+    {`Question ${currentQuestion + 1} of ${questionTotal}`}
+  </Label>
+);
 
 export default QuestionIndicator;

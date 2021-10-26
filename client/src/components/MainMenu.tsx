@@ -40,22 +40,25 @@ const MainMenu: React.FC<Props> = ({
 
   return (
     <Container textAlign="center" fluid={false} className="main-menu-content">
-      <p style={{ color: 'whitesmoke' }}>{nick}</p>
       <h1 className="menu-header">MAIN MENU</h1>
-      <Button size="massive" className="button" onClick={initializeHostGame}>
-        HOST
-      </Button>
+
+      <Button
+        className="button"
+        content={'HOST'}
+        size={'massive'}
+        onClick={initializeHostGame}
+      />
       <Divider />
-      <Button size="massive" className="button">
-        JOIN
-      </Button>
+
+      <Button className="button" content={'JOIN'} disabled size={'massive'} />
+
       <Divider />
       <Input
         focus
-        placeholder="Username"
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           setNick(e.target.value)
         }
+        placeholder="Username"
       />
     </Container>
   );

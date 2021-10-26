@@ -8,7 +8,7 @@ Client
 &nbsp;
  
 ```
-cd server/game-common/ && npm run compile && cd .. && cd client/ && npm i && npm start
+cd server/game-common/ && npm run compile && cd .. && cd .. && cd client/ && npm i && npm start
 ```
 - - -
 Server

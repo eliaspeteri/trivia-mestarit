@@ -48,17 +48,19 @@ const MainMenu: React.FC<Props> = ({
         size={'massive'}
         onClick={initializeHostGame}
       />
+
       <Divider />
 
       <Button className="button" content={'JOIN'} disabled size={'massive'} />
 
       <Divider />
+
       <Input
         focus
+        placeholder="Username"
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           setNick(e.target.value)
         }
-        placeholder="Username"
       />
     </Container>
   );

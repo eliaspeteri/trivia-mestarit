@@ -47,6 +47,7 @@ const Game: React.FC<Props> = ({ gameId, nick, gameData }: Props) => {
 
   return (
     <Container>
+      <h1 style={{ color: 'white' }}>{gameId}</h1>
       <Grid columns={1} className="game-view-content" container>
         <Grid.Column>
           <QuestionIndicator

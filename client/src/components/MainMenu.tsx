@@ -59,6 +59,7 @@ const MainMenu: React.FC<Props> = ({
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           setNick(e.target.value)
         }
+        value={nick}
       />
     </Container>
   );

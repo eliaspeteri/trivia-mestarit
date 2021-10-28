@@ -37,19 +37,44 @@ const MainMenu: React.FC<Props> = ({
     });
   };
 
+  const joinHostedGame = (): void => {
+    if (!nick) {
+      alert('Choose nickname');
+      return;
+    }
+
+    setIsHost(false);
+    setNick(nick);
+  };
+
   return (
     <Container textAlign="center" fluid={false} className="main-menu-content">
       <h1 className="menu-header">MAIN MENU</h1>
       <Button
         className="button"
-        content={'HOST'}
+        content={'JOIN'}
         size={'massive'}
-        onClick={initializeHostGame}
+        onClick={joinHostedGame}
       />
       <Divider />
 
-      <Link to="/">
-        <Button className="button" content={'JOIN'} disabled size={'massive'} />
+      <Input
+        focus
+        placeholder={'Game ID'}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          setGameId(e.target.value)
+        }
+      />
+
+      <Divider />
+
+      <Link to="/game">
+        <Button
+          className="button"
+          content={'HOST'}
+          size={'massive'}
+          onClick={initializeHostGame}
+        />
       </Link>
       <Divider />
 

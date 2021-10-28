@@ -53,13 +53,23 @@ export const setListeners = (io: SocketServer): void => {
       });
     });
 
-    socket.on('join-game', (nick: string, roomId: string, isHost = false) => {
-      if (!gameIdExists(games, roomId)) return;
+    socket.on(
+      'join-game',
+      (nick: string, roomId: string, isHost, callback: CallableFunction) => {
+        if (!gameIdExists(games, roomId)) {
+          callback({ error: true, message: 'No Game with ID' });
+          return;
+        }
 
-      const game: Game = findGameByRoomId(games, roomId);
-      socket.join(game.roomId);
-      game.addPlayer(nick, isHost);
-      game.startGame(totalTimeEachQuestion);
+        const game: Game = findGameByRoomId(games, roomId);
+        socket.join(game.roomId);
+        game.addPlayer(nick, isHost);
+      }
+    );
+
+    socket.on('start-game', (gameId: string) => {
+      gameIdExists(games, gameId) &&
+        findGameByRoomId(games, gameId).startGame(totalTimeEachQuestion);
     });
 
     socket.on(

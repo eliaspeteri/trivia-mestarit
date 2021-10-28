@@ -4,7 +4,7 @@ import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import Game from './game/Game';
 
 /** UI, CSS */
-import { Container, Icon } from 'semantic-ui-react';
+import { Button, Container, Icon } from 'semantic-ui-react';
 import '../styles/GameView.css';
 
 /** Socket */
@@ -30,25 +30,31 @@ const GameView: React.FC<Props> = ({
   const [gameData, setGameData] = useState<GameData>();
   const [showGameOver, setShowGameOver] = useState<boolean>(false);
 
+  /** Try to connect to game on initialize render */
+  useEffect(() => {
+    socket.connect();
+    // eslint-disable-next-line
+    socket.emit('join-game', nick, gameId, isHost, (response: any) => {
+      /** Alert if no game found with ID */
+      response.error && alert(response.message);
+    });
+  }, [gameId, isHost, nick]);
+
   socket.on('game-data', (gameData: GameData) => setGameData(gameData));
   socket.once('game-over', (gameData: GameData) => {
     setGameData(gameData);
     setShowGameOver(true);
   });
 
-  /** Try to connect to game on initialize render */
-  useEffect(() => {
-    socket.connect();
-    socket.emit('join-game', nick, gameId, isHost);
-  }, [gameId, isHost, nick]);
-
-  const leaveGameView = (): void => {
-    socket.disconnect();
-    setShowGameView(false);
+  const handleStartGame = (): void => {
+    socket.emit('start-game', gameId);
   };
 
   const handleExitIconClick = (): void => {
-    window.confirm('Do you want to abort game?') && leaveGameView();
+    if (window.confirm('Do you want to abort game?')) {
+      socket.disconnect();
+      setShowGameView(false);
+    }
   };
 
   return (
@@ -67,6 +73,8 @@ const GameView: React.FC<Props> = ({
       ) : !gameData ? (
         <Container>
           <h1 style={{ color: 'white' }}>Game not started</h1>
+          <h1 style={{ color: 'white' }}>{`Game ID: ${gameId}`}</h1>
+          {isHost && <Button content={'START'} onClick={handleStartGame} />}
         </Container>
       ) : (
         <Game gameId={gameId} nick={nick} gameData={gameData} />

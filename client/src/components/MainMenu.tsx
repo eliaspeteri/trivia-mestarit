@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 /** CSS, UI */
 import { Button, Container, Divider, Input } from 'semantic-ui-react';
 import '../styles/MainMenu.css';
@@ -26,6 +26,7 @@ const MainMenu: React.FC<Props> = ({
       alert('Choose nickname');
       return;
     }
+    history.push('/game');
 
     socket.connect();
     // eslint-disable-next-line
@@ -33,7 +34,6 @@ const MainMenu: React.FC<Props> = ({
       setGameId(response.gameId as string);
       setIsHost(true);
       setNick(nick);
-      history.push('/game');
     });
   };
 
@@ -42,7 +42,7 @@ const MainMenu: React.FC<Props> = ({
       alert('Choose nickname');
       return;
     }
-
+    history.push('/game');
     setIsHost(false);
     setNick(nick);
   };
@@ -68,14 +68,13 @@ const MainMenu: React.FC<Props> = ({
 
       <Divider />
 
-      <Link to="/game">
-        <Button
-          className="button"
-          content={'HOST'}
-          size={'massive'}
-          onClick={initializeHostGame}
-        />
-      </Link>
+      <Button
+        className="button"
+        content={'HOST'}
+        size={'massive'}
+        onClick={initializeHostGame}
+      />
+
       <Divider />
 
       <Input

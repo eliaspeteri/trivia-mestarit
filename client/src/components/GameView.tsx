@@ -1,4 +1,5 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 /** Components */
 import Game from './game/Game';
@@ -18,17 +19,13 @@ interface Props {
   gameId: string;
   isHost: boolean;
   nick: string;
-  setShowGameView: Dispatch<SetStateAction<boolean>>;
 }
 
-const GameView: React.FC<Props> = ({
-  gameId,
-  isHost,
-  nick,
-  setShowGameView
-}: Props) => {
+const GameView: React.FC<Props> = ({ gameId, isHost, nick }: Props) => {
   const [gameData, setGameData] = useState<GameData>();
   const [showGameOver, setShowGameOver] = useState<boolean>(false);
+
+  const history = useHistory();
 
   socket.on('game-data', (gameData: GameData) => setGameData(gameData));
   socket.once('game-over', (gameData: GameData) => {
@@ -44,7 +41,8 @@ const GameView: React.FC<Props> = ({
 
   const leaveGameView = (): void => {
     socket.disconnect();
-    setShowGameView(false);
+    // setShowGameView(false);
+    history.push('/');
   };
 
   const handleExitIconClick = (): void => {

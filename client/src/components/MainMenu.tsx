@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction } from 'react';
-
+import { Link, useHistory } from 'react-router-dom';
 /** CSS, UI */
 import { Button, Container, Divider, Input } from 'semantic-ui-react';
 import '../styles/MainMenu.css';
@@ -12,16 +12,15 @@ interface Props {
   setIsHost: Dispatch<SetStateAction<boolean>>;
   setGameId: Dispatch<SetStateAction<string>>;
   setNick: Dispatch<SetStateAction<string>>;
-  setShowGameView: Dispatch<SetStateAction<boolean>>;
 }
 
 const MainMenu: React.FC<Props> = ({
   nick,
   setIsHost,
   setGameId,
-  setNick,
-  setShowGameView
+  setNick
 }: Props) => {
+  const history = useHistory();
   const initializeHostGame = (): void => {
     if (!nick) {
       alert('Choose nickname');
@@ -34,25 +33,24 @@ const MainMenu: React.FC<Props> = ({
       setGameId(response.gameId as string);
       setIsHost(true);
       setNick(nick);
-      setShowGameView(true);
+      history.push('/game');
     });
   };
 
   return (
     <Container textAlign="center" fluid={false} className="main-menu-content">
       <h1 className="menu-header">MAIN MENU</h1>
-
       <Button
         className="button"
         content={'HOST'}
         size={'massive'}
         onClick={initializeHostGame}
       />
-
       <Divider />
 
-      <Button className="button" content={'JOIN'} disabled size={'massive'} />
-
+      <Link to="/">
+        <Button className="button" content={'JOIN'} disabled size={'massive'} />
+      </Link>
       <Divider />
 
       <Input

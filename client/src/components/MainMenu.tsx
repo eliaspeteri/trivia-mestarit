@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction } from 'react';
-
+import { useHistory } from 'react-router-dom';
 /** CSS, UI */
 import { Button, Container, Divider, Input } from 'semantic-ui-react';
 import '../styles/MainMenu.css';
@@ -12,21 +12,21 @@ interface Props {
   setIsHost: Dispatch<SetStateAction<boolean>>;
   setGameId: Dispatch<SetStateAction<string>>;
   setNick: Dispatch<SetStateAction<string>>;
-  setShowGameView: Dispatch<SetStateAction<boolean>>;
 }
 
 const MainMenu: React.FC<Props> = ({
   nick,
   setIsHost,
   setGameId,
-  setNick,
-  setShowGameView
+  setNick
 }: Props) => {
+  const history = useHistory();
   const initializeHostGame = (): void => {
     if (!nick) {
       alert('Choose nickname');
       return;
     }
+    history.push('/game');
 
     socket.connect();
     // eslint-disable-next-line
@@ -34,7 +34,6 @@ const MainMenu: React.FC<Props> = ({
       setGameId(response.gameId as string);
       setIsHost(true);
       setNick(nick);
-      setShowGameView(true);
     });
   };
 
@@ -43,8 +42,7 @@ const MainMenu: React.FC<Props> = ({
       alert('Choose nickname');
       return;
     }
-
-    setShowGameView(true);
+    history.push('/game');
     setIsHost(false);
     setNick(nick);
   };
@@ -52,14 +50,12 @@ const MainMenu: React.FC<Props> = ({
   return (
     <Container textAlign="center" fluid={false} className="main-menu-content">
       <h1 className="menu-header">MAIN MENU</h1>
-
       <Button
         className="button"
         content={'JOIN'}
         size={'massive'}
         onClick={joinHostedGame}
       />
-
       <Divider />
 
       <Input
@@ -87,6 +83,7 @@ const MainMenu: React.FC<Props> = ({
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           setNick(e.target.value)
         }
+        value={nick}
       />
     </Container>
   );

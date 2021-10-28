@@ -1,4 +1,5 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 /** Components */
 import Game from './game/Game';
@@ -18,18 +19,13 @@ interface Props {
   gameId: string;
   isHost: boolean;
   nick: string;
-  setShowGameView: Dispatch<SetStateAction<boolean>>;
 }
 
-const GameView: React.FC<Props> = ({
-  gameId,
-  isHost,
-  nick,
-  setShowGameView
-}: Props) => {
+const GameView: React.FC<Props> = ({ gameId, isHost, nick }: Props) => {
   const [gameData, setGameData] = useState<GameData>();
   const [showGameOver, setShowGameOver] = useState<boolean>(false);
 
+  const history = useHistory();
   /** Try to connect to game on initialize render */
   useEffect(() => {
     socket.connect();
@@ -53,7 +49,7 @@ const GameView: React.FC<Props> = ({
   const handleExitIconClick = (): void => {
     if (window.confirm('Do you want to abort game?')) {
       socket.disconnect();
-      setShowGameView(false);
+      history.push('/');
     }
   };
 

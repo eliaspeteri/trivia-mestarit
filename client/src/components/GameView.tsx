@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import Game from './game/Game';
 
 /** UI, CSS */
-import { Container, Icon } from 'semantic-ui-react';
+import { Button, Container, Icon } from 'semantic-ui-react';
 import '../styles/GameView.css';
 
 /** Socket */
@@ -26,6 +26,15 @@ const GameView: React.FC<Props> = ({ gameId, isHost, nick }: Props) => {
   const [showGameOver, setShowGameOver] = useState<boolean>(false);
 
   const history = useHistory();
+  /** Try to connect to game on initialize render */
+  useEffect(() => {
+    socket.connect();
+    // eslint-disable-next-line
+    socket.emit('join-game', nick, gameId, isHost, (response: any) => {
+      /** Alert if no game found with ID */
+      response.error && alert(response.message);
+    });
+  }, [gameId, isHost, nick]);
 
   socket.on('game-data', (gameData: GameData) => setGameData(gameData));
   socket.once('game-over', (gameData: GameData) => {
@@ -33,20 +42,15 @@ const GameView: React.FC<Props> = ({ gameId, isHost, nick }: Props) => {
     setShowGameOver(true);
   });
 
-  /** Try to connect to game on initialize render */
-  useEffect(() => {
-    socket.connect();
-    socket.emit('join-game', nick, gameId, isHost);
-  }, [gameId, isHost, nick]);
-
-  const leaveGameView = (): void => {
-    socket.disconnect();
-    // setShowGameView(false);
-    history.push('/');
+  const handleStartGame = (): void => {
+    socket.emit('start-game', gameId);
   };
 
   const handleExitIconClick = (): void => {
-    window.confirm('Do you want to abort game?') && leaveGameView();
+    if (window.confirm('Do you want to abort game?')) {
+      socket.disconnect();
+      history.push('/');
+    }
   };
 
   return (
@@ -65,6 +69,8 @@ const GameView: React.FC<Props> = ({ gameId, isHost, nick }: Props) => {
       ) : !gameData ? (
         <Container>
           <h1 style={{ color: 'white' }}>Game not started</h1>
+          <h1 style={{ color: 'white' }}>{`Game ID: ${gameId}`}</h1>
+          {isHost && <Button content={'START'} onClick={handleStartGame} />}
         </Container>
       ) : (
         <Game gameId={gameId} nick={nick} gameData={gameData} />

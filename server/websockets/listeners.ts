@@ -43,6 +43,8 @@ export const setListeners = (io: SocketServer): void => {
   }, 1 * 1000);
 
   io.on('connection', (socket: Socket) => {
+    logger.info(`Socket ID connected: ${socket.id}`);
+
     socket.on('host-game', (callback: CallableFunction) => {
       const roomId: string = uuidv4().toString();
       games = addGame(games, new Game(roomId, mockUpQuestions));

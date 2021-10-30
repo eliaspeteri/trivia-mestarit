@@ -1,2 +1,2 @@
 export { Player, Question, GameData } from './types';
-export { totalTimeEachQuestion, timeToAnswerQuestion } from './gameConfig';
+export { TOTAL_TIME_PER_QUESTION, TIME_TO_ANSWER_QUESTION } from './gameConfig';

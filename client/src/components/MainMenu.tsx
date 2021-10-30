@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, useEffect, SetStateAction } from 'react';
 import { useHistory } from 'react-router-dom';
 /** CSS, UI */
 import { Button, Container, Divider, Input } from 'semantic-ui-react';
@@ -21,19 +21,19 @@ const MainMenu: React.FC<Props> = ({
   setNick
 }: Props) => {
   const history = useHistory();
+
   const initializeHostGame = (): void => {
     if (!nick) {
       alert('Choose nickname');
       return;
     }
-    history.push('/game');
 
-    socket.connect();
     // eslint-disable-next-line
     socket.emit('host-game', (response: any) => {
       setGameId(response.gameId as string);
       setIsHost(true);
       setNick(nick);
+      history.push('/game');
     });
   };
 
@@ -48,7 +48,7 @@ const MainMenu: React.FC<Props> = ({
   };
 
   return (
-    <Container textAlign="center" fluid={false} className="main-menu-content">
+    <Container className="main-menu-content" fluid={false} textAlign="center">
       <h1 className="menu-header">MAIN MENU</h1>
       <Button
         className="button"
@@ -56,6 +56,7 @@ const MainMenu: React.FC<Props> = ({
         size={'massive'}
         onClick={joinHostedGame}
       />
+
       <Divider />
 
       <Input
@@ -80,10 +81,10 @@ const MainMenu: React.FC<Props> = ({
       <Input
         focus
         placeholder="Username"
+        value={nick}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           setNick(e.target.value)
         }
-        value={nick}
       />
     </Container>
   );

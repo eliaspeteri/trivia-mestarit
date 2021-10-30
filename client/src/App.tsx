@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 /** Components */
@@ -10,10 +10,20 @@ import 'semantic-ui-css/semantic.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import GameView from './components/GameView';
 
+/** Socket */
+import { socket } from './config';
+
 const App: React.FC = () => {
   const [nick, setNick] = useState<string>('');
   const [gameId, setGameId] = useState<string>('');
   const [isHost, setIsHost] = useState<boolean>(false);
+
+  useEffect(() => {
+    socket.connect();
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
 
   return (
     <div id="app">

@@ -26,10 +26,9 @@ const GameView: React.FC<Props> = ({ gameId, isHost, nick }: Props) => {
   const [showGameOver, setShowGameOver] = useState<boolean>(false);
 
   const history = useHistory();
+
   /** Try to connect to game on initialize render */
   useEffect(() => {
-    socket.connect();
-    // eslint-disable-next-line
     socket.emit('join-game', nick, gameId, isHost, (response: any) => {
       /** Alert if no game found with ID */
       response.error && alert(response.message);
@@ -48,7 +47,6 @@ const GameView: React.FC<Props> = ({ gameId, isHost, nick }: Props) => {
 
   const handleExitIconClick = (): void => {
     if (window.confirm('Do you want to abort game?')) {
-      socket.disconnect();
       history.push('/');
     }
   };

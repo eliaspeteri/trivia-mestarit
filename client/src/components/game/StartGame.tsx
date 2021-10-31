@@ -2,6 +2,7 @@ import React from 'react';
 
 /** CSS, UI */
 import { Button, Container } from 'semantic-ui-react';
+import '../../styles/StartGame.css';
 
 interface Props {
   gameId: string;
@@ -20,11 +21,18 @@ const StartGame: React.FC<Props> = ({
   };
 
   return (
-    <Container>
-      <h1 style={{ color: 'white' }}>Waiting for the game to begin</h1>
-      <h1 style={{ color: 'white' }}>{`Game ID: ${gameId}`}</h1>
-      <Button content={'Copy ID'} onClick={copyIdClicked} />
-      {isHost && <Button content={'START'} onClick={handleStartGame} />}
+    <Container className={'start-game-container'}>
+      <div className={'text-container'}>
+        <p className={'waiting-text'}>Waiting for the game to begin</p>
+        <p className={'game-id-text'}>{gameId}</p>
+      </div>
+
+      <div className={'buttons-row'}>
+        {isHost && (
+          <Button content={'START'} size={'big'} onClick={handleStartGame} />
+        )}
+        <Button content={'Copy ID'} size={'big'} onClick={copyIdClicked} />
+      </div>
     </Container>
   );
 };

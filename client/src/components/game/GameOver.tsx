@@ -1,7 +1,7 @@
 import React from 'react';
 
 /** CSS, UI */
-import { Container, Grid } from 'semantic-ui-react';
+import { Container, Grid, List } from 'semantic-ui-react';
 
 /** Types */
 import { Player } from 'game-common';
@@ -25,13 +25,24 @@ const GameOver: React.FC<Props> = ({ players }: Props) => {
       <h1 style={{ color: 'white' }}>Players and their score:</h1>
 
       <Grid container style={containerStyles}>
-        <ul style={{ color: 'white', padding: '1em', marginLeft: '1em' }}>
+        <List
+          divided
+          inverted
+          ordered
+          size={'huge'}
+          style={{ padding: '1em', marginLeft: '1em' }}
+        >
           {players.map((player: Player, index: number) => (
-            <li key={index}>
-              <p>{`Name: ${player.nick}, Points: ${player.points}`}</p>
-            </li>
+            <List.Item
+              key={index}
+              value={player.points.toString()}
+              style={{ color: '#f2711c' }}
+            >
+              <List.Header>{player.nick}</List.Header>
+              {player.points}
+            </List.Item>
           ))}
-        </ul>
+        </List>
       </Grid>
     </Container>
   );

@@ -4,7 +4,7 @@ import React from 'react';
 import BootStrapProgress from 'react-bootstrap/ProgressBar';
 
 /** Const(s) */
-import { timeToAnswerQuestion } from 'game-common';
+import { TIME_TO_ANSWER_QUESTION } from 'game-common';
 
 interface Props {
   /** Time left to answer in ms */
@@ -19,7 +19,7 @@ const ProgressBar: React.FC<Props> = ({ progress }: Props) => {
        *  doesn't pop immediately after progress
        *  reach zero
        */
-      max={timeToAnswerQuestion}
+      max={TIME_TO_ANSWER_QUESTION}
       min={1 * 1000}
       now={progress}
     />

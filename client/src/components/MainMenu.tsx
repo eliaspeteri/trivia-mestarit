@@ -1,5 +1,5 @@
-import React, { Dispatch, SetStateAction } from 'react';
-
+import React, { Dispatch, useEffect, SetStateAction } from 'react';
+import { useHistory } from 'react-router-dom';
 /** CSS, UI */
 import { Button, Container, Divider, Input } from 'semantic-ui-react';
 import '../styles/MainMenu.css';
@@ -12,47 +12,76 @@ interface Props {
   setIsHost: Dispatch<SetStateAction<boolean>>;
   setGameId: Dispatch<SetStateAction<string>>;
   setNick: Dispatch<SetStateAction<string>>;
-  setShowGameView: Dispatch<SetStateAction<boolean>>;
 }
 
 const MainMenu: React.FC<Props> = ({
   nick,
   setIsHost,
   setGameId,
-  setNick,
-  setShowGameView
+  setNick
 }: Props) => {
+  const history = useHistory();
+
   const initializeHostGame = (): void => {
     if (!nick) {
       alert('Choose nickname');
       return;
     }
 
-    socket.connect();
     // eslint-disable-next-line
     socket.emit('host-game', (response: any) => {
       setGameId(response.gameId as string);
       setIsHost(true);
       setNick(nick);
-      setShowGameView(true);
+      history.push('/game');
     });
   };
 
+  const joinHostedGame = (): void => {
+    if (!nick) {
+      alert('Choose nickname');
+      return;
+    }
+    history.push('/game');
+    setIsHost(false);
+    setNick(nick);
+  };
+
   return (
-    <Container textAlign="center" fluid={false} className="main-menu-content">
-      <p style={{ color: 'whitesmoke' }}>{nick}</p>
+    <Container className="main-menu-content" fluid={false} textAlign="center">
       <h1 className="menu-header">MAIN MENU</h1>
-      <Button size="massive" className="button" onClick={initializeHostGame}>
-        HOST
-      </Button>
+      <Button
+        className="button"
+        content={'JOIN'}
+        size={'massive'}
+        onClick={joinHostedGame}
+      />
+
       <Divider />
-      <Button size="massive" className="button">
-        JOIN
-      </Button>
+
+      <Input
+        focus
+        placeholder={'Game ID'}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          setGameId(e.target.value)
+        }
+      />
+
       <Divider />
+
+      <Button
+        className="button"
+        content={'HOST'}
+        size={'massive'}
+        onClick={initializeHostGame}
+      />
+
+      <Divider />
+
       <Input
         focus
         placeholder="Username"
+        value={nick}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           setNick(e.target.value)
         }

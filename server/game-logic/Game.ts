@@ -2,7 +2,7 @@ import {
   GameData,
   Player,
   Question,
-  timeToAnswerQuestion
+  TIME_TO_ANSWER_QUESTION
 } from '../game-common/index';
 class Game {
   /** For single question */
@@ -41,6 +41,21 @@ class Game {
   }
 
   /**
+   * Function is called after answer time ends
+   * Set correct answer flag true.
+   * Check all players answers and add point
+   * if answer is correct
+   */
+  private checkAndUpdateAnswers(): void {
+    this.showCorrectAnswer = true;
+    this.players.forEach((player: Player) => {
+      player?.selectedAnswer ===
+        this.questions[this.currentQuestionIndex]?.correctAnswer &&
+        player.points++;
+    });
+  }
+
+  /**
    * @returns game data of game
    */
   getGameData(): GameData {
@@ -68,8 +83,10 @@ class Game {
 
     if (!player) return;
 
-    this.questions[this.currentQuestionIndex].correctAnswer === answer &&
-      player.points++;
+    const isAnswerCorrect: boolean =
+      this.questions[this.currentQuestionIndex].correctAnswer === answer;
+
+    isAnswerCorrect && player.points++;
   }
 
   isGameActive(): boolean {
@@ -87,16 +104,16 @@ class Game {
    * @param answer selected answer
    */
   setPlayerAnswer(nick: string, answer: string): void {
-    const newValuePlayer: Player | undefined = this.players.find(
+    const answeredPlayer: Player | undefined = this.players.find(
       (player: Player) => nick === player.nick
     );
 
-    if (!newValuePlayer) return;
+    if (!answeredPlayer) return;
 
-    newValuePlayer.selectedAnswer = answer;
+    answeredPlayer.selectedAnswer = answer;
 
     this.players = this.players.map((player: Player) =>
-      newValuePlayer.nick === player.nick ? newValuePlayer : player
+      answeredPlayer.nick === player.nick ? answeredPlayer : player
     );
   }
 
@@ -107,13 +124,32 @@ class Game {
    */
   startGame(questionTime: number): void {
     this.isGameRunning = true;
-    this.checkAnswersHelperFunction();
 
+    /** Helper function to represent time to answer question */
+    const questionTimeHandler = (): void => {
+      this.timeLeftToAnswer = TIME_TO_ANSWER_QUESTION;
+
+      /** Timer represents how much time is left to answer */
+      const timeLeftTimer = setInterval(() => {
+        this.timeLeftToAnswer = this.timeLeftToAnswer - 1000;
+        /** Clear interval after time runs out */
+        if (this.timeLeftToAnswer < 1000) clearInterval(timeLeftTimer);
+      }, 1000);
+
+      setTimeout(() => {
+        this.checkAndUpdateAnswers();
+      }, TIME_TO_ANSWER_QUESTION);
+    };
+
+    /** Set first question immediately */
+    questionTimeHandler();
+
+    /** "Loop" every question on interval */
     const questionTimer = setInterval(() => {
       this.showCorrectAnswer = false;
       this.currentQuestionIndex++;
 
-      this.checkAnswersHelperFunction();
+      questionTimeHandler();
 
       /** Stop game when no more questions */
       if (this.currentQuestionIndex === this.questions.length) {
@@ -121,28 +157,6 @@ class Game {
         this.isGameRunning = false;
       }
     }, questionTime);
-  }
-
-  private checkAnswersHelperFunction(): void {
-    this.timeLeftToAnswer = timeToAnswerQuestion;
-
-    const timeLeftTimer = setInterval(() => {
-      this.timeLeftToAnswer = this.timeLeftToAnswer - 1000;
-      if (this.timeLeftToAnswer < 1000) clearInterval(timeLeftTimer);
-    }, 1000);
-
-    setTimeout(() => {
-      this.checkAndUpdateAnswers();
-    }, timeToAnswerQuestion);
-  }
-
-  private checkAndUpdateAnswers(): void {
-    this.showCorrectAnswer = true;
-    this.players.forEach((player: Player) => {
-      player?.selectedAnswer ===
-        this.questions[this.currentQuestionIndex]?.correctAnswer &&
-        player.points++;
-    });
   }
 }
 

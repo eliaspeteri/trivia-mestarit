@@ -70,6 +70,14 @@ npm run dev
 
 This is required for the backend of the application to work properly. You may also need to create your own .env-file with a URI to a MongoDB database (we will not provide one for you.), and at the very least, a port to run the server on. By default the server port is 8080.
 
+The .env file should have the following structure:
+```
+MONGODB_URI=<MongoDB connection URI>
+PORT=8080
+```
+
+Note that more variables may be required to add here in the future.
+
 For production version, you likely want to set your pipeline to run
 ```sh
 cd server

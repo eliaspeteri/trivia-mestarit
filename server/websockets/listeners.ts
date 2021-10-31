@@ -19,8 +19,8 @@ import { v4 as uuidv4 } from 'uuid';
 /** MockUp Data */
 import { mockUpQuestions } from '../game-logic/mockupData';
 
-/** Game config */
-import { totalTimeEachQuestion } from '../game-common/index';
+/** Game config, types */
+import { GameData, TOTAL_TIME_PER_QUESTION } from '../game-common/index';
 
 export const setListeners = (io: SocketServer): void => {
   let games: Game[] = [];
@@ -28,22 +28,23 @@ export const setListeners = (io: SocketServer): void => {
   /** Send every game's game data */
   setInterval(() => {
     games.forEach((game: Game) => {
-      if (game.isGameActive()) {
-        logger.info(game.getGameData());
-      }
-
       if (game.isLastQuestion()) {
         io.to(game.roomId).emit('game-over', game.getGameData());
         games = removeGame(games, game.roomId);
         return;
       }
 
-      game.isGameActive() &&
-        io.to(game.roomId).emit('game-data', game.getGameData());
+      if (game.isGameActive()) {
+        const gameData: GameData = game.getGameData();
+        logger.info(gameData);
+        io.to(game.roomId).emit('game-data', gameData);
+      }
     });
   }, 1 * 1000);
 
   io.on('connection', (socket: Socket) => {
+    logger.info(`Socket ID connected: ${socket.id}`);
+
     socket.on('host-game', (callback: CallableFunction) => {
       const roomId: string = uuidv4().toString();
       games = addGame(games, new Game(roomId, mockUpQuestions));
@@ -53,13 +54,23 @@ export const setListeners = (io: SocketServer): void => {
       });
     });
 
-    socket.on('join-game', (nick: string, roomId: string, isHost = false) => {
-      if (!gameIdExists(games, roomId)) return;
+    socket.on(
+      'join-game',
+      (nick: string, roomId: string, isHost, callback: CallableFunction) => {
+        if (!gameIdExists(games, roomId)) {
+          callback({ error: true, message: 'No Game with ID' });
+          return;
+        }
 
-      const game: Game = findGameByRoomId(games, roomId);
-      socket.join(game.roomId);
-      game.addPlayer(nick, isHost);
-      game.startGame(totalTimeEachQuestion);
+        const game: Game = findGameByRoomId(games, roomId);
+        socket.join(game.roomId);
+        game.addPlayer(nick, isHost);
+      }
+    );
+
+    socket.on('start-game', (gameId: string) => {
+      gameIdExists(games, gameId) &&
+        findGameByRoomId(games, gameId).startGame(TOTAL_TIME_PER_QUESTION);
     });
 
     socket.on(

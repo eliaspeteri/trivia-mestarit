@@ -5,10 +5,10 @@
  * is correct question showed
  * Time in ms
  */
-export const totalTimeEachQuestion: number = 20 * 1000;
+export const TOTAL_TIME_PER_QUESTION: number = 20 * 1000;
 
 /**
  * Time how much user has time to answer
  * Time in ms
  */
-export const timeToAnswerQuestion: number = 15 * 1000;
+export const TIME_TO_ANSWER_QUESTION: number = 15 * 1000;

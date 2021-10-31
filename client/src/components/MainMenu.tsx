@@ -1,5 +1,6 @@
-import React, { Dispatch, useEffect, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { useHistory } from 'react-router-dom';
+
 /** CSS, UI */
 import { Button, Container, Divider, Input } from 'semantic-ui-react';
 import '../styles/MainMenu.css';

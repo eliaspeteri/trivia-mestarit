@@ -3,9 +3,11 @@ import { useHistory } from 'react-router-dom';
 
 /** Components */
 import Game from './game/Game';
+import GameOver from './game/GameOver';
+import StartGame from './game/StartGame';
 
 /** UI, CSS */
-import { Button, Container, Icon } from 'semantic-ui-react';
+import { Icon } from 'semantic-ui-react';
 import '../styles/GameView.css';
 
 /** Socket */
@@ -13,7 +15,6 @@ import { socket } from '../config';
 
 /** Types */
 import { GameData } from 'game-common';
-import GameOver from './game/GameOver';
 
 interface Props {
   gameId: string;
@@ -29,6 +30,7 @@ const GameView: React.FC<Props> = ({ gameId, isHost, nick }: Props) => {
 
   /** Try to connect to game on initialize render */
   useEffect(() => {
+    // eslint-disable-next-line
     socket.emit('join-game', nick, gameId, isHost, (response: any) => {
       /** Alert if no game found with ID */
       response.error && alert(response.message);
@@ -46,9 +48,7 @@ const GameView: React.FC<Props> = ({ gameId, isHost, nick }: Props) => {
   };
 
   const handleExitIconClick = (): void => {
-    if (window.confirm('Do you want to abort game?')) {
-      history.push('/');
-    }
+    window.confirm('Do you want to abort game?') && history.push('/');
   };
 
   return (
@@ -65,11 +65,11 @@ const GameView: React.FC<Props> = ({ gameId, isHost, nick }: Props) => {
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         <GameOver players={gameData!.players} />
       ) : !gameData ? (
-        <Container>
-          <h1 style={{ color: 'white' }}>Game not started</h1>
-          <h1 style={{ color: 'white' }}>{`Game ID: ${gameId}`}</h1>
-          {isHost && <Button content={'START'} onClick={handleStartGame} />}
-        </Container>
+        <StartGame
+          gameId={gameId}
+          isHost={isHost}
+          handleStartGame={handleStartGame}
+        />
       ) : (
         <Game gameId={gameId} nick={nick} gameData={gameData} />
       )}

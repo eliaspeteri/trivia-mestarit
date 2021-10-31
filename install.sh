@@ -1,5 +1,5 @@
-# compile game-common dependency
-echo "===Installing game-common, please wait...==="
+# compile game-common dependencies
+echo "===Installing game-common dependencies, please wait...==="
 cd server/game-common
 npm run compile
 echo "===Installing server dependencies, please wait...==="

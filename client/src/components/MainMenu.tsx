@@ -26,11 +26,6 @@ const MainMenu: React.FC<Props> = ({
   const history = useHistory();
 
   const initializeHostGame = (): void => {
-    if (!nick) {
-      alert('Choose nickname');
-      return;
-    }
-
     // eslint-disable-next-line
     socket.emit('host-game', (response: any) => {
       setGameId(response.gameId as string);
@@ -41,10 +36,6 @@ const MainMenu: React.FC<Props> = ({
   };
 
   const joinHostedGame = (): void => {
-    if (!nick) {
-      alert('Choose nickname');
-      return;
-    }
     history.push('/game');
     setIsHost(false);
     setNick(nick);

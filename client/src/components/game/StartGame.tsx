@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 /** CSS, UI */
-import { Button, Container } from 'semantic-ui-react';
+import { Button, Container, Popup } from 'semantic-ui-react';
 import '../../styles/StartGame.css';
 
 interface Props {
@@ -15,11 +15,6 @@ const StartGame: React.FC<Props> = ({
   isHost,
   handleStartGame
 }: Props) => {
-  const copyIdClicked = (): void => {
-    navigator.clipboard.writeText(gameId);
-    alert('Game id copied!');
-  };
-
   return (
     <Container className={'start-game-container'}>
       <div className={'text-container'}>
@@ -31,7 +26,19 @@ const StartGame: React.FC<Props> = ({
         {isHost && (
           <Button content={'START'} size={'big'} onClick={handleStartGame} />
         )}
-        <Button content={'Copy ID'} size={'big'} onClick={copyIdClicked} />
+        <Popup
+          content={'Game ID copied'}
+          hoverable
+          size={'large'}
+          on={'click'}
+          trigger={
+            <Button
+              content={'Copy ID'}
+              size={'big'}
+              onClick={() => navigator.clipboard.writeText(gameId)}
+            />
+          }
+        />
       </div>
     </Container>
   );

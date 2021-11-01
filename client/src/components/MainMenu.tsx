@@ -9,6 +9,7 @@ import '../styles/MainMenu.css';
 import { socket } from '../config';
 
 interface Props {
+  gameId: string;
   nick: string;
   setIsHost: Dispatch<SetStateAction<boolean>>;
   setGameId: Dispatch<SetStateAction<string>>;
@@ -16,6 +17,7 @@ interface Props {
 }
 
 const MainMenu: React.FC<Props> = ({
+  gameId,
   nick,
   setIsHost,
   setGameId,
@@ -54,6 +56,7 @@ const MainMenu: React.FC<Props> = ({
       <Button
         className="button"
         content={'JOIN'}
+        disabled={!gameId}
         size={'massive'}
         onClick={joinHostedGame}
       />
@@ -73,6 +76,7 @@ const MainMenu: React.FC<Props> = ({
       <Button
         className="button"
         content={'HOST'}
+        disabled={!nick}
         size={'massive'}
         onClick={initializeHostGame}
       />

@@ -32,6 +32,7 @@ const App: React.FC = () => {
           <Route exact path="/">
             {
               <MainMenu
+                gameId={gameId}
                 nick={nick}
                 setNick={setNick}
                 setGameId={setGameId}

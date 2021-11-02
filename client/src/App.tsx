@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 /** Components */
 import MainMenu from './components/MainMenu';
+import QuestionForm from './components/QuestionForm';
 
 /** CSS, UI */
 import './App.css';
@@ -40,7 +41,10 @@ const App: React.FC = () => {
             }
           </Route>
           <Route path="/game">
-            {<GameView gameId={gameId} isHost={isHost} nick={nick} />}
+            <GameView gameId={gameId} isHost={isHost} nick={nick} />
+          </Route>
+          <Route path="/addquestion">
+            <QuestionForm />
           </Route>
         </Switch>
       </Router>

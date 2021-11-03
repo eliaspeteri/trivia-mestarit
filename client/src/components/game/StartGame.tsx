@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 /** CSS, UI */
 import { Button, Container, Popup } from 'semantic-ui-react';

@@ -14,11 +14,12 @@ export interface IQuestion extends Document {
 const questionSchema: Schema = new Schema<Question>({
   whoCreated: {
     type: Schema.Types.ObjectId,
-    ref: 'User'
+    ref: 'User',
+    required: false
   },
   whenCreated: {
     type: Date,
-    required: true,
+    required: false,
     minlength: 4
   },
   question: {

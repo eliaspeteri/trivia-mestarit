@@ -20,7 +20,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { mockUpQuestions } from '../game-logic/mockupData';
 
 /** Game config, types */
-import { GameData, TOTAL_TIME_PER_QUESTION } from '../game-common/index';
+import { GameData, TOTAL_TIME_PER_QUESTION } from 'game-common';
 
 export const setListeners = (io: SocketServer): void => {
   let games: Game[] = [];

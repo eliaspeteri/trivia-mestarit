@@ -9,6 +9,7 @@ import '../styles/MainMenu.css';
 import { socket } from '../config';
 
 interface Props {
+  gameId: string;
   nick: string;
   setIsHost: Dispatch<SetStateAction<boolean>>;
   setGameId: Dispatch<SetStateAction<string>>;
@@ -16,6 +17,7 @@ interface Props {
 }
 
 const MainMenu: React.FC<Props> = ({
+  gameId,
   nick,
   setIsHost,
   setGameId,
@@ -24,11 +26,6 @@ const MainMenu: React.FC<Props> = ({
   const history = useHistory();
 
   const initializeHostGame = (): void => {
-    if (!nick) {
-      alert('Choose nickname');
-      return;
-    }
-
     // eslint-disable-next-line
     socket.emit('host-game', (response: any) => {
       setGameId(response.gameId as string);
@@ -39,10 +36,6 @@ const MainMenu: React.FC<Props> = ({
   };
 
   const joinHostedGame = (): void => {
-    if (!nick) {
-      alert('Choose nickname');
-      return;
-    }
     history.push('/game');
     setIsHost(false);
     setNick(nick);
@@ -54,6 +47,7 @@ const MainMenu: React.FC<Props> = ({
       <Button
         className="button"
         content={'JOIN'}
+        disabled={!gameId}
         size={'massive'}
         onClick={joinHostedGame}
       />
@@ -73,6 +67,7 @@ const MainMenu: React.FC<Props> = ({
       <Button
         className="button"
         content={'HOST'}
+        disabled={!nick}
         size={'massive'}
         onClick={initializeHostGame}
       />

@@ -40,9 +40,9 @@ const GameSegment: React.FC<Props> = ({
 
   return (
     <Segment
+      className={'text-card'}
       textAlign={'center'}
       size={'large'}
-      className={'text-card'}
       style={cardStyle()}
       onClick={() => setSelectedAnswer && setSelectedAnswer(text)}
     >

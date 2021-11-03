@@ -30,7 +30,7 @@ const QuestionForm: React.FC = () => {
       (answer: string) => answer.length
     );
 
-  const submitClicked = (e: any): void => {
+  const submitClicked = (e: React.FormEvent<HTMLInputElement>): void => {
     e.preventDefault();
     console.log(`answer_1`, answer_1);
     console.log(`answer_2`, answer_2);
@@ -106,7 +106,7 @@ const QuestionForm: React.FC = () => {
           <Form.Group style={{ paddingTop: '1em' }} widths={'equal'}>
             <Form.Select
               rows={'2'}
-              label="Pick answer"
+              label="Pick correct answer"
               options={answerOptions}
               onChange={(e, { value }) => setCorrectAnswer(value as string)}
             />
@@ -124,7 +124,7 @@ const QuestionForm: React.FC = () => {
             }
             type={'submit'}
             style={{ margin: '1em' }}
-            onClick={submitClicked}
+            onSubmit={submitClicked}
           >
             Submit
           </Button>

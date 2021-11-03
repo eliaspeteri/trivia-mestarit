@@ -2,3 +2,6 @@
 /client/node_modules
 /server/dist
 /server/build
+
+# IntellJ folder
+.idea

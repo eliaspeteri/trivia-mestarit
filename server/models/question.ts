@@ -1,5 +1,8 @@
 import { Schema, model } from 'mongoose';
-import { Difficulty, Question } from '../types';
+
+/** Types */
+import { Question } from '../types';
+import { Difficulty } from 'game-common';
 
 export interface IQuestion extends Document {
   whoCreated: string;

@@ -12,7 +12,7 @@ export type Question = {
   question: string;
   answers: string[];
   correctAnswer: string;
-  difficulty: Difficulty;
+  difficulty?: Difficulty;
 };
 
 export type GameData = {

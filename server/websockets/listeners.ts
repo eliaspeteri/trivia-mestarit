@@ -16,11 +16,14 @@ import {
 import logger from '../utils/logger';
 import { v4 as uuidv4 } from 'uuid';
 
+/** QuestionService */
+import QuestionService from '../services/questions';
+
 /** MockUp Data */
-import { mockUpQuestions } from '../game-logic/mockupData';
+//import { mockUpQuestions } from '../game-logic/mockupData';
 
 /** Game config, types */
-import { GameData, TOTAL_TIME_PER_QUESTION } from 'game-common';
+import { GameData, TOTAL_TIME_PER_QUESTION, Question } from 'game-common';
 
 export const setListeners = (io: SocketServer): void => {
   let games: Game[] = [];
@@ -45,9 +48,12 @@ export const setListeners = (io: SocketServer): void => {
   io.on('connection', (socket: Socket) => {
     logger.info(`Socket ID connected: ${socket.id}`);
 
-    socket.on('host-game', (callback: CallableFunction) => {
+    socket.on('host-game', async (callback: CallableFunction) => {
       const roomId: string = uuidv4().toString();
-      games = addGame(games, new Game(roomId, mockUpQuestions));
+      const gameQuestions: Question[] =
+        await QuestionService.getRandomQuestions(3);
+
+      games = addGame(games, new Game(roomId, gameQuestions));
       /** Returns room ID to client */
       callback({
         gameId: roomId

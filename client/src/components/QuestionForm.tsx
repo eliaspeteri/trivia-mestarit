@@ -7,7 +7,7 @@ import { Button, Container, Form, Segment } from 'semantic-ui-react';
 import { Question, Difficulty } from 'game-common';
 
 /** Services */
-import { create } from '../services/questions';
+import QuestionService from '../services/questions';
 
 const QuestionForm: React.FC = () => {
   const [answer_1, setAnswer_1] = useState<string>('');
@@ -16,7 +16,7 @@ const QuestionForm: React.FC = () => {
   const [answer_4, setAnswer_4] = useState<string>('');
   const [difficulty, setDifficult] = useState<Difficulty>('easy');
   const [correctAnswer, setCorrectAnswer] = useState<string>('');
-  const [question, setQuestions] = useState<string>('');
+  const [question, setQuestion] = useState<string>('');
 
   const answerOptions = [
     { key: '1', text: 'Answer 1', value: answer_1 },
@@ -36,6 +36,16 @@ const QuestionForm: React.FC = () => {
       (answer: string) => answer.length
     );
 
+  const clearStates = (): void => {
+    setAnswer_1('');
+    setAnswer_2('');
+    setAnswer_3('');
+    setAnswer_4('');
+    setDifficult('easy');
+    setCorrectAnswer('');
+    setQuestion('');
+  };
+
   const handleSubmit = async (
     e: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
@@ -49,7 +59,8 @@ const QuestionForm: React.FC = () => {
     };
 
     try {
-      const response: string = await create(newQuestion);
+      const response: string = await QuestionService.create(newQuestion);
+      clearStates();
     } catch (e) {
       console.log(e);
     }
@@ -71,7 +82,7 @@ const QuestionForm: React.FC = () => {
             label={'Question'}
             rows={'2'}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setQuestions(e.target.value)
+              setQuestion(e.target.value)
             }
           />
 

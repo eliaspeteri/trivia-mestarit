@@ -1,4 +1,4 @@
-export type Difficulty = 'easy' | 'medium' | 'hard';
+import { Difficulty } from 'game-common/types';
 
 export type Question = {
   id: string;

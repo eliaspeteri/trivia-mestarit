@@ -3,12 +3,18 @@ import React, { useState } from 'react';
 /** CSS, UI */
 import { Button, Container, Form, Segment } from 'semantic-ui-react';
 
+/** Types */
+import { Question, Difficulty } from 'game-common';
+
+/** Services */
+import { create } from '../services/questions';
+
 const QuestionForm: React.FC = () => {
   const [answer_1, setAnswer_1] = useState<string>('');
   const [answer_2, setAnswer_2] = useState<string>('');
   const [answer_3, setAnswer_3] = useState<string>('');
   const [answer_4, setAnswer_4] = useState<string>('');
-  const [difficulty, setDifficult] = useState<string>('');
+  const [difficulty, setDifficult] = useState<Difficulty>('easy');
   const [correctAnswer, setCorrectAnswer] = useState<string>('');
   const [question, setQuestions] = useState<string>('');
 
@@ -30,15 +36,23 @@ const QuestionForm: React.FC = () => {
       (answer: string) => answer.length
     );
 
-  const submitClicked = (e: React.FormEvent<HTMLInputElement>): void => {
+  const handleSubmit = async (
+    e: React.FormEvent<HTMLFormElement>
+  ): Promise<void> => {
     e.preventDefault();
-    console.log(`answer_1`, answer_1);
-    console.log(`answer_2`, answer_2);
-    console.log(`answer_3`, answer_3);
-    console.log(`answer_4`, answer_4);
-    console.log(`correctAnswer`, correctAnswer);
-    console.log(`difficulty`, difficulty);
-    console.log(`correctAnswer`, correctAnswer);
+
+    const newQuestion: Question = {
+      answers: [answer_1, answer_2, answer_3, answer_4],
+      correctAnswer: correctAnswer,
+      difficulty: difficulty,
+      question: question
+    };
+
+    try {
+      const response: string = await create(newQuestion);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
@@ -51,7 +65,7 @@ const QuestionForm: React.FC = () => {
       }}
     >
       <Segment inverted style={{ paddingTop: '2em' }}>
-        <Form inverted size={'huge'}>
+        <Form inverted size={'huge'} onSubmit={handleSubmit}>
           <Form.Field
             control={'textarea'}
             label={'Question'}
@@ -114,7 +128,7 @@ const QuestionForm: React.FC = () => {
               rows={'2'}
               label="Pick difficulty"
               options={difficultyOptions}
-              onChange={(e, { value }) => setDifficult(value as string)}
+              onChange={(e, { value }) => setDifficult(value as Difficulty)}
             />
           </Form.Group>
 
@@ -124,7 +138,6 @@ const QuestionForm: React.FC = () => {
             }
             type={'submit'}
             style={{ margin: '1em' }}
-            onSubmit={submitClicked}
           >
             Submit
           </Button>

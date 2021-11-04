@@ -11,7 +11,7 @@ import { Icon } from 'semantic-ui-react';
 import '../styles/GameView.css';
 
 /** Socket */
-import { socket } from '../config';
+import { socket } from '../services/socket';
 
 /** Types */
 import { GameData } from 'game-common';

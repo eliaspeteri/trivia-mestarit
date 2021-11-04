@@ -22,12 +22,11 @@ router.get('/:id', async (req: Request, res: Response): Promise<void> => {
   logger.info(`fetched ${req.params.id}`);
 });
 
-// Add new question
 router.post('/', async (req: Request, res: Response): Promise<void> => {
   const { whoCreated, question, correctAnswer, theme, difficulty, answers } =
     req.body;
+
   try {
-    logger.info(req.body);
     const resQuestion = new QuestionModel({
       whoCreated: whoCreated,
       whenCreated: Date(),
@@ -40,7 +39,7 @@ router.post('/', async (req: Request, res: Response): Promise<void> => {
 
     await resQuestion.save();
 
-    res.json({ message: `posted a new question from ${whoCreated}` });
+    res.json({ message: 'New question posted successfully' });
   } catch (error) {
     res.status(400).send({ error: 'Unable to post a new question.' });
     logger.error((error as any).message);

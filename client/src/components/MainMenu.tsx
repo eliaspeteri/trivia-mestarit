@@ -6,7 +6,7 @@ import { Button, Container, Divider, Input } from 'semantic-ui-react';
 import '../styles/MainMenu.css';
 
 /** Config / Socket */
-import { socket } from '../config';
+import { socket } from '../services/socket';
 
 interface Props {
   gameId: string;

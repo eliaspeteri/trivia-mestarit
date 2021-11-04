@@ -10,7 +10,7 @@ import '../../styles/GameView.css';
 
 /** Types, Config, Socket */
 import { GameData } from 'game-common';
-import { socket } from '../../config';
+import { socket } from '../../services/socket';
 import GameSegment from './GameSegment';
 
 interface Props {

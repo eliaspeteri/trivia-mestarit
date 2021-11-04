@@ -2,17 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 /** Components */
-import MainMenu from './components/MainMenu';
-import QuestionForm from './components/QuestionForm';
+import MainMenu from './MainMenu';
+import QuestionForm from './QuestionForm';
 
 /** CSS, UI */
-import './App.css';
+import '../styles/App.css';
 import 'semantic-ui-css/semantic.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import GameView from './components/GameView';
+import GameView from './GameView';
 
 /** Socket */
-import { socket } from './config';
+import { socket } from '../services/socket';
 
 const App: React.FC = () => {
   const [nick, setNick] = useState<string>('');

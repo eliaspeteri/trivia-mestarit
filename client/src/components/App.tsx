@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 /** Components */
+import GameView from './GameView';
 import MainMenu from './MainMenu';
 import QuestionForm from './QuestionForm';
 
 /** CSS, UI */
 import '../styles/App.css';
-import 'semantic-ui-css/semantic.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import GameView from './GameView';
+import 'semantic-ui-css/semantic.min.css';
 
 /** Socket */
 import { socket } from '../services/socket';

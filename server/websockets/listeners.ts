@@ -19,9 +19,6 @@ import { v4 as uuidv4 } from 'uuid';
 /** QuestionService */
 import QuestionService from '../services/questions';
 
-/** MockUp Data */
-//import { mockUpQuestions } from '../game-logic/mockupData';
-
 /** Game config, types */
 import { GameData, TOTAL_TIME_PER_QUESTION, Question } from 'game-common';
 

@@ -1,4 +1,4 @@
-import { Difficulty } from 'game-common/types';
+import { Difficulty } from 'game-common';
 
 export type Question = {
   id: string;

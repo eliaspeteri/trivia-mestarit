@@ -38,7 +38,6 @@
   "dependencies": {
     "@types/bcryptjs": "^2.4.2",
     "@types/cors": "^2.8.12",
-    "@types/mongoose-simple-random": "^0.4.9",
     "@types/uuid": "^8.3.1",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
@@ -46,7 +45,6 @@
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "mongoose": "^6.0.5",
-    "mongoose-simple-random": "^0.4.1",
     "mongoose-unique-validator": "^3.0.0",
     "npm": "^8.1.2",
     "socket.io": "^4.2.0",

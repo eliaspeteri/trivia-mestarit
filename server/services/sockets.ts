@@ -24,12 +24,12 @@ const createGame = async (): Promise<string> => {
 const findGame = (roomId: string) =>
   games.find((game: Game) => game.roomId === roomId) as Game;
 
+const gameExists = (roomId: string): boolean =>
+  games.map((game: Game) => game.roomId).includes(roomId);
+
 const getGames = (): Game[] => {
   return games;
 };
-
-const gameExists = (roomId: string): boolean =>
-  games.map((game: Game) => game.roomId).includes(roomId);
 
 const joinGame = (nick: string, roomId: string, isHost: boolean): boolean => {
   if (!gameExists(roomId)) return false;

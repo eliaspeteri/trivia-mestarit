@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 
 /** Components */
+import GameSegment from './GameSegment';
 import ProgressBar from './ProgressBar';
 import QuestionIndicator from './QuestionIndicator';
+import QuestionSegment from './QuestionSegment';
 
 /** Css UI */
 import { Container, Grid, Header, Segment } from 'semantic-ui-react';
@@ -11,7 +13,6 @@ import '../../styles/GameView.css';
 /** Types, Config, Socket */
 import { GameData } from 'game-common';
 import { socket } from '../../services/socket';
-import GameSegment from './GameSegment';
 
 interface Props {
   gameId: string;
@@ -47,7 +48,7 @@ const Game: React.FC<Props> = ({ gameId, nick, gameData }: Props) => {
 
   return (
     <Container>
-      <h1 style={{ color: 'white' }}>{gameId}</h1>
+      <Header as={'h1'} content={gameId} inverted />
       <Grid columns={1} className="game-view-content" container>
         <Grid.Column>
           <QuestionIndicator
@@ -57,12 +58,7 @@ const Game: React.FC<Props> = ({ gameId, nick, gameData }: Props) => {
         </Grid.Column>
 
         <Grid.Column stretched={true}>
-          {/** Question Segment */}
-          <Segment className={'question-card'} size="massive" circular>
-            <Header as={'h1'}>
-              {gameData?.currentQuestion?.question || ''}
-            </Header>
-          </Segment>
+          <QuestionSegment question={gameData.currentQuestion.question} />
         </Grid.Column>
 
         <Grid.Column>{mapAnswerCards()}</Grid.Column>

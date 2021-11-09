@@ -4,18 +4,20 @@ import { Socket } from 'socket.io';
 
 /** Components */
 import Game from '../game-logic/Game';
+
+/** Utils */
 import logger from '../utils/logger';
 
-/** QuestionService */
+/** Services */
 import SocketService from '../services/sockets';
 
 /** Game config, types */
-import { GameData } from 'game-common';
+import { GameData, TOTAL_TIME_PER_QUESTION } from 'game-common';
 
 export const setListeners = (io: SocketServer): void => {
   /** Send every game's game data */
   setInterval(() => {
-    SocketService.getGames().forEach((game: Game) => {
+    SocketService.getAllGames().forEach((game: Game) => {
       if (game.isLastQuestion()) {
         io.to(game.roomId).emit('game-over', game.getGameData());
         SocketService.removeGame(game.roomId);
@@ -34,8 +36,10 @@ export const setListeners = (io: SocketServer): void => {
     logger.info(`Socket ID connected: ${socket.id}`);
 
     socket.on('host-game', async (callback: CallableFunction) => {
-      const roomId: string = await SocketService.createGame();
-
+      const roomId: string = uuidv4().toString();
+      const questionCount = 3;
+      SocketService.addGame(questionCount, roomId);
+      /** Returns room ID to client */
       callback({
         gameId: roomId
       });
@@ -43,15 +47,24 @@ export const setListeners = (io: SocketServer): void => {
 
     socket.on(
       'join-game',
-      (nick: string, roomId: string, isHost, callback: CallableFunction) => {
-        SocketService.joinGame(nick, roomId, isHost)
+      async (
+        nick: string,
+        roomId: string,
+        isHost,
+        callback: CallableFunction
+      ) => {
+        const isSuccess: boolean = SocketService.joinGame(nick, roomId, isHost);
+
+        console.log(`isSuccess`, isSuccess);
+
+        isSuccess
           ? socket.join(roomId)
           : callback({ error: true, message: 'No Game with ID' });
       }
     );
 
     socket.on('start-game', (gameId: string) => {
-      SocketService.startGame(gameId);
+      SocketService.findGameById(gameId).startGame(TOTAL_TIME_PER_QUESTION);
     });
 
     socket.on(

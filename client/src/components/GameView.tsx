@@ -33,12 +33,9 @@ const GameView: React.FC<Props> = ({ gameId, isHost, nick }: Props) => {
     // eslint-disable-next-line
     socket.emit('join-game', nick, gameId, isHost, (response: any) => {
       /** Alert if no game found with ID */
-      if (response.error) {
-        alert(response.message);
-        history.replace('/');
-      }
+      response.error && alert(response.message);
     });
-  }, [gameId, history, isHost, nick]);
+  }, [gameId, isHost, nick]);
 
   socket.on('game-data', (gameData: GameData) => setGameData(gameData));
   socket.once('game-over', (gameData: GameData) => {

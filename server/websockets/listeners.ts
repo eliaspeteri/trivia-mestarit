@@ -7,6 +7,7 @@ import Game from '../game-logic/Game';
 
 /** Utils */
 import logger from '../utils/logger';
+import { v4 as uuidv4 } from 'uuid';
 
 /** Services */
 import SocketService from '../services/sockets';

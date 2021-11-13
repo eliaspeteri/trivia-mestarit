@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 /** Components */
 import GameView from './GameView';
 import MainMenu from './MainMenu';
+import Navbar from './Navbar';
 import QuestionForm from './QuestionForm';
 
 /** CSS, UI */
@@ -29,17 +30,16 @@ const App: React.FC = () => {
   return (
     <div id="app">
       <Router>
+        <Navbar />
         <Switch>
           <Route exact path="/">
-            {
-              <MainMenu
-                gameId={gameId}
-                nick={nick}
-                setNick={setNick}
-                setGameId={setGameId}
-                setIsHost={setIsHost}
-              />
-            }
+            <MainMenu
+              gameId={gameId}
+              nick={nick}
+              setNick={setNick}
+              setGameId={setGameId}
+              setIsHost={setIsHost}
+            />
           </Route>
           <Route path="/game">
             <GameView gameId={gameId} isHost={isHost} nick={nick} />

@@ -2,77 +2,31 @@ import React, { useEffect } from 'react';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import CSS from 'csstype';
-
-const successStyles: CSS.Properties = {
-  backgroundColor: 'black',
-  border: '1px solid whitesmoke',
-  color: 'whitesmoke'
-};
-
-const errorStyles: CSS.Properties = {
-  backgroundColor: 'black',
-  border: '1px solid whitesmoke',
-  color: 'whitesmoke'
-};
 
 interface Props {
   msg: string;
-  type: 'error' | 'success';
 }
 
-const Toast: React.FC<Props> = ({ msg, type }: Props) => {
+const Toast: React.FC<Props> = ({ msg }: Props) => {
   useEffect(() => {
-    if (msg) {
-      switch (type) {
-        case 'success':
-          successNotification(msg);
-          break;
-
-        case 'error':
-          errorNotification(msg);
-          break;
-
-        default:
-          break;
-      }
-    }
+    msg && showNotification(msg);
   });
 
-  const successNotification = (message: string) =>
-    toast.success(message, {
-      position: 'bottom-center',
-      autoClose: 3000,
-      className: 'toast-success',
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: false,
-      style: successStyles
-    });
-
-  const errorNotification = (message: string) =>
-    toast.error(message, {
-      position: 'bottom-center',
-      autoClose: 3000,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: false,
-      style: errorStyles
-    });
+  const showNotification = (message: string) =>
+    toast.info(message, { style: { border: '1px solid white' } });
 
   return (
     <ToastContainer
-      position="bottom-center"
+      position={'bottom-center'}
       autoClose={3000}
+      draggable={false}
       hideProgressBar
       newestOnTop={false}
       closeOnClick
       rtl={false}
       pauseOnFocusLoss
-      draggable
       pauseOnHover
+      theme={'dark'}
     />
   );
 };

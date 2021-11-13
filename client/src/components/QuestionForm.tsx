@@ -17,10 +17,10 @@ const QuestionForm: React.FC = () => {
   const [answer_2, setAnswer_2] = useState<string>('');
   const [answer_3, setAnswer_3] = useState<string>('');
   const [answer_4, setAnswer_4] = useState<string>('');
-  const [difficulty, setDifficult] = useState<Difficulty>('easy');
   const [correctAnswer, setCorrectAnswer] = useState<string>('');
-  const [question, setQuestion] = useState<string>('');
+  const [difficulty, setDifficult] = useState<Difficulty>('easy');
   const [notification, setNotification] = useState<string>('');
+  const [question, setQuestion] = useState<string>('');
 
   const answersAreValid = (): boolean =>
     Array.of(answer_1, answer_2, answer_3, answer_4).every(
@@ -50,10 +50,11 @@ const QuestionForm: React.FC = () => {
     };
 
     try {
-      const response: string = await QuestionService.create(newQuestion);
+      await QuestionService.create(newQuestion);
       clearStates();
+      setNotification('Question added!');
     } catch (e) {
-      console.log(e);
+      setNotification('Error on adding question');
     }
   };
 
@@ -79,19 +80,13 @@ const QuestionForm: React.FC = () => {
         top: '5em'
       }}
     >
-      <button
-        onClick={() => {
-          setNotification('jahuuuu!');
-        }}
-      >
-        test
-      </button>
       <Segment inverted style={{ paddingTop: '2em' }}>
         <Form inverted size={'huge'} onSubmit={handleSubmit}>
           <Form.Field
             control={'textarea'}
             label={'Question'}
             rows={'2'}
+            value={question}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setQuestion(e.target.value)
             }
@@ -165,7 +160,7 @@ const QuestionForm: React.FC = () => {
           </Button>
         </Form>
       </Segment>
-      <Toast msg={notification} type={'error'} />
+      <Toast msg={notification} />
     </Container>
   );
 };

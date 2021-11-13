@@ -7,7 +7,6 @@ import GameOver from './game/GameOver';
 import StartGame from './game/StartGame';
 
 /** UI, CSS */
-import { Icon } from 'semantic-ui-react';
 import '../styles/GameView.css';
 
 /** Socket */
@@ -36,6 +35,10 @@ const GameView: React.FC<Props> = ({ gameId, isHost, nick }: Props) => {
         alert(response.message);
         history.replace('/');
       }
+      return () => {
+        setShowGameOver(false);
+        setGameData(undefined);
+      };
     });
   }, [gameId, history, isHost, nick]);
 
@@ -49,20 +52,8 @@ const GameView: React.FC<Props> = ({ gameId, isHost, nick }: Props) => {
     socket.emit('start-game', gameId);
   };
 
-  const handleExitIconClick = (): void => {
-    window.confirm('Do you want to abort game?') && history.push('/');
-  };
-
   return (
     <div style={{ height: '100%', width: '100%' }}>
-      <Icon
-        color={'orange'}
-        onClick={handleExitIconClick}
-        className="sign-out-icon"
-        name="sign out"
-        size="huge"
-      />
-
       {showGameOver ? (
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         <GameOver players={gameData!.players} />

@@ -48,7 +48,7 @@ const GameOver: React.FC<Props> = ({ players }: Props) => {
   };
 
   return (
-    <Container>
+    <Container style={{ paddingTop: '8em' }}>
       <Table
         inverted
         padded

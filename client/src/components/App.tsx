@@ -33,15 +33,13 @@ const App: React.FC = () => {
         <Navbar />
         <Switch>
           <Route exact path="/">
-            {
-              <MainMenu
-                gameId={gameId}
-                nick={nick}
-                setNick={setNick}
-                setGameId={setGameId}
-                setIsHost={setIsHost}
-              />
-            }
+            <MainMenu
+              gameId={gameId}
+              nick={nick}
+              setNick={setNick}
+              setGameId={setGameId}
+              setIsHost={setIsHost}
+            />
           </Route>
           <Route path="/game">
             <GameView gameId={gameId} isHost={isHost} nick={nick} />

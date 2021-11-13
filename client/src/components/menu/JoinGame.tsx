@@ -56,7 +56,7 @@ const JoinGame: React.FC<Props> = ({
         className="button"
         color={'orange'}
         content={'JOIN'}
-        disabled={!gameId && !nick}
+        disabled={!gameId || !nick}
         size={'massive'}
         onClick={joinHostedGame}
       />

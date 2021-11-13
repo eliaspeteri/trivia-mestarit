@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 
+/** Components */
+import Toast from './Toast';
+
 /** CSS, UI */
 import { Button, Container, Form, Segment } from 'semantic-ui-react';
 
@@ -17,19 +20,7 @@ const QuestionForm: React.FC = () => {
   const [difficulty, setDifficult] = useState<Difficulty>('easy');
   const [correctAnswer, setCorrectAnswer] = useState<string>('');
   const [question, setQuestion] = useState<string>('');
-
-  const answerOptions = [
-    { key: '1', text: 'Answer 1', value: answer_1 },
-    { key: '2', text: 'Answer 2', value: answer_2 },
-    { key: '3', text: 'Answer 3', value: answer_3 },
-    { key: '4', text: 'Answer 4', value: answer_4 }
-  ];
-
-  const difficultyOptions = [
-    { key: '1', text: 'Easy', value: 'easy' },
-    { key: '2', text: 'Medium', value: 'medium' },
-    { key: '3', text: 'Hard', value: 'hard' }
-  ];
+  const [notification, setNotification] = useState<string>('');
 
   const answersAreValid = (): boolean =>
     Array.of(answer_1, answer_2, answer_3, answer_4).every(
@@ -66,6 +57,19 @@ const QuestionForm: React.FC = () => {
     }
   };
 
+  const answerOptions = [
+    { key: '1', text: 'Answer 1', value: answer_1 },
+    { key: '2', text: 'Answer 2', value: answer_2 },
+    { key: '3', text: 'Answer 3', value: answer_3 },
+    { key: '4', text: 'Answer 4', value: answer_4 }
+  ];
+
+  const difficultyOptions = [
+    { key: '1', text: 'Easy', value: 'easy' },
+    { key: '2', text: 'Medium', value: 'medium' },
+    { key: '3', text: 'Hard', value: 'hard' }
+  ];
+
   return (
     <Container
       style={{
@@ -75,6 +79,13 @@ const QuestionForm: React.FC = () => {
         top: '5em'
       }}
     >
+      <button
+        onClick={() => {
+          setNotification('jahuuuu!');
+        }}
+      >
+        test
+      </button>
       <Segment inverted style={{ paddingTop: '2em' }}>
         <Form inverted size={'huge'} onSubmit={handleSubmit}>
           <Form.Field
@@ -154,6 +165,7 @@ const QuestionForm: React.FC = () => {
           </Button>
         </Form>
       </Segment>
+      <Toast msg={notification} type={'error'} />
     </Container>
   );
 };

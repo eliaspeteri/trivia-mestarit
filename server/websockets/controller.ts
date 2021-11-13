@@ -38,6 +38,7 @@ export const setListeners = (io: SocketServer): void => {
     socket.on('host-game', async (callback: CallableFunction) => {
       const questionCount = 3;
       const roomId: string = await SocketService.addGame(questionCount);
+
       /** Return room ID to client */
       callback({
         gameId: roomId

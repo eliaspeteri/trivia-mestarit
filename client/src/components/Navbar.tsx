@@ -9,32 +9,31 @@ const Navbar: React.FC = () => {
 
   const history = useHistory();
 
+  const handleTabClick = (tabName: string, url: string): void => {
+    setActiveItem(tabName);
+    history.push(url);
+  };
+
   return (
     <Menu inverted fixed={'top'} size={'huge'}>
       <Menu.Item
         name={'home'}
         active={activeItem === 'home'}
         content={'Home'}
-        onClick={() => {
-          setActiveItem('home');
-          history.push('/');
-        }}
+        onClick={() => handleTabClick('home', '/')}
       />
       <Menu.Item
         name={'add_question'}
         active={activeItem === 'add_question'}
         content={'Add Question'}
-        onClick={() => {
-          setActiveItem('add_question');
-          history.push('addquestion');
-        }}
+        onClick={() => handleTabClick('add_question', 'addquestion')}
       />
       <Menu.Item
         name={'browse_questions'}
         active={activeItem === 'browse_questions'}
         content={'Browse questions'}
-        /* onClick={() => setActiveItem('browse_questions')} */
-        style={{ color: 'grey' }}
+        /* Grey color indicate disabled tab */
+        style={{ color: '#484848' }}
       />
     </Menu>
   );

@@ -72,7 +72,7 @@ const QuestionForm: React.FC = () => {
         backgroundColor: '#1b1c1d',
         border: '3px solid #f2711c',
         position: 'relative',
-        top: '4em'
+        top: '5em'
       }}
     >
       <Segment inverted style={{ paddingTop: '2em' }}>

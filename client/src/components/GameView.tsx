@@ -35,6 +35,10 @@ const GameView: React.FC<Props> = ({ gameId, isHost, nick }: Props) => {
         alert(response.message);
         history.replace('/');
       }
+      return () => {
+        setShowGameOver(false);
+        setGameData(undefined);
+      };
     });
   }, [gameId, history, isHost, nick]);
 

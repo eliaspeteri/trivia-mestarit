@@ -42,7 +42,10 @@ const MainMenu: React.FC<Props> = ({
           className="button"
           content={selectedHost ? 'CANCEL' : 'HOST'}
           size={'massive'}
-          onClick={() => setSelectedHost(!selectedHost)}
+          onClick={() => {
+            setSelectedHost(!selectedHost);
+            setGameId('');
+          }}
         />
       )}
 

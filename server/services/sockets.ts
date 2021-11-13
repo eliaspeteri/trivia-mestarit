@@ -40,13 +40,16 @@ const joinGame = (nick: string, roomId: string, isHost: boolean): boolean => {
 };
 
 const setAnswer = (answer: string, roomId: string, nick: string): void => {
+  if (!gameIdExists(roomId)) return;
+
   const game: Game = findGameById(roomId);
   game.setPlayerAnswer(nick, answer);
   games = updateGame(game);
 };
 
-const removeGame = (gameId: string): Game[] =>
-  games.filter((game: Game) => game.roomId !== gameId);
+const removeGame = (gameId: string): void => {
+  games = games.filter((game: Game) => game.roomId !== gameId);
+};
 
 const updateGame = (updatedGame: Game): Game[] =>
   games.map((game: Game) =>

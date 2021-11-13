@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 /** Components */
 import GameView from './GameView';
 import MainMenu from './MainMenu';
+import Navbar from './Navbar';
 import QuestionForm from './QuestionForm';
 
 /** CSS, UI */
@@ -29,6 +30,7 @@ const App: React.FC = () => {
   return (
     <div id="app">
       <Router>
+        <Navbar />
         <Switch>
           <Route exact path="/">
             {

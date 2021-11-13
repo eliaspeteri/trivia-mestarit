@@ -8,10 +8,6 @@
   letter-spacing: 0.04em;
 }
 
-.menu-header {
-  color: white;
-}
-
 .main-menu-content {
   padding: 3em;
   display: flex;
@@ -19,5 +15,5 @@
   background-color: black;
   position: relative;
   border: 3px solid white;
-  top: 30%;
+  top: 15em;
 }

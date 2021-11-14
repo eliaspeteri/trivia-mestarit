@@ -17,15 +17,15 @@ const Toast: React.FC<Props> = ({ msg }: Props) => {
 
   return (
     <ToastContainer
-      position={'bottom-center'}
       autoClose={3000}
+      closeOnClick
       draggable={false}
       hideProgressBar
       newestOnTop={false}
-      closeOnClick
-      rtl={false}
       pauseOnFocusLoss
       pauseOnHover
+      position={'bottom-center'}
+      rtl={false}
       theme={'dark'}
     />
   );

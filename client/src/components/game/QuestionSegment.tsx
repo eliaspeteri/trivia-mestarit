@@ -7,7 +7,7 @@ interface Props {
 }
 
 const QuestionSegment: React.FC<Props> = ({ question }: Props) => (
-  <Segment circular size={'massive'}>
+  <Segment circular size={'large'}>
     <Header as={'h1'}>{question || ''}</Header>
   </Segment>
 );

@@ -8,9 +8,13 @@ import { Player } from 'game-common';
 
 interface Props {
   players: Player[];
+  showTopThree?: boolean;
 }
 
-const GameOver: React.FC<Props> = ({ players }: Props) => {
+const ScoreBoard: React.FC<Props> = ({
+  players,
+  showTopThree = false
+}: Props) => {
   const correspondingTrophyIcon = (index: number): JSX.Element | null => {
     const trophyIcon = 'trophy';
 
@@ -42,9 +46,13 @@ const GameOver: React.FC<Props> = ({ players }: Props) => {
 
   const sortPlayersByScore = (): Player[] => {
     /** Descending order */
-    return [...players].sort((a, b) =>
+    const playersSorted: Player[] = [...players].sort((a, b) =>
       a.points > b.points ? -1 : b.points > a.points ? 1 : 0
     );
+
+    return showTopThree
+      ? playersSorted.filter((player: Player, index: number) => index <= 2)
+      : playersSorted;
   };
 
   return (
@@ -69,4 +77,4 @@ const GameOver: React.FC<Props> = ({ players }: Props) => {
   );
 };
 
-export default GameOver;
+export default ScoreBoard;

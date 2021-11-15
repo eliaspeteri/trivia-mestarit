@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 
 /** Components */
 import Game from './game/Game';
-import GameOver from './game/GameOver';
+import ScoreBoard from './game/ScoreBoard';
 import StartGame from './game/StartGame';
 
 /** UI, CSS */
@@ -53,10 +53,10 @@ const GameView: React.FC<Props> = ({ gameId, isHost, nick }: Props) => {
   };
 
   return (
-    <div style={{ height: '100%', width: '100%' }}>
+    <div>
       {showGameOver ? (
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        <GameOver players={gameData!.players} />
+        <ScoreBoard players={gameData!.players} />
       ) : !gameData ? (
         <StartGame
           gameId={gameId}

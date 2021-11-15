@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 /** Components */
 import GameSegment from './GameSegment';
 import ProgressBar from './ProgressBar';
+import ScoreBoard from './ScoreBoard';
 import QuestionIndicator from './QuestionIndicator';
 import QuestionSegment from './QuestionSegment';
 
@@ -68,6 +69,8 @@ const Game: React.FC<Props> = ({ gameId, nick, gameData }: Props) => {
           <ProgressBar progress={gameData.timeLeftToAnswer} />
         </Grid.Column>
       </Grid>
+
+      <ScoreBoard players={gameData.players} showTopThree />
     </Container>
   );
 };

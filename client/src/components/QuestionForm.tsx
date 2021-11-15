@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 
+/** Components */
+import Toast from './Toast';
+
 /** CSS, UI */
 import { Button, Container, Form, Segment } from 'semantic-ui-react';
 
@@ -14,22 +17,10 @@ const QuestionForm: React.FC = () => {
   const [answer_2, setAnswer_2] = useState<string>('');
   const [answer_3, setAnswer_3] = useState<string>('');
   const [answer_4, setAnswer_4] = useState<string>('');
-  const [difficulty, setDifficult] = useState<Difficulty>('easy');
   const [correctAnswer, setCorrectAnswer] = useState<string>('');
+  const [difficulty, setDifficult] = useState<Difficulty>('easy');
+  const [notification, setNotification] = useState<string>('');
   const [question, setQuestion] = useState<string>('');
-
-  const answerOptions = [
-    { key: '1', text: 'Answer 1', value: answer_1 },
-    { key: '2', text: 'Answer 2', value: answer_2 },
-    { key: '3', text: 'Answer 3', value: answer_3 },
-    { key: '4', text: 'Answer 4', value: answer_4 }
-  ];
-
-  const difficultyOptions = [
-    { key: '1', text: 'Easy', value: 'easy' },
-    { key: '2', text: 'Medium', value: 'medium' },
-    { key: '3', text: 'Hard', value: 'hard' }
-  ];
 
   const answersAreValid = (): boolean =>
     Array.of(answer_1, answer_2, answer_3, answer_4).every(
@@ -59,12 +50,26 @@ const QuestionForm: React.FC = () => {
     };
 
     try {
-      const response: string = await QuestionService.create(newQuestion);
+      await QuestionService.create(newQuestion);
       clearStates();
+      setNotification('Question added!');
     } catch (e) {
-      console.log(e);
+      setNotification('Error on adding question');
     }
   };
+
+  const answerOptions = [
+    { key: '1', text: 'Answer 1', value: answer_1 },
+    { key: '2', text: 'Answer 2', value: answer_2 },
+    { key: '3', text: 'Answer 3', value: answer_3 },
+    { key: '4', text: 'Answer 4', value: answer_4 }
+  ];
+
+  const difficultyOptions = [
+    { key: '1', text: 'Easy', value: 'easy' },
+    { key: '2', text: 'Medium', value: 'medium' },
+    { key: '3', text: 'Hard', value: 'hard' }
+  ];
 
   return (
     <Container
@@ -81,6 +86,7 @@ const QuestionForm: React.FC = () => {
             control={'textarea'}
             label={'Question'}
             rows={'2'}
+            value={question}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setQuestion(e.target.value)
             }
@@ -154,6 +160,7 @@ const QuestionForm: React.FC = () => {
           </Button>
         </Form>
       </Segment>
+      <Toast msg={notification} />
     </Container>
   );
 };

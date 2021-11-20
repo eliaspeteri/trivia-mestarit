@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-/** Components */
-import Toast from './Toast';
+/** Toast update-hook */
+import { useToastUpdate } from '../contexts/ToastContext';
 
 /** CSS, UI */
 import { Button, Container, Form, Segment } from 'semantic-ui-react';
@@ -19,8 +19,9 @@ const QuestionForm: React.FC = () => {
   const [answer_4, setAnswer_4] = useState<string>('');
   const [correctAnswer, setCorrectAnswer] = useState<string>('');
   const [difficulty, setDifficult] = useState<Difficulty>('easy');
-  const [notification, setNotification] = useState<string>('');
   const [question, setQuestion] = useState<string>('');
+
+  const toastUpdate: (newMsg: string) => void = useToastUpdate();
 
   const answersAreValid = (): boolean =>
     Array.of(answer_1, answer_2, answer_3, answer_4).every(
@@ -52,9 +53,9 @@ const QuestionForm: React.FC = () => {
     try {
       await QuestionService.create(newQuestion);
       clearStates();
-      setNotification('Question added!');
+      toastUpdate('Question added!');
     } catch (e) {
-      setNotification('Error on adding question');
+      toastUpdate('Error on adding question');
     }
   };
 
@@ -160,7 +161,6 @@ const QuestionForm: React.FC = () => {
           </Button>
         </Form>
       </Segment>
-      <Toast msg={notification} />
     </Container>
   );
 };

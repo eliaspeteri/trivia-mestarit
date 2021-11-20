@@ -14,7 +14,7 @@ const Toast: React.FC<Props> = ({ msg }: Props) => {
 
   useEffect(() => {
     msg && showNotification(msg);
-    /** Set msg immediately empty, so next props changes trigger toast,
+    /** Set msg immediately empty, so next prop changes trigger toast,
      even if toast message is same as previous */
     toastUpdate('');
   });

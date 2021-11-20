@@ -15,7 +15,7 @@ interface Props {
   children: React.ReactNode;
 }
 
-export const ToastProvider: React.FC<Props> = ({ children }: Props) => {
+const ToastProvider: React.FC<Props> = ({ children }: Props) => {
   const [msg, setMsg] = useState<string>('');
 
   const toggleToast = (newMsg: string): void => setMsg(newMsg);

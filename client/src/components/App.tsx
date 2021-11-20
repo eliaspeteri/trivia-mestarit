@@ -6,6 +6,7 @@ import GameView from './GameView';
 import MainMenu from './MainMenu';
 import Navbar from './Navbar';
 import QuestionForm from './QuestionForm';
+import Toast from './Toast';
 
 /** CSS, UI */
 import '../styles/App.css';
@@ -15,10 +16,15 @@ import 'semantic-ui-css/semantic.min.css';
 /** Socket */
 import { socket } from '../services/socket';
 
+/** Contexts */
+import { useToast } from '../contexts/ToastContext';
+
 const App: React.FC = () => {
   const [nick, setNick] = useState<string>('');
   const [gameId, setGameId] = useState<string>('');
   const [isHost, setIsHost] = useState<boolean>(false);
+
+  const toastMsg: string = useToast();
 
   useEffect(() => {
     socket.connect();
@@ -49,6 +55,7 @@ const App: React.FC = () => {
           </Route>
         </Switch>
       </Router>
+      <Toast msg={toastMsg} />
     </div>
   );
 };

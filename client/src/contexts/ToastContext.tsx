@@ -4,7 +4,7 @@ import React, { createContext, useContext, useState } from 'react';
 // Toast message
 const ToastContext = React.createContext('');
 // eslint-disable-next-line @typescript-eslint/no-empty-function
-export const ToggleToastContext = createContext((newToastMsg: string) => {});
+const ToggleToastContext = createContext((newToastMsg: string) => {});
 
 /** Custom hooks */
 export const useToast = (): string => useContext(ToastContext);

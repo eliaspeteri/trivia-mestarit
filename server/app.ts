@@ -1,12 +1,15 @@
-import Config from './utils/config';
 import cors from 'cors';
-import express, { Application, Request, Response } from 'express';
+import express, { Application } from 'express';
 import mongoose from 'mongoose';
-import logger from './utils/logger';
-import { requestLogger } from './utils/middleware';
 
+/** Controllers */
 import questionsRouter from './routes/questions';
 import userRouter from './routes/users';
+
+/** Utils */
+import Config from './utils/config';
+import logger from './utils/logger';
+import { requestLogger } from './utils/middleware';
 
 const app: Application = express();
 
@@ -30,25 +33,6 @@ app.use(
 );
 
 app.use(requestLogger);
-
-// Root endpoint
-app.get('/', async (_req: Request, res: Response): Promise<void> => {
-  logger.info('someone pinged /');
-  res.json({ message: 'root endpoint' });
-});
-
-// API endpoint
-app.get('/api', async (_req: Request, res: Response): Promise<void> => {
-  logger.info('someone pinged /api');
-  res.json({ message: 'api endpoint' });
-});
-
-// Endpoint to test connection
-app.get('/api/ping', async (_req: Request, res: Response): Promise<void> => {
-  logger.info('someone pinged /api/ping');
-  res.json({ message: 'pong' });
-});
-
 app.use('/api/questions', questionsRouter);
 app.use('/api/users', userRouter);
 

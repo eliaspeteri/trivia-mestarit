@@ -14,7 +14,9 @@ const Toast: React.FC = () => {
     toastMsg && showNotification(toastMsg);
     /** Set msg immediately empty, so next prop changes trigger toast,
      even if toast message is same as previous */
-    toastUpdate('');
+    setTimeout(() => {
+      toastUpdate('');
+    }, 5 * 1000);
   });
 
   const showNotification = (message: string) =>

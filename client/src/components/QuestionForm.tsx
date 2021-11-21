@@ -87,6 +87,7 @@ const QuestionForm: React.FC = () => {
             control={'textarea'}
             label={'Question'}
             rows={'2'}
+            id="questionInput"
             value={question}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setQuestion(e.target.value)
@@ -98,6 +99,7 @@ const QuestionForm: React.FC = () => {
               control={'input'}
               label={'Answer 1'}
               rows={'2'}
+              id="answer1"
               value={answer_1}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setAnswer_1(e.target.value)
@@ -107,6 +109,7 @@ const QuestionForm: React.FC = () => {
               control={'input'}
               label={'Answer 2'}
               rows={'2'}
+              id="answer2"
               value={answer_2}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setAnswer_2(e.target.value)
@@ -119,6 +122,7 @@ const QuestionForm: React.FC = () => {
               control={'input'}
               label={'Answer 3'}
               rows={'2'}
+              id="answer3"
               value={answer_3}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setAnswer_3(e.target.value)
@@ -128,6 +132,7 @@ const QuestionForm: React.FC = () => {
               control={'input'}
               label={'Answer 4'}
               rows={'2'}
+              id="answer4"
               value={answer_4}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setAnswer_4(e.target.value)
@@ -139,12 +144,14 @@ const QuestionForm: React.FC = () => {
             <Form.Select
               rows={'2'}
               label="Pick correct answer"
+              id="correctAnswer"
               options={answerOptions}
               onChange={(e, { value }) => setCorrectAnswer(value as string)}
             />
             <Form.Select
               rows={'2'}
               label="Pick difficulty"
+              id="difficulty"
               options={difficultyOptions}
               onChange={(e, { value }) => setDifficult(value as Difficulty)}
             />

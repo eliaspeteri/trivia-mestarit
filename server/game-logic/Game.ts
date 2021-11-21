@@ -3,7 +3,7 @@ import {
   Player,
   Question,
   TIME_TO_ANSWER_QUESTION
-} from '../game-common/index';
+} from 'game-common';
 class Game {
   /** For single question */
   private currentQuestionIndex: number;

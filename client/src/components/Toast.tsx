@@ -3,13 +3,20 @@ import React, { useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-interface Props {
-  msg: string;
-}
+/** Toast context / custom hooks */
+import { useToast, useToastUpdate } from '../contexts/ToastContext';
 
-const Toast: React.FC<Props> = ({ msg }: Props) => {
+const Toast: React.FC = () => {
+  const toastMsg: string = useToast();
+  const toastUpdate: (newMsg: string) => void = useToastUpdate();
+
   useEffect(() => {
-    msg && showNotification(msg);
+    toastMsg && showNotification(toastMsg);
+    /** Set msg immediately empty, so next prop changes trigger toast,
+     even if toast message is same as previous */
+    setTimeout(() => {
+      toastUpdate('');
+    }, 5 * 1000);
   });
 
   const showNotification = (message: string) =>

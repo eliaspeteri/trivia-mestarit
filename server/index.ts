@@ -3,7 +3,7 @@ import app from './app';
 import { createServer, Server } from 'http';
 import logger from './utils/logger';
 import { Server as SocketServer } from 'socket.io';
-import { setListeners } from './websockets/listeners';
+import { setListeners } from './websockets/controller';
 
 const server: Server = createServer(app);
 export const ioSocket = new SocketServer(server, { cors: { origin: true } });

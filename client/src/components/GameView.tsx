@@ -3,15 +3,14 @@ import { useHistory } from 'react-router-dom';
 
 /** Components */
 import Game from './game/Game';
-import GameOver from './game/GameOver';
+import ScoreBoard from './game/ScoreBoard';
 import StartGame from './game/StartGame';
 
 /** UI, CSS */
-import { Icon } from 'semantic-ui-react';
 import '../styles/GameView.css';
 
 /** Socket */
-import { socket } from '../config';
+import { socket } from '../services/socket';
 
 /** Types */
 import { GameData } from 'game-common';
@@ -32,10 +31,16 @@ const GameView: React.FC<Props> = ({ gameId, isHost, nick }: Props) => {
   useEffect(() => {
     // eslint-disable-next-line
     socket.emit('join-game', nick, gameId, isHost, (response: any) => {
-      /** Alert if no game found with ID */
-      response.error && alert(response.message);
+      if (response.error) {
+        alert(response.message);
+        history.replace('/');
+      }
+      return () => {
+        setShowGameOver(false);
+        setGameData(undefined);
+      };
     });
-  }, [gameId, isHost, nick]);
+  }, [gameId, history, isHost, nick]);
 
   socket.on('game-data', (gameData: GameData) => setGameData(gameData));
   socket.once('game-over', (gameData: GameData) => {
@@ -47,23 +52,11 @@ const GameView: React.FC<Props> = ({ gameId, isHost, nick }: Props) => {
     socket.emit('start-game', gameId);
   };
 
-  const handleExitIconClick = (): void => {
-    window.confirm('Do you want to abort game?') && history.push('/');
-  };
-
   return (
-    <div style={{ height: '100%', width: '100%' }}>
-      <Icon
-        color={'orange'}
-        onClick={handleExitIconClick}
-        className="sign-out-icon"
-        name="sign out"
-        size="huge"
-      />
-
+    <div>
       {showGameOver ? (
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        <GameOver players={gameData!.players} />
+        <ScoreBoard players={gameData!.players} />
       ) : !gameData ? (
         <StartGame
           gameId={gameId}

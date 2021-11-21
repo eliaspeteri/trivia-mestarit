@@ -1,5 +1,8 @@
 import { Schema, model } from 'mongoose';
-import { Difficulty, Question } from '../types';
+
+/** Types */
+import { Question } from '../types';
+import { Difficulty } from 'game-common';
 
 export interface IQuestion extends Document {
   whoCreated: string;
@@ -14,11 +17,12 @@ export interface IQuestion extends Document {
 const questionSchema: Schema = new Schema<Question>({
   whoCreated: {
     type: Schema.Types.ObjectId,
-    ref: 'User'
+    ref: 'User',
+    required: false
   },
   whenCreated: {
     type: Date,
-    required: true,
+    required: false,
     minlength: 4
   },
   question: {
@@ -29,7 +33,7 @@ const questionSchema: Schema = new Schema<Question>({
   correctAnswer: {
     type: String,
     required: true,
-    minlength: 3
+    minlength: 1
   },
   theme: {
     type: String,

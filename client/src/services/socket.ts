@@ -8,5 +8,4 @@ export const socket = io(LOCALHOST, {
   upgrade: false,
   autoConnect: false,
   reconnection: false,
-
 });

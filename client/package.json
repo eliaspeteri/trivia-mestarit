@@ -31,10 +31,10 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "cypress:open": "cypress open",
-    "cypress:run": "cypress run"
+    "test": "npm run test:integration",
+    "test:integration": "cypress run --browser firefox",
+    "test:integration:open": "cypress open --browser firefox",
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [

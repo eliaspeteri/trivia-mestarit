@@ -23,7 +23,7 @@
   
   "parser": "@typescript-eslint/parser",
   "root": true,
-  "plugins": ["react", "@typescript-eslint", "prettier"],
+  "plugins": ["react", "@typescript-eslint", "prettier", "cypress"],
   "parserOptions": {
     "ecmaVersion": 11,
     "ecmaFeatures": {

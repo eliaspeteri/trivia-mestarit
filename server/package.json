@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "cross-env NODE_ENV=production node dist/index.js",
-    "postinstall": "tsc",
+    "postinstall": "tsc && cd game-common && npm run compile",
     "dev": "cross-env NODE_ENV=development ts-node-dev ./index.ts",
     "test": "cross-env NODE_ENV=test ts-node-dev ./index.ts",
     "lint": "eslint ./*.ts",

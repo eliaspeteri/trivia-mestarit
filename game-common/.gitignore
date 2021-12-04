@@ -1,6 +1,8 @@
 # Enviroment variables
 .env
 
+build
+
 # Logs
 logs
 *.log

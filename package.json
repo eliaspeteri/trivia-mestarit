@@ -1,0 +1,39 @@
+{
+  "name": "trivia-online",
+  "version": "2.0.0",
+  "description": "1. [Preamble](#preamble)\r 2. [Installing](#installing)\r 3. [Starting the development environment](#starting-the-development-environment)",
+  "main": "server/dist/index.js",
+  "engines": {
+    "node": "12.19.0"
+  },
+  "scripts": {
+    "start": "cross-env NODE_ENV=production node server/dist/index.js",
+    "heroku-prebuild": "npm install --prefix game-common && npm install",
+    "build": "cd server && tsc",
+    "preinstall": "npm run delete:static && npm run common-game:install",
+    "postinstall": "npm run server:install && npm run move:static",
+    "common-game:install": "cd game-common && npm i",
+    "server:install": "cd server && npm i",
+    "delete:static": "rm -rf server/build/",
+    "move:static": "cd client/ && cp -r build ../server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://bitbucket.org/jantero93/trivia-mestarit.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://bitbucket.org/jantero93/trivia-mestarit/issues"
+  },
+  "homepage": "https://bitbucket.org/jantero93/trivia-mestarit#readme",
+  "dependencies": {
+    "cross-env": "^7.0.3",
+    "env": "^0.0.2",
+    "typescript": "^4.5.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@types/mongoose-unique-validator": "^1.0.5"
+  }
+}

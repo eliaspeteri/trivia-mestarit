@@ -7,15 +7,11 @@
     "node": "12.19.0"
   },
   "scripts": {
-    "start": "cross-env NODE_ENV=production node server/dist/index.js",
-    "heroku-prebuild": "npm install --prefix game-common && npm install",
-    "build": "cd server && tsc",
-    "preinstall": "npm run delete:static && npm run common-game:install",
-    "postinstall": "npm run server:install && npm run move:static",
-    "common-game:install": "cd game-common && npm i",
+    "build": "cd server && npm run compile",
+    "front:install:build": "cd client/ && npm i && npm run build",
     "server:install": "cd server && npm i",
-    "delete:static": "rm -rf server/build/",
-    "move:static": "cd client/ && cp -r build ../server"
+    "preinstall": "npm run front:install:build",
+    "postinstall": "npm run server:install"
   },
   "repository": {
     "type": "git",
@@ -28,8 +24,6 @@
   },
   "homepage": "https://bitbucket.org/jantero93/trivia-mestarit#readme",
   "dependencies": {
-    "cross-env": "^7.0.3",
-    "env": "^0.0.2",
     "typescript": "^4.5.2"
   },
   "devDependencies": {

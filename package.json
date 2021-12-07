@@ -1,0 +1,33 @@
+{
+  "name": "trivia-online",
+  "version": "2.0.0",
+  "description": "1. [Preamble](#preamble)\r 2. [Installing](#installing)\r 3. [Starting the development environment](#starting-the-development-environment)",
+  "main": "server/dist/index.js",
+  "engines": {
+    "node": "12.19.0"
+  },
+  "scripts": {
+    "build": "cd server && npm run compile",
+    "front:install:build": "cd client/ && npm i && npm run build",
+    "server:install": "cd server && npm i",
+    "preinstall": "npm run front:install:build",
+    "postinstall": "npm run server:install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://bitbucket.org/jantero93/trivia-mestarit.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://bitbucket.org/jantero93/trivia-mestarit/issues"
+  },
+  "homepage": "https://bitbucket.org/jantero93/trivia-mestarit#readme",
+  "dependencies": {
+    "typescript": "^4.5.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@types/mongoose-unique-validator": "^1.0.5"
+  }
+}

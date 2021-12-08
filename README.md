@@ -23,67 +23,26 @@ This project started out as a simpler alternative to websites such as Quizlet or
 
 ## Installing
 
-To install the the application with the required dependencies, simply run the provided shell script called install.sh. It runs the following code snippet:
-```sh
-# compile game-common dependencies
-echo "===Installing game-common dependencies, please wait...==="
-cd server/game-common
-npm run compile
-echo "===Installing server dependencies, please wait...==="
-# install server dependencies
-cd ..
-npm i
-echo "===Installing client dependencies, please wait...==="
-# install client dependencies
-cd ../client
-npm i
-echo "===Install done, please enjoy!==="
-echo "For client, run client.sh"
-echo "For server, run server.sh"
-```
+To install the the application with the required dependencies, simply run the ```npm install``` at root of project (main package.json):
 
 - - -
 
+## Starting the production environment
+From root folder command ```npm run start:production``` starts whole application in production mode
 ## Starting the development environment
+From root folder command ```npm run start:dev``` starts whole application in development mode on one terminal. 
+### Client and Server in individual terminals 
 
-### Client
+For running the client, navigate to the client folder and command ````npm start``` will start development server, default port is 3000
+For running the server, navigate to the server folder and ```npm run dev``` will start development server, default port is 8080
 
-For running the client, navigate to the project root folder and start the shell script called client.sh. This runs the following code snippet:
-
-```sh
-cd client
-npm start
-```
-
-You can then navigate to *localhost:3000* for the web application to start a new game or join one. The server is required to be running for the websockets to connect to, and to interface with the API and thus, the database.
-
-- - -
-
-### Server
-
-For running the server, navigate to the project root folder and start the shell script called server.sh. It runs the following code snippet:
-
-```sh
-cd server
-npm run dev
-```
-
-This is required for the backend of the application to work properly. You may also need to create your own .env-file with a URI to a MongoDB database (we will not provide one for you.), and at the very least, a port to run the server on. By default the server port is 8080.
+You may also need to create your own .env-file with a URI to a MongoDB database (we will not provide one for you.). By default the server port is 8080.
 
 The .env file should have the following structure:
 ```
 MONGODB_URI=<MongoDB connection URI>
-PORT=8080
+PORT=8080 (optional, server will run on port 8080 even without configuring this)
 ```
-
-Note that more variables may be required to add here in the future.
-
-For production version, you likely want to set your pipeline to run
-```sh
-cd server
-npm start
-```
-or, run ```npm start``` manually in the server-folder.
 
 - - -
 
@@ -95,17 +54,8 @@ For your convenience, this app is already running on Heroku at [trivia-online.he
 
 ## Troubleshooting
 
-### The shell scripts won't run
-
-If you're running a Linux distro, you may or may not run these commands in the terminal to enable running the shell scripts
-```sh
-chmod +x client.sh
-chmod +x server.sh
-chmod +x install.sh
-```
-
 - - -
 
 ### The application is unable to find any games
 
-You need to spin up the backend server on another terminal for the websockets and API interface to work.
+You need to spin up the backend server on another terminal for the websockets and API interface to work. Also MongoDB backend must be provided to make game work.

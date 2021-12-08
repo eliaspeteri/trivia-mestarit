@@ -1,4 +1,9 @@
-/client/build
+node_modules
 /client/node_modules
+/client/build
 /server/dist
 /server/build
+/game-common/dist
+# IntellJ folder
+.idea
+.env

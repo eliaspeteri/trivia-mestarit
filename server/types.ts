@@ -1,9 +1,9 @@
-export type Difficulty = 'easy' | 'medium' | 'hard';
+import { Difficulty } from 'game-common';
 
 export type Question = {
-  id: string;
+  id?: string;
   whoCreated?: string;
-  whenCreated: Date;
+  whenCreated?: Date;
   question: string;
   correctAnswer: string;
   theme?: string;

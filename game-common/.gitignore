@@ -1,6 +1,10 @@
 # Enviroment variables
 .env
 
+dist
+
+build
+
 # Logs
 logs
 *.log

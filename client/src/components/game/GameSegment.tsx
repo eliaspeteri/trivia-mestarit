@@ -1,16 +1,10 @@
-import React from 'react';
-import { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 
 /** Types */
 import CSS from 'csstype';
 
 /** UI, CSS */
-import { Segment, Header } from 'semantic-ui-react';
-
-const selectedStyles: CSS.Properties = {
-  backgroundColor: '#f2711c',
-  border: 'solid 2px black'
-};
+import { Header, Segment } from 'semantic-ui-react';
 
 const correctStyles: CSS.Properties = {
   backgroundColor: 'green',
@@ -18,6 +12,11 @@ const correctStyles: CSS.Properties = {
 };
 
 const normalStyles: CSS.Properties = {
+  border: 'solid 2px black'
+};
+
+const selectedStyles: CSS.Properties = {
+  backgroundColor: '#f2711c',
   border: 'solid 2px black'
 };
 
@@ -41,9 +40,9 @@ const GameSegment: React.FC<Props> = ({
 
   return (
     <Segment
+      className={'text-card'}
       textAlign={'center'}
       size={'large'}
-      className={'text-card'}
       style={cardStyle()}
       onClick={() => setSelectedAnswer && setSelectedAnswer(text)}
     >

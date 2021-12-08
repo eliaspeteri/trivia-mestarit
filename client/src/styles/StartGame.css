@@ -1,0 +1,33 @@
+.buttons-row {
+  padding-top: 2em;
+  display: flex;
+  justify-content: space-around;
+}
+
+.game-id-text,
+.waiting-text {
+  font-size: 48px;
+  padding: 0.25em;
+}
+
+.game-id-text {
+  color: #f2711c;
+}
+
+.waiting-text {
+  color: white;
+}
+
+.start-game-container {
+  align-items: center;
+  background-color: black;
+  border: 3px solid white;
+  display: flex;
+  padding: 3em;
+  position: relative;
+  top: 10em;
+}
+
+.text-container {
+  text-align: center;
+}

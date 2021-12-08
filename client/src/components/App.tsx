@@ -2,16 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 /** Components */
-import MainMenu from './components/MainMenu';
+import GameView from './GameView';
+import MainMenu from './MainMenu';
+import Navbar from './Navbar';
+import QuestionForm from './QuestionForm';
+import Toast from './Toast';
 
 /** CSS, UI */
-import './App.css';
-import 'semantic-ui-css/semantic.min.css';
+import '../styles/App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import GameView from './components/GameView';
+import 'semantic-ui-css/semantic.min.css';
 
 /** Socket */
-import { socket } from './config';
+import { socket } from '../services/socket';
 
 const App: React.FC = () => {
   const [nick, setNick] = useState<string>('');
@@ -28,22 +31,26 @@ const App: React.FC = () => {
   return (
     <div id="app">
       <Router>
+        <Navbar />
         <Switch>
           <Route exact path="/">
-            {
-              <MainMenu
-                nick={nick}
-                setNick={setNick}
-                setGameId={setGameId}
-                setIsHost={setIsHost}
-              />
-            }
+            <MainMenu
+              gameId={gameId}
+              nick={nick}
+              setNick={setNick}
+              setGameId={setGameId}
+              setIsHost={setIsHost}
+            />
           </Route>
           <Route path="/game">
-            {<GameView gameId={gameId} isHost={isHost} nick={nick} />}
+            <GameView gameId={gameId} isHost={isHost} nick={nick} />
+          </Route>
+          <Route path="/addquestion">
+            <QuestionForm />
           </Route>
         </Switch>
       </Router>
+      <Toast />
     </div>
   );
 };

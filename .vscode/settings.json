@@ -14,5 +14,11 @@
   ],
   "[css]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "cSpell.words": [
+    "addquestion"
+  ],
+  "[shellscript]": {
+    "editor.defaultFormatter": "shakram02.bash-beautify"
   }
 }

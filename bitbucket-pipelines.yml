@@ -9,11 +9,4 @@ pipelines:
           caches:
             - node
           script:
-            # This gets executed when merging a PR to master branch
-            - cd server
-            - cd game-common
-            - npm i
-            - npm run compile
-            - cd ..
-            - npm run build:front
-            - git push -f https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
+            - git push -f https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master:master

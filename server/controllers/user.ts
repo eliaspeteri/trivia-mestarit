@@ -4,16 +4,16 @@ import logger from '../utils/logger';
 import UserModel from '../models/user';
 import { User } from '../types';
 
-const router: Router = Router();
+const controller: Router = Router();
 
 // Get all users
-router.get('/', async (_req: Request, res: Response): Promise<void> => {
+controller.get('/', async (_req: Request, res: Response): Promise<void> => {
   const users: User[] = (await UserModel.find({})) as User[];
   logger.info('fetched all users!');
   res.json(users);
 });
 
-router.get('/:id', async (req: Request, res: Response): Promise<void> => {
+controller.get('/:id', async (req: Request, res: Response): Promise<void> => {
   const user: User | null = (await UserModel.findById(
     req.params.id
   )) as User | null;
@@ -22,7 +22,7 @@ router.get('/:id', async (req: Request, res: Response): Promise<void> => {
 });
 
 // Add new user
-router.post('/', async (req: Request, res: Response): Promise<void> => {
+controller.post('/', async (req: Request, res: Response): Promise<void> => {
   const { username, password } = req.body;
   const saltRounds = 10;
   const passwordHash: string = await bcrypt.hash(password, saltRounds);
@@ -42,15 +42,18 @@ router.post('/', async (req: Request, res: Response): Promise<void> => {
   }
 });
 
-router.delete('/:id', async (req: Request, res: Response): Promise<void> => {
-  try {
-    await UserModel.findByIdAndRemove(req.params.id);
-    res.status(204);
-    logger.info(`removed ${req.params.id}`);
-  } catch (error) {
-    res.json({ error: 'User not found' });
-    logger.error((error as any).message);
+controller.delete(
+  '/:id',
+  async (req: Request, res: Response): Promise<void> => {
+    try {
+      await UserModel.findByIdAndRemove(req.params.id);
+      res.status(204);
+      logger.info(`removed ${req.params.id}`);
+    } catch (error) {
+      res.json({ error: 'User not found' });
+      logger.error((error as any).message);
+    }
   }
-});
+);
 
-export default router;
+export default controller;

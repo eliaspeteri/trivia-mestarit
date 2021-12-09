@@ -1,17 +1,17 @@
-import { Schema, model } from 'mongoose';
+import { model, Schema } from 'mongoose';
 
 /** Types */
-import { Question } from '../types';
 import { Difficulty } from 'game-common';
+import { Question } from '../types';
 
 export interface IQuestion extends Document {
-  whoCreated: string;
-  whenCreated: Date;
-  question: string;
-  correctAnswer: string;
-  theme: string;
-  difficulty: Difficulty;
   answers: string[];
+  correctAnswer: string;
+  difficulty: Difficulty;
+  question: string;
+  theme: string;
+  whenCreated: Date;
+  whoCreated: string;
 }
 
 const questionSchema: Schema = new Schema<Question>({

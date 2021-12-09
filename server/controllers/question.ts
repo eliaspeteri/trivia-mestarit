@@ -1,13 +1,17 @@
 import { Router, Request, Response } from 'express';
-import { Question } from '../types';
-import logger from '../utils/logger';
 
+/** Services */
 import QuestionService from '../services/questions';
 
-const router: Router = Router();
+/** Types */
+import { Question } from '../types';
 
-// Get all questions
-router.get('/', async (_req: Request, res: Response): Promise<void> => {
+/** Utils */
+import logger from '../utils/logger';
+
+const controller: Router = Router();
+
+controller.get('/', async (_req: Request, res: Response): Promise<void> => {
   try {
     res.json(await QuestionService.getAll());
   } catch (error) {
@@ -16,7 +20,7 @@ router.get('/', async (_req: Request, res: Response): Promise<void> => {
   }
 });
 
-router.get('/:id', async (req: Request, res: Response): Promise<void> => {
+controller.get('/:id', async (req: Request, res: Response): Promise<void> => {
   const question: Question | null = await QuestionService.findById(
     req.params.id
   );
@@ -25,7 +29,7 @@ router.get('/:id', async (req: Request, res: Response): Promise<void> => {
   logger.info(`fetched ${req.params.id}`);
 });
 
-router.post('/', async (req: Request, res: Response): Promise<void> => {
+controller.post('/', async (req: Request, res: Response): Promise<void> => {
   try {
     const response: string = await QuestionService.saveOne({
       ...req.body
@@ -38,15 +42,18 @@ router.post('/', async (req: Request, res: Response): Promise<void> => {
   }
 });
 
-router.delete('/:id', async (req: Request, res: Response): Promise<void> => {
-  try {
-    QuestionService.removeOne(req.params.id);
-    res.status(204);
-    logger.info(`removed ${req.params.id}`);
-  } catch (error) {
-    res.json({ error: 'Question not found' });
-    logger.error((error as any).message);
+controller.delete(
+  '/:id',
+  async (req: Request, res: Response): Promise<void> => {
+    try {
+      QuestionService.removeOne(req.params.id);
+      res.status(204);
+      logger.info(`removed ${req.params.id}`);
+    } catch (error) {
+      res.json({ error: 'Question not found' });
+      logger.error((error as any).message);
+    }
   }
-});
+);
 
-export default router;
+export default controller;

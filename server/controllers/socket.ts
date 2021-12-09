@@ -14,9 +14,10 @@ import SocketService from '../services/sockets';
 /** Game config, types */
 import { GameData, TOTAL_TIME_PER_QUESTION } from 'game-common';
 
-export const setListeners = (io: SocketServer): void => {
+export const socketController = (io: SocketServer): void => {
   /** Send every game's game data */
   setInterval(() => {
+    // TODO: Move business logic in service TM-140
     SocketService.getAllGames().forEach((game: Game) => {
       if (game.isLastQuestion()) {
         io.to(game.roomId).emit('game-over', game.getGameData());

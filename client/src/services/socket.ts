@@ -4,8 +4,8 @@ import { io } from 'socket.io-client';
 export const LOCALHOST = '';
 export const socket = io(LOCALHOST, {
   /** Can't DDoS with F5  */
-  transports: ['websocket'],
+  transports: ['websockets', 'polling'],
   upgrade: false,
   autoConnect: false,
-  reconnection: false,
+  reconnection: false
 });

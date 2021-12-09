@@ -3,8 +3,8 @@ import express, { Application } from 'express';
 import mongoose from 'mongoose';
 
 /** Controllers */
-import questionsRouter from './routes/questions';
-import userRouter from './routes/users';
+import questionController from './controllers/question';
+import userController from './controllers/user';
 
 /** Utils */
 import Config from './utils/config';
@@ -33,7 +33,7 @@ app.use(
 );
 
 app.use(requestLogger);
-app.use('/api/questions', questionsRouter);
-app.use('/api/users', userRouter);
+app.use('/api/questions', questionController);
+app.use('/api/users', userController);
 
 export default app;

@@ -1,13 +1,19 @@
-import Config from './utils/config';
+/** Components */
 import app from './app';
+import { socketController } from './controllers/socket';
+
+/** 3rd dependencies */
 import { createServer, Server } from 'http';
-import logger from './utils/logger';
 import { Server as SocketServer } from 'socket.io';
-import { setListeners } from './websockets/controller';
+
+/** Utils */
+import logger from './utils/logger';
+
+import Config from './utils/config';
 
 const server: Server = createServer(app);
 export const ioSocket = new SocketServer(server, { cors: { origin: true } });
-setListeners(ioSocket);
+socketController(ioSocket);
 
 try {
   server.listen(Config.PORT, (): void => {
